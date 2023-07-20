@@ -1,7 +1,6 @@
 import { styled } from "styled-components";
 
-interface ContainerProps {
-  type: boolean;
-}
-
-export const Container = styled.div``;
+export const Container = styled.div`
+  background-color: ${({ theme }) => theme.color.background};
+  height: 100vh;
+`;
