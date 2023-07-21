@@ -23,5 +23,7 @@ export const AdImage = styled(Image)`
 
   @media (min-width: 1024px) {
     width: 80%;
+    /* height: 20vh; */
+    /* object-fit: cover; */
   }
 `;

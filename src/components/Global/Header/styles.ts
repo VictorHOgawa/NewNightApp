@@ -37,6 +37,7 @@ export const Footer = styled.div`
   width: 100%;
   background-color: ${({ theme }) => theme.color.background};
   box-shadow: 10px 10px 10px 10px ${({ theme }) => theme.color.secondary_100};
+  z-index: 5;
 
   @media (min-width: 768px) {
     display: none;

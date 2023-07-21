@@ -33,11 +33,21 @@ export function Header() {
         </ButtonGroup>
       </Top>
       <Footer>
-        <Icon src="/Global/HomeIcon.svg" width={35} height={35} alt="" />
-        <Icon src="/Global/BagIcon.svg" width={35} height={35} alt="" />
-        <Moon src="/Global/MoonIcon.svg" width={65} height={65} alt="" />
-        <Icon src="/Global/TicketIcon.svg" width={35} height={35} alt="" />
-        <Icon src="/Global/ProfileIcon.svg" width={35} height={35} alt="" />
+        <Icon src="/Global/Icons/HomeIcon.svg" width={35} height={35} alt="" />
+        <Icon src="/Global/Icons/BagIcon.svg" width={35} height={35} alt="" />
+        <Moon src="/Global/Icons/MoonIcon.svg" width={65} height={65} alt="" />
+        <Icon
+          src="/Global/Icons/TicketIcon.svg"
+          width={35}
+          height={35}
+          alt=""
+        />
+        <Icon
+          src="/Global/Icons/ProfileIcon.svg"
+          width={35}
+          height={35}
+          alt=""
+        />
       </Footer>
     </Container>
   );

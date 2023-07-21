@@ -2,9 +2,10 @@ const Theme = {
   color: {
     background: "#150029",
     confirmation: "#00ff01",
+    pix: "#37B5AA",
 
     primary_20: "#",
-    primary_40: "#",
+    primary_40: "#6B1DA5",
     primary_60: "#d356f3",
     primary_80: "#9c38ce",
     primary_100: "#c759ec",

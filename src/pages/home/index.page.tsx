@@ -1,7 +1,8 @@
 import { Header } from "@/components/Global/Header";
 import { Container } from "./styles";
 import { Ad } from "@/components/Global/Ad";
-import { Sliders } from "@/components/Pages/Home/Sliders/Slider";
+import { EventSlider } from "@/components/Pages/Home/Sliders/Events/Slider";
+import { PlaceSlider } from "@/components/Pages/Home/Sliders/Places/Slider";
 
 export default function Home() {
   return (
@@ -10,7 +11,10 @@ export default function Home() {
       <Ad />
       <br />
       <br />
-      <Sliders />
+      <EventSlider />
+      <br />
+      <br />
+      <PlaceSlider />
     </Container>
   );
 }

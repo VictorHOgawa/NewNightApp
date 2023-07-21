@@ -5,9 +5,9 @@ interface TitleProps {
   marginTop?: any;
 }
 
-export function GlobalTitle({ title, marginTop }: TitleProps) {
+export function GlobalTitle({ title, marginTop, ...rest }: TitleProps) {
   return (
-    <Container marginTop={marginTop}>
+    <Container marginTop={marginTop} {...rest}>
       <Text>{title}</Text>
     </Container>
   );

@@ -9,6 +9,7 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   width?: string | number;
   height?: string | number;
   fontSize?: string | number;
+  children?: React.ReactNode;
 }
 
 export function GlobalButton({
@@ -20,6 +21,7 @@ export function GlobalButton({
   width = "10vw",
   height = "5vh",
   fontSize,
+  children,
   ...rest
 }: ButtonProps) {
   return (
@@ -31,6 +33,7 @@ export function GlobalButton({
       fontSize={fontSize}
       {...rest}
     >
+      {children} {""}
       {content}
     </Container>
   );
