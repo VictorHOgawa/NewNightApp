@@ -9,7 +9,6 @@ export default function Profile() {
   return (
     <Container>
       <Header />
-      <Back />
       <br />
       <br />
       <Purchased />

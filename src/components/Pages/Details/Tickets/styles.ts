@@ -10,6 +10,7 @@ export const Container = styled.div`
 export const Title = styled.label`
   color: ${({ theme }) => theme.color.gray_10};
   text-align: center;
+  font-weight: bold;
 `;
 
 export const TicketType = styled.div`

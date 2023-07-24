@@ -11,6 +11,7 @@ import { useState } from "react";
 import { GlobalButton } from "@/components/Global/Button";
 import Theme from "@/styles/themes";
 import { IndividualMethod } from "@/components/Pages/Checkout/IndividualMethod";
+import { Total } from "@/components/Pages/Checkout/Total";
 
 export default function Checkout() {
   const [selected, setSelected] = useState("Pix");
@@ -18,12 +19,13 @@ export default function Checkout() {
   return (
     <Container>
       <Header />
-      <Back />
       <br />
       <Title />
       <br />
       <Method selected={selected} setSelected={setSelected} />
       <IndividualMethod selected={selected} />
+      <br />
+      <Total />
       <Safe />
     </Container>
   );

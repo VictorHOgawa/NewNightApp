@@ -27,4 +27,5 @@ export const Icons = styled(Image)`
 
 export const Specific = styled.label`
   font-size: ${px2vw(14, 320)};
+  color: ${({ theme }) => theme.color.gray_10};
 `;

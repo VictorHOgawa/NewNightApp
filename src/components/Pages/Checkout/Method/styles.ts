@@ -1,6 +1,10 @@
 import Image from "next/image";
 import { styled } from "styled-components";
 
+interface SelectedProps {
+  selected: boolean;
+}
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -8,7 +12,7 @@ export const Container = styled.div`
   margin-left: 2.5%;
 `;
 
-export const Button = styled.button`
+export const Button = styled.button<SelectedProps>`
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -17,13 +21,8 @@ export const Button = styled.button`
   border-radius: 10px;
   padding: 15px 10px;
   color: ${({ theme }) => theme.color.gray_10};
-
-  &:first-child {
-    background-color: ${({ theme }) => theme.color.secondary_100};
-  }
-  &:nth-child(2) {
-    background-color: transparent;
-  }
+  background-color: ${({ theme, selected }) =>
+    selected ? theme.color.secondary_100 : "transparent"};
 `;
 
 export const Icon = styled(Image)`

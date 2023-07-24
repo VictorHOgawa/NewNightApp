@@ -11,19 +11,45 @@ import { StaticImg } from "@/components/Global/StaticImg/styles";
 import { useState } from "react";
 import { GlobalButton } from "@/components/Global/Button";
 import Theme from "@/styles/themes";
+import { useRouter } from "next/router";
 
 export function Tickets() {
-  const TicketTypes = [1, 2, 3];
-  const [quantity, setQuantity] = useState(0);
+  const router = useRouter();
 
-  const handleRemove = () => {
+  const [quantity1, setQuantity1] = useState(0);
+  const handleRemove1 = () => {
     {
-      quantity === 0 ? <></> : setQuantity(quantity - 1);
+      quantity1 === 0 ? <></> : setQuantity1(quantity1 - 1);
     }
   };
-  const handleAdd = () => {
-    setQuantity(quantity + 1);
+  const handleAdd1 = () => {
+    setQuantity1(quantity1 + 1);
   };
+
+  const [quantity2, setQuantity2] = useState(0);
+  const handleRemove2 = () => {
+    {
+      quantity2 === 0 ? <></> : setQuantity2(quantity2 - 1);
+    }
+  };
+  const handleAdd2 = () => {
+    setQuantity2(quantity2 + 1);
+  };
+
+  const TicketTypes = [
+    {
+      name: "Área VIP1",
+      remove: () => handleRemove1(),
+      add: () => handleAdd1(),
+      quantity: quantity1,
+    },
+    {
+      name: "Área VIP2",
+      remove: () => handleRemove2(),
+      add: () => handleAdd2(),
+      quantity: quantity2,
+    },
+  ];
   return (
     <Container>
       <Title>LOTE PROMOCIONAL</Title>
@@ -36,22 +62,22 @@ export function Tickets() {
               height={20}
               alt=""
             />
-            <TicketTitle>Área VIP</TicketTitle>
+            <TicketTitle>{item.name}</TicketTitle>
             <CounterArea>
               <StaticImg
                 src="/Global/Icons/Minus.svg"
                 width={20}
                 height={20}
                 alt=""
-                onClick={handleRemove}
+                onClick={item.remove}
               />
-              <Counter>{quantity}</Counter>
+              <Counter>{item.quantity}</Counter>
               <StaticImg
                 src="/Global/Icons/Plus.svg"
                 width={20}
                 height={20}
                 alt=""
-                onClick={handleAdd}
+                onClick={item.add}
               />
             </CounterArea>
           </TicketType>
@@ -63,6 +89,7 @@ export function Tickets() {
         color={`${Theme.color.background}`}
         width="60%"
         style={{ alignSelf: "center", marginTop: "5%" }}
+        onClick={() => router.push("/checkout")}
       />
     </Container>
   );

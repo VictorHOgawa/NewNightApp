@@ -2,7 +2,9 @@ import { Dropdown } from "react-bootstrap";
 import { styled } from "styled-components";
 import { FaLocationDot } from "react-icons/fa6";
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  display: flex;
+`;
 
 export const Button = styled(Dropdown)``;
 
@@ -21,11 +23,15 @@ export const ItemText = styled(Dropdown.ItemText)`
 `;
 
 export const Item = styled(Dropdown.Item)`
+  text-align: center;
   color: ${({ theme }) => theme.color.gray_10};
   border-bottom: 1px solid ${({ theme }) => theme.color.gray_10};
   padding: 10px;
   &:hover {
     color: ${({ theme }) => theme.color.primary_100};
+  }
+  &:last-child {
+    border: 0;
   }
 `;
 

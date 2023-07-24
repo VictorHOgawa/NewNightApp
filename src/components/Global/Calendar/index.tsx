@@ -1,18 +1,20 @@
+// @ts-ignore
+import moment from "moment";
 import { Container, Date, Footer, Main } from "./styles";
-
+import { useEffect, useState } from "react";
 interface CalendarProps {
-  weekDay: string;
-  day: string;
-  month: string;
+  date: Date;
 }
-export function Calendar({ weekDay, day, month }: CalendarProps) {
+export function Calendar({ date }: CalendarProps) {
+  useEffect(() => {}, []);
+
   return (
     <Container>
       <Main>
-        <Date>{weekDay}</Date>
-        <Date>{day}</Date>
+        <Date>{moment(date).format("ddd")}</Date>
+        <Date>{moment(date).format("D")}</Date>
         <Footer>
-          <Date>{month}</Date>
+          <Date>{moment(date).format("MMM")}</Date>
         </Footer>
       </Main>
     </Container>

@@ -11,6 +11,7 @@ import {
 import { ConvertHour } from "@/utils/convertHour";
 import { days } from "@/utils/days";
 import { Calendar } from "@/components/Global/Calendar";
+import { useRouter } from "next/router";
 
 // interface Props extends React.HTMLProps<HTMLButtonElement> {
 //   event: {
@@ -43,45 +44,23 @@ interface Props {
   location: string;
   name: string;
   place: string;
-  weekDay: string;
-  day: string;
-  month: string;
+  date: Date;
 }
 
-export function Card(
-  /* { event, type, active, ...rest }: Props */ {
-    location,
-    name,
-    place,
-    weekDay,
-    day,
-    month,
-    ...rest
-  }: Props
-) {
+export function Card() {
+  /* { event, type, active, ...rest }: Props */
   //   const [weekDay, setWeekDay] = useState("");
   //   const [open, setOpen] = useState(false);
   //   const [start, setStart] = useState("");
   //   const [end, setEnd] = useState("");
+  const router = useRouter();
 
-  const Events = [
-    {
-      location: "/Events/Event1.svg",
-      name: "Balada do Marco Aurélio",
-      place: "Sinop - MT",
-      weekDay: "Sáb",
-      day: "12",
-      month: "JUL",
-    },
-    {
-      location: "/Events/Event2.svg",
-      name: "Balada do Marco Aurélio",
-      place: "Sinop - MT",
-      weekDay: "Sáb",
-      day: "12",
-      month: "JUL",
-    },
-  ];
+  const [events, setEvents] = useState<Props>({
+    location: "/Events/Event1.svg",
+    name: "Balada do Marco Aurélio",
+    place: "Sinop - MT",
+    date: new Date(),
+  });
 
   /*   function formatDate() {
     if (event.date) {
@@ -139,13 +118,13 @@ export function Card(
     }
   }, [type]); */
   return (
-    <Container /* {...rest} */>
-      <SliderImg src={location} width={400} height={200} alt="" />
+    <Container /* {...rest} */ onClick={() => router.push("/details")}>
+      <SliderImg src={events.location} width={400} height={200} alt="" />
       <EventBody>
-        <EventTitle>{name}</EventTitle>
+        <EventTitle>{events.name}</EventTitle>
         <EventFooter>
-          <EventPlace>{place}</EventPlace>
-          <Calendar day={day} month={month} weekDay={weekDay} />
+          <EventPlace>{events.place}</EventPlace>
+          <Calendar date={events.date} />
         </EventFooter>
       </EventBody>
     </Container>

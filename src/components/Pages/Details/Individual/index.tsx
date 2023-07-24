@@ -1,17 +1,21 @@
+// @ts-ignore
+import moment from "moment";
 import { Calendar } from "@/components/Global/Calendar";
 import { Container, Dets, Icons, Specific } from "./styles";
 
 interface IndividualProps {
-  date: string;
+  date: Date;
   place: string;
+  city: string;
   weekDay: string;
   day: string;
   month: string;
 }
-
+moment.locale("pt-br");
 export function Individual({
   date,
   place,
+  city,
   weekDay,
   day,
   month,
@@ -20,8 +24,10 @@ export function Individual({
     <Container>
       <Dets gap={2}>
         <Specific>
-          <Icons src="/Global/Icons/Clock.svg" width={20} height={20} alt="" />
-          {date}
+          <Icons src="/Global/Icons/Clock.svg" width={20} height={20} alt="" />{" "}
+          {""}
+          <strong>{moment(date).format("LL")}</strong> {""} às {""}
+          {moment(date).format("LT")}
         </Specific>
         <Specific>
           <Icons
@@ -29,11 +35,12 @@ export function Individual({
             width={20}
             height={20}
             alt=""
-          />
-          {place}
+          />{" "}
+          {""}
+          <strong>{place}</strong> {""} {city}
         </Specific>
       </Dets>
-      <Calendar weekDay={weekDay} day={day} month={month} />
+      <Calendar date={date} />
     </Container>
   );
 }

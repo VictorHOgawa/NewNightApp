@@ -10,7 +10,14 @@ import {
 } from "./styles";
 
 export function CitySelector({ ...rest }: any) {
-  const Cities = ["1", "2", "3", "4", "5", "6"];
+  const Cities = [
+    "Sinop - MT",
+    "Anchieta - SC",
+    "Santo Antônio do Sudoeste - PR",
+    "Jundiaí - SP",
+    "Curitiba - PR",
+    "Maringá - PR",
+  ];
 
   return (
     <>

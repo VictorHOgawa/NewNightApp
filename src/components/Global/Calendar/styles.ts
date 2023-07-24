@@ -33,5 +33,18 @@ export const Footer = styled.div`
 `;
 
 export const Date = styled.label`
-  font-size: ${px2vw(10, 320)};
+  font-size: ${px2vw(13, 320)};
+  font-weight: bold;
+
+  @media (min-width: 768px) {
+    font-size: ${px2vw(13, 768)};
+  }
+
+  @media (min-width: 1024px) {
+    font-size: ${px2vw(13, 1024)};
+  }
+
+  @media (min-width: 1400px) {
+    font-size: ${px2vw(13, 1400)};
+  }
 `;

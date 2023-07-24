@@ -17,7 +17,7 @@ export function Ad({ ...rest }: any) {
 
   return (
     <Container {...rest}>
-      <Swiper slidesPerView={1}>
+      <Swiper slidesPerView={1} loop={true}>
         {Ads.map((item) => (
           <SwiperSlide>
             <AdImage src={item.location} width={1000} height={400} alt="" />
