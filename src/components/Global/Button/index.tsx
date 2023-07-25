@@ -31,6 +31,7 @@ export function GlobalButton({
       color={color}
       background={background}
       fontSize={fontSize}
+      disabled={disabled}
       {...rest}
     >
       {children} {""}

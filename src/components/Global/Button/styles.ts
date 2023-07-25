@@ -28,4 +28,7 @@ export const Container = styled(Button)<ButtonProps>`
   }
   border: 0;
   font-weight: bold;
+  &:disabled {
+    background-color: ${({ theme }) => theme.color.secondary_60};
+  }
 `;

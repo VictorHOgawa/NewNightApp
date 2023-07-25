@@ -11,9 +11,17 @@ export const Container = styled.div`
     rgba(41, 0, 80, 0.57) 57.51%,
     #9d38cd 100%
   );
-  width: 90%;
+  width: 60%;
   margin: 0px;
   padding: 0px;
+
+  @media (min-width: 768px) {
+    width: 40%;
+  }
+
+  @media (min-width: 1024px) {
+    width: 30%;
+  }
 `;
 
 export const SliderImg = styled(Image)`

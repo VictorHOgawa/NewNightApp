@@ -3,6 +3,7 @@ import "../styles/bootstrap.scss";
 import GlobalStyle from "@/styles/global";
 import { ThemeProvider } from "styled-components";
 import Theme from "@/styles/themes";
+import CartProvider from "@/context/cart";
 
 function MyApp({ Component, pageProps }: any) {
   useEffect(() => {
@@ -12,10 +13,12 @@ function MyApp({ Component, pageProps }: any) {
 
   return (
     <>
-      <ThemeProvider theme={Theme}>
-        <GlobalStyle />
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <CartProvider>
+        <ThemeProvider theme={Theme}>
+          <GlobalStyle />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </CartProvider>
     </>
   );
 }

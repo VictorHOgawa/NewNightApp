@@ -12,8 +12,8 @@ const Theme = {
 
     secondary_20: "#",
     secondary_40: "#",
-    secondary_60: "#",
-    secondary_80: "#",
+    secondary_60: "#5d1a92",
+    secondary_80: "#565DCF",
     secondary_100: "#420A89",
 
     gray_10: "#F4F7FB",

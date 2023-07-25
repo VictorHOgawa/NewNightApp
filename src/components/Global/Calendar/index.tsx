@@ -11,11 +11,9 @@ export function Calendar({ date }: CalendarProps) {
   return (
     <Container>
       <Main>
-        <Date>{moment(date).format("ddd")}</Date>
-        <Date>{moment(date).format("D")}</Date>
-        <Footer>
-          <Date>{moment(date).format("MMM")}</Date>
-        </Footer>
+        {/* <Date>{moment(date).format("ddd")}</Date> */}
+        {/* <Date>{moment(date).format("D")}</Date> */}
+        <Footer>{/* <Date>{moment(date).format("MMM")}</Date> */}</Footer>
       </Main>
     </Container>
   );

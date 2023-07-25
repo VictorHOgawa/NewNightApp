@@ -87,19 +87,19 @@ export function EventSlider() {
       <GlobalTitle title="Eventos e Festas" />
       <br />
       <Swiper
-        slidesPerView={width < 768 ? 2 : width >= 768 && width < 1024 ? 5 : 7}
-        spaceBetween={width < 768 ? 0 : width >= 768 && width < 1024 ? 10 : 20}
+        spaceBetween={
+          width < 768
+            ? -100
+            : width >= 768 && width < 1024
+            ? -425
+            : width >= 1024 && width < 1360
+            ? -650
+            : -925
+        }
       >
         {Events.map((item) => (
           <SwiperSlide>
-            <Card
-              location={item.location}
-              name={item.name}
-              place={item.place}
-              weekDay={item.weekDay}
-              day={item.day}
-              month={item.month}
-            />
+            <Card />
           </SwiperSlide>
         ))}
       </Swiper>

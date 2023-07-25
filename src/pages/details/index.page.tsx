@@ -1,5 +1,5 @@
 import { Header } from "@/components/Global/Header";
-import { Container, DetailImg } from "./styles";
+import { Banner, Container, DetailImg, Nav } from "./styles";
 import { GlobalTitle } from "@/components/Global/Title";
 import { Buttons } from "@/components/Pages/Details/Buttons";
 import { Individual } from "@/components/Pages/Details/Individual";
@@ -14,6 +14,9 @@ import { StaticImage } from "@/components/Global/StaticImg";
 import { Important } from "@/components/Pages/Details/Important";
 import { Back } from "@/components/Global/Back";
 import { useState } from "react";
+import { StepOne } from "@/components/Pages/Details/Tickets/Steps/1";
+import { StepTwo } from "@/components/Pages/Details/Tickets/Steps/2";
+import { useRouter } from "next/router";
 
 interface DetailsProps {
   location: string;
@@ -21,7 +24,7 @@ interface DetailsProps {
   geo: string;
   instagram: string;
   whatsapp: string;
-  date: Date;
+  date: /* Date */ any;
   time: string;
   place: string;
   city: string;
@@ -30,6 +33,17 @@ interface DetailsProps {
   month: string;
   description: { name: string; description: string }[];
   music: string;
+  ticketSlot: {
+    id: string;
+    name: string;
+    ticket: { id: string; name: string; value: number }[];
+  };
+  product: {
+    id: string;
+    name: string;
+    value: number;
+    type: string;
+  }[];
 }
 export default function Details() {
   const [event, setEvent] = useState<DetailsProps>({
@@ -38,7 +52,7 @@ export default function Details() {
     geo: "",
     instagram: "",
     whatsapp: "",
-    date: new Date(),
+    date: /* new Date(), */ "",
     time: "21:00h",
     place: "Cerveja de Garrafa",
     city: "Sinop / MT",
@@ -63,7 +77,70 @@ export default function Details() {
       },
     ],
     music: "https://www.youtube.com/embed/enYuqLBiisw",
+    ticketSlot: {
+      id: "id",
+      name: "Lote Promocional",
+      ticket: [
+        {
+          name: "Área 1",
+          value: 1,
+          id: "1",
+        },
+        {
+          name: "Área 2",
+          value: 2,
+          id: "2",
+        },
+        {
+          name: "Área 3",
+          value: 3,
+          id: "3",
+        },
+      ],
+    },
+    product: [
+      {
+        id: "id1",
+        name: "Smirnoff",
+        value: 1,
+        type: "VODKA",
+      },
+      {
+        id: "id2",
+        name: "Lote Promocional",
+        value: 1,
+        type: "WHISKEY",
+      },
+      {
+        id: "id3",
+        name: "Lote Promocional",
+        value: 1,
+        type: "CERVEJA",
+      },
+      {
+        id: "id4",
+        name: "Lote Promocional",
+        value: 1,
+        type: "COMBOS",
+      },
+      {
+        id: "id5",
+        name: "Lote Promocional",
+        value: 1,
+        type: "ENERGÉTICOS",
+      },
+      {
+        id: "id6",
+        name: "Lote Promocional",
+        value: 1,
+        type: "OUTROS",
+      },
+    ],
   });
+
+  const router = useRouter();
+  const [step, setStep] = useState(1);
+  const [type, setType] = useState("");
   return (
     <Container>
       <Header />
@@ -88,12 +165,59 @@ export default function Details() {
         month={event.month}
       />
       <br />
-      <Stack direction="horizontal" gap={3} style={{ marginLeft: "4%" }}>
-        <Tabs active={true} />
-        <Tabs active={false} />
-        <Tabs active={false} />
-      </Stack>
-      <Tickets />
+      {step === 1 ? (
+        <>
+          <Stack direction="horizontal" gap={3} style={{ marginLeft: "4%" }}>
+            <Tabs active={true} />
+            <Tabs active={false} />
+            <Tabs active={false} />
+          </Stack>
+          <StepOne
+            id={event.ticketSlot.id}
+            name={event.ticketSlot.name}
+            ticket={event.ticketSlot.ticket}
+          />
+        </>
+      ) : (
+        <>
+          <Stack direction="horizontal" gap={3} style={{ marginLeft: "4%" }}>
+            <Tabs active={true} />
+            <Tabs active={true} />
+            <Tabs active={false} />
+          </Stack>
+          <StepTwo product={event.product} type={type} setType={setType} />
+        </>
+      )}
+      <br />
+      <Nav direction="horizontal" gap={2} style={{ alignSelf: "center" }}>
+        <GlobalButton
+          content="Voltar"
+          background={`${Theme.color.secondary_60}`}
+          color={`${Theme.color.gray_10}`}
+          width="auto"
+          disabled={step === 1 ? true : false}
+          onClick={
+            step === 2 && type !== ""
+              ? () => setType("")
+              : () => setStep(step - 1)
+          }
+        />
+        <GlobalButton
+          content={step === 1 || type !== "" ? "Próximo" : "Finalizar"}
+          background={`${Theme.color.confirmation}`}
+          color={`${Theme.color.gray_10}`}
+          width="auto"
+          onClick={
+            type !== ""
+              ? () => setType("")
+              : step === 2 && type === ""
+              ? () => router.push("/checkout")
+              : () => setStep(step + 1)
+          }
+        />
+      </Nav>
+      <br />
+      <Banner />
       <br />
       <br />
       <Description description={event.description[0]} />

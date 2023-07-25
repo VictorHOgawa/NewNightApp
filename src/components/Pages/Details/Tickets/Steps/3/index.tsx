@@ -1,29 +1,16 @@
-import { Modal, Stack } from "react-bootstrap";
+import { Stack } from "react-bootstrap";
 import {
-  Check,
-  Clickable,
-  Container,
   Counter,
   CounterArea,
-  Input,
-  Item,
-  Items,
   TicketTitle,
   TicketType,
   Title,
-} from "./styles";
+} from "../../styles";
 import { StaticImg } from "@/components/Global/StaticImg/styles";
-import { useState } from "react";
-import { GlobalButton } from "@/components/Global/Button";
-import Theme from "@/styles/themes";
-import { useRouter } from "next/router";
-import { Tabs } from "@/components/Global/Tabs";
+import { StaticImage } from "@/components/Global/StaticImg";
 import { useCart } from "@/context/cart";
-import { StepOne } from "./Steps/1";
-import { StepTwo } from "./Steps/2";
-import { StepThree } from "./Steps/3";
 
-interface TicketProps {
+interface StepThreeProps {
   id: string;
   name: string;
   ticket: {
@@ -31,10 +18,8 @@ interface TicketProps {
     name: string;
     value: number;
   }[];
-  step: number;
 }
-export function Tickets({ id, name, ticket, step }: TicketProps) {
-  const router = useRouter();
+export function StepThree({ id, name, ticket }: StepThreeProps) {
   const { cart, add } = useCart();
 
   const handleChange = (
@@ -72,16 +57,46 @@ export function Tickets({ id, name, ticket, step }: TicketProps) {
     );
     return ticketExists ? ticketExists.quantity : 0;
   }
-
   return (
-    <Container>
-      {step === 1 ? (
-        <StepOne id={id} name={name} ticket={ticket} />
-      ) : step === 2 ? (
-        <StepTwo />
-      ) : (
-        <StepThree id={id} name={name} ticket={ticket} />
-      )}
-    </Container>
+    <>
+      <Title>{name}</Title>
+      <Stack gap={2}>
+        {ticket.map((item) => (
+          <TicketType>
+            <StaticImage
+              src="/Global/Icons/TicketIcon.svg"
+              width={20}
+              height={20}
+              alt=""
+            />
+            <TicketTitle>
+              <strong>{item.name}</strong>
+              <br />{" "}
+              {item.value.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })}
+            </TicketTitle>
+            <CounterArea>
+              <StaticImg
+                src="/Global/Icons/Minus.svg"
+                width={20}
+                height={20}
+                alt=""
+                onClick={() => handleChange("decrease", item)}
+              />
+              <Counter>{ticketQuantity(item.id)}</Counter>
+              <StaticImg
+                src="/Global/Icons/Plus.svg"
+                width={20}
+                height={20}
+                alt=""
+                onClick={() => handleChange("increase", item)}
+              />
+            </CounterArea>
+          </TicketType>
+        ))}
+      </Stack>
+    </>
   );
 }
