@@ -6,7 +6,7 @@ import { Items } from "@/components/Pages/Purchased";
 export default function Purchased() {
   return (
     <Container>
-      <Header />
+      <Header page="main" />
       <Ad />
       <Items />
     </Container>

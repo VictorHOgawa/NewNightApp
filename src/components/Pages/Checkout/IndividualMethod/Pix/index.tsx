@@ -3,11 +3,13 @@ import { Container, Pix } from "./styles";
 import { useState } from "react";
 import Theme from "@/styles/themes";
 import { Video } from "../../Video";
+import { useRouter } from "next/router";
 
 export function PixMethod() {
-  const [pix, setPix] = useState(false);
+  const router = useRouter();
+  const [QrCode, setQrCode] = useState(false);
   const handleClick = () => {
-    setPix(true);
+    setQrCode(true);
   };
   return (
     <Container>
@@ -26,14 +28,17 @@ export function PixMethod() {
             <h4>Gerar Pix Copia e Cola</h4>
           </strong>
         </GlobalButton>
-        {pix ? (
+        {QrCode ? (
           <>
             <br />
-            <Pix
-              src="/Purchased/Products.svg"
-              width={800}
-              height={800}
-              alt=""
+            <Pix src="/Checkout/QrCode.svg" width={800} height={800} alt="" />
+            <GlobalButton
+              content="Finalizar"
+              background={`${Theme.color.confirmation}`}
+              color={`${Theme.color.gray_10}`}
+              width="50%"
+              style={{ alignSelf: "center", marginTop: "5%" }}
+              onClick={() => router.push("/profile")}
             />
           </>
         ) : (

@@ -1,6 +1,5 @@
 import { Stack } from "react-bootstrap";
-import { Button, Container, Icon, Promoter } from "./styles";
-import { useState } from "react";
+import { Button, Container, Icon } from "./styles";
 
 interface MethodProps {
   selected: string;
@@ -23,18 +22,8 @@ export function Method({ selected, setSelected }: MethodProps) {
           selected={selected === "Card" ? true : false}
         >
           <Icon src="/Checkout/Cards.svg" width={20} height={20} alt="" />
+          {""}Cartão
         </Button>
-        <Promoter
-          src={
-            selected === "Promoter"
-              ? "/Checkout/PromoterSelected.svg"
-              : "/Checkout/Promoter.svg"
-          }
-          width={200}
-          height={200}
-          alt=""
-          onClick={() => setSelected("Promoter")}
-        />
       </Stack>
     </Container>
   );

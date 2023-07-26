@@ -16,7 +16,7 @@ export const Button = styled.button<SelectedProps>`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 30%;
+  width: 45%;
   border: 2px solid ${({ theme }) => theme.color.primary_60};
   border-radius: 10px;
   padding: 15px 10px;
@@ -26,8 +26,8 @@ export const Button = styled.button<SelectedProps>`
 `;
 
 export const Icon = styled(Image)`
-  width: 20px;
-  height: 20px;
+  width: 45px;
+  height: 45px;
 `;
 
 export const Promoter = styled(Image)`

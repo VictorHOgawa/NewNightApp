@@ -25,7 +25,7 @@ export const Icons = styled(Image)`
   height: 20px;
 `;
 
-export const Specific = styled.label`
+export const Text = styled.div`
   font-size: ${px2vw(14, 320)};
   color: ${({ theme }) => theme.color.gray_10};
 `;

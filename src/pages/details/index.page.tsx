@@ -5,7 +5,6 @@ import { Buttons } from "@/components/Pages/Details/Buttons";
 import { Individual } from "@/components/Pages/Details/Individual";
 import { Stack } from "react-bootstrap";
 import { Tabs } from "@/components/Global/Tabs";
-import { Tickets } from "@/components/Pages/Details/Tickets";
 import { Description } from "@/components/Pages/Details/Description";
 import { Music } from "@/components/Pages/Details/Music";
 import { GlobalButton } from "@/components/Global/Button";
@@ -52,7 +51,7 @@ export default function Details() {
     geo: "",
     instagram: "",
     whatsapp: "",
-    date: /* new Date(), */ "",
+    date: new Date(),
     time: "21:00h",
     place: "Cerveja de Garrafa",
     city: "Sinop / MT",
@@ -156,14 +155,7 @@ export default function Details() {
         maps={event.geo}
       />
       <br />
-      <Individual
-        date={event.date}
-        place={event.place}
-        city={event.city}
-        weekDay={event.weekDay}
-        day={event.day}
-        month={event.month}
-      />
+      <Individual date={event.date} place={event.place} city={event.city} />
       <br />
       {step === 1 ? (
         <>

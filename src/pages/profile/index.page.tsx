@@ -8,7 +8,7 @@ import { Support } from "@/components/Global/Support";
 export default function Profile() {
   return (
     <Container>
-      <Header />
+      <Header page="main" />
       <br />
       <br />
       <Purchased />

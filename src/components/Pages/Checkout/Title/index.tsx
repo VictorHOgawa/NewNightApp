@@ -8,8 +8,8 @@ export function Title() {
       <CheckoutTitle>CHECKOUT</CheckoutTitle>
       <Stack direction="horizontal" gap={3} style={{ marginLeft: "4%" }}>
         <Tabs active={true} />
-        <Tabs active={false} />
-        <Tabs active={false} />
+        <Tabs active={true} />
+        <Tabs active={true} />
       </Stack>
     </Container>
   );
