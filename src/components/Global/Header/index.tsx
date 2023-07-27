@@ -9,8 +9,10 @@ import {
   Logo,
   Moon,
   Top,
+  XLogo,
 } from "./styles";
 import { useRouter } from "next/router";
+import { Back } from "../Back";
 
 interface HeaderProps {
   page?: string;
@@ -85,7 +87,17 @@ export function Header({ page = "secondary" }: HeaderProps) {
           </Footer>
         </>
       ) : (
-        <></>
+        <>
+          <Top>
+            <Back />
+            <XLogo
+              src="/Global/logoHorizontal.svg"
+              width={1000}
+              height={300}
+              alt=""
+            />
+          </Top>
+        </>
       )}
     </Container>
   );

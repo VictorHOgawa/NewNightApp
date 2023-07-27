@@ -53,3 +53,10 @@ export const Moon = styled(Image)`
   width: 65px;
   height: 65px;
 `;
+
+export const XLogo = styled(Image)`
+  width: 40%;
+  height: auto;
+  align-self: center;
+  margin-left: 30%;
+`;

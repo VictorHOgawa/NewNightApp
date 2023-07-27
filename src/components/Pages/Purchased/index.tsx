@@ -1,19 +1,25 @@
 import { Row, Stack } from "react-bootstrap";
 import { Btn, Container, Img } from "./styles";
+import { useRouter } from "next/router";
 
 export function Items() {
+  const router = useRouter();
   const List = [
     {
       location: "/Purchased/Tickets.svg",
+      onClick: () => router.push("/tickets"),
     },
     {
       location: "/Purchased/Products.svg",
+      onClick: () => router.push("/products"),
     },
     {
       location: "/Purchased/Suggestions.svg",
+      onClick: () => router.push("/suggestions"),
     },
     {
       location: "/Purchased/VIP.svg",
+      onClick: () => router.push("/vip"),
     },
   ];
   return (
@@ -21,7 +27,13 @@ export function Items() {
       <Row>
         {List.map((item) => (
           <Btn>
-            <Img src={item.location} width={200} height={200} alt="" />
+            <Img
+              src={item.location}
+              width={200}
+              height={200}
+              alt=""
+              onClick={item.onClick}
+            />
           </Btn>
         ))}
       </Row>

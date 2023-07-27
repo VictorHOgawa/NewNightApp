@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { Container } from "./styles";
 
-export function Back() {
+export function Back({ ...rest }: any) {
   const router = useRouter();
   return (
     <Container
@@ -10,6 +10,7 @@ export function Back() {
       height={20}
       alt=""
       onClick={() => router.back()}
+      {...rest}
     />
   );
 }

@@ -1,12 +1,21 @@
 import { Header } from "@/components/Global/Header";
 import { Ad } from "@/components/Global/Ad";
-import { Container } from "./styles";
+import { Background, Container } from "./styles";
+import { Learn } from "@/components/Pages/Match/Learn";
+import { Register } from "@/components/Pages/Match/Register";
 
 export default function Match() {
   return (
     <Container>
-      <Header page="main" />
-      <Ad />
+      <Background
+        src="/Match/Background.svg"
+        width={1000}
+        height={2000}
+        alt=""
+      />
+
+      <Register />
+      <Learn />
     </Container>
   );
 }
