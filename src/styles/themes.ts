@@ -4,7 +4,7 @@ const Theme = {
     confirmation: "#00ff01",
     pix: "#37B5AA",
 
-    primary_20: "#",
+    primary_20: "#8137b8",
     primary_40: "#6B1DA5",
     primary_60: "#d356f3",
     primary_80: "#9c38ce",

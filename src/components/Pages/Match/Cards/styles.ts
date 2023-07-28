@@ -4,42 +4,10 @@ import { styled } from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  height: auto;
-  overflow: hidden;
-`;
-
-export const Background = styled(Image)`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  object-fit: cover;
-`;
-
-export const Top = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 5%;
-`;
-
-export const Logo = styled(Image)`
-  width: 50%;
-  height: auto;
-`;
-
-export const Back = styled(Image)`
-  width: 20px;
-  height: 20px;
-  margin-right: 50px;
-`;
-
-export const Card = styled.div`
-  display: flex;
   width: 90%;
   height: 60vh;
   opacity: 1;
+  background: linear-gradient(transparent 90%, #8137b895 92%, #8137b8 95%);
   border-radius: 10px;
   align-self: center;
   margin-top: 10%;
