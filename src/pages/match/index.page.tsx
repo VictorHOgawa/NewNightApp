@@ -1,9 +1,11 @@
 import { Cards } from "@/components/Pages/Match/Cards";
-import { Back, Background, Card, Logo, Top } from "./styles";
+import { Arrow1, Arrow2, Back, Background, Buttons, Card, Container, Footer1, Footer2,  FooterFooter,  FooterHeader, Logo, Name1, Name2, Photo, Slider, Top } from "./styles";
 import { useState } from "react";
-import { Container, Name, Arrow, Photo } from "./styles";
 import { useLayoutEffect, useRef, useEffect } from "react";
 import { gsap } from "gsap";
+import {Swiper, SwiperSlide} from "swiper/react";
+import 'swiper/css';
+import Image from "next/image";
 
 export default function Match() {
   const [rotate, setRotate] = useState("0deg");
@@ -39,19 +41,32 @@ export default function Match() {
           0
         )
         .to(
-          ".footer",
+          ".details",
           {
             opacity: 0,
             duration: 0.1,
           },
           0
-        );
-    }, main);
+        )
+        .to(
+          ".footer",
+          {
+            duration: 0.5,
+            y: 150,
+          },
+          0
+        )
+        .fromTo(
+          ".footer2", {y: 250}, {y: 0}, 0 )
+        .fromTo(
+          ".slider", {x: "100%"}, {x: 0}, 0 );
+    }, 
+    main)
     return () => ctx.revert();
   }, []);
 
   useEffect(() => {
-    reversed === true ? tl.current.play() : tl.current.reverse();
+    reversed === true ? tl.current?.play() : tl.current?.reverse();
   }, [reversed]);
 
   return (
@@ -78,7 +93,7 @@ export default function Match() {
           className="logo"
         />
       </Top>
-      <Card>
+      <Card onClick={() => setReversed(!reversed)}>
         <Photo
           src="/Match/1.svg"
           width={800}
@@ -87,18 +102,69 @@ export default function Match() {
           className="photo"
           ref={itemRef}
         />
-        <Name className="footer">Test</Name>
-        <Arrow
+        <Name1 className="details">Test</Name1>
+        <Arrow1
+          src="/Match/Open.svg"
+          width={40}
+          height={40}
+          alt=""
+          style={{ rotate: rotate }}
+          className="details"
+        />
+      </Card>
+      <Footer1 className="footer">
+      <Buttons>1</Buttons>
+      <Buttons>2</Buttons>
+      <Buttons>3</Buttons>
+      </Footer1>
+      <Slider className="slider">
+        <Swiper slidesPerView={4} spaceBetween={0}>
+        <SwiperSlide style={{ width: 100, height: 100}}>
+          <Image src="/Match/1.svg" width={500} height={500} alt="" style={{width: 60, height: "auto", borderRadius: 10}} />
+          </SwiperSlide>
+          <SwiperSlide style={{ width: 100, height: 100}}>
+          <Image src="/Match/1.svg" width={500} height={500} alt="" style={{width: 60, height: "auto", borderRadius: 10}} />
+          </SwiperSlide>
+          <SwiperSlide style={{ width: 100, height: 100}}>
+          <Image src="/Match/1.svg" width={500} height={500} alt="" style={{width: 60, height: "auto", borderRadius: 10}} />
+          </SwiperSlide>
+          <SwiperSlide style={{ width: 100, height: 100}}>
+          <Image src="/Match/1.svg" width={500} height={500} alt="" style={{width: 60, height: "auto", borderRadius: 10}} />
+          </SwiperSlide>
+          <SwiperSlide style={{ width: 100, height: 100}}>
+          <Image src="/Match/1.svg" width={500} height={500} alt="" style={{width: 60, height: "auto", borderRadius: 10}} />
+          </SwiperSlide>
+          <SwiperSlide style={{ width: 100, height: 100}}>
+          <Image src="/Match/1.svg" width={500} height={500} alt="" style={{width: 60, height: "auto", borderRadius: 10}} />
+          </SwiperSlide>
+          <SwiperSlide style={{ width: 100, height: 100}}>
+          <Image src="/Match/1.svg" width={500} height={500} alt="" style={{width: 60, height: "auto", borderRadius: 10}} />
+          </SwiperSlide>
+          <SwiperSlide style={{ width: 100, height: 100}}>
+          <Image src="/Match/1.svg" width={500} height={500} alt="" style={{width: 60, height: "auto", borderRadius: 10}} />
+          </SwiperSlide>
+
+        </Swiper>
+      </Slider>
+      <Footer2 className="footer2">
+        <FooterHeader style={{display: 'flex', justifyContent: "space-between"}} >
+        <Name2>Test2</Name2>
+        <Arrow2
           src="/Match/Open.svg"
           width={40}
           height={40}
           alt=""
           style={{ rotate: rotate }}
           onClick={() => setReversed(!reversed)}
-          className="footer"
-        />
-      </Card>{" "}
-      {/* <Cards /> */}
+          />
+          </FooterHeader>
+          <FooterFooter>
+
+          <Buttons>1</Buttons>
+      <Buttons>2</Buttons>
+      <Buttons>3</Buttons>
+          </FooterFooter>
+      </Footer2>
     </Container>
   );
 }

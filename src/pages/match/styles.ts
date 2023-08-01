@@ -56,22 +56,69 @@ export const Photo = styled(Image)`
   border-radius: 10px;
 `;
 
-export const Name = styled.label`
+export const Name1 = styled.label`
   color: ${({ theme }) => theme.color.gray_10};
   font-size: ${px2vw(25, 320)};
   align-self: flex-end;
   margin-left: 2%;
 `;
 
-export const Arrow = styled(Image)`
+export const Arrow1 = styled(Image)`
   width: 50px;
   height: 50px;
   align-self: flex-end;
   margin-right: 2%;
-  margin-bottom: 2%;
-  transition: all 0.3s ease-in-out;
-
-  &:hover {
-    transform: rotate(180deg);
-  }
+  margin-bottom: 2%
 `;
+
+export const Footer1 = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10%
+`
+
+export const Buttons = styled.button`
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+`
+
+export const Footer2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 40%;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  background: linear-gradient(167deg, rgba(35, 1, 68, 0.83) 0%, rgba(21, 0, 41, 0.91) 100%);
+  `
+
+  export const FooterHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    padding: 10px
+  `
+
+  export const Name2 = styled(Name1)`
+  align-self: normal
+  `
+
+  export const Arrow2 = styled(Arrow1)`
+    align-self: normal;
+    transform: rotate(180deg);
+  `
+
+  export const Slider = styled.div`
+    width: 100%;
+    height: 15vh;
+    margin-top: -95%;
+  overflow: hidden;
+  `
+
+  export const FooterFooter = styled.div`
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10%
+  `
