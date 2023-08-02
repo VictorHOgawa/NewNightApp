@@ -23,130 +23,48 @@ import {
   Tags,
   Top,
 } from "./styles";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useLayoutEffect, useRef, useEffect } from "react";
 import { Power2, gsap } from "gsap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Image from "next/image";
 import { Stack } from "react-bootstrap";
+import { useRouter } from "next/router";
+import { MainAnimation } from "./Animations/Main";
+import { LikedAnimation } from "./Animations/Liked";
+import px2vw from "@/utils/size";
+import { People } from "@/utils/peaple";
 
 export default function Match() {
-  const [people, setPeople] = useState([
-    {
-      name: "Test 1",
-      description: "Description 1",
-      currentPlace: "Place 1",
-      recent: ["Place 2", "Place 3", "Place 4"],
-      photos: [
-        {
-          location: "/Match/1.svg",
-        },
-        {
-          location: "/Match/2.svg",
-        },
-        {
-          location: "/Match/3.svg",
-        },
-        {
-          location: "/Match/4.svg",
-        },
-        {
-          location: "/Match/5.svg",
-        },
-        {
-          location: "/Match/6.svg",
-        },
-      ],
-    },
-    {
-      name: "Test 2",
-      description: "Description 2",
-      currentPlace: "Place 2",
-      recent: ["Place 2", "Place 3", "Place 4"],
-      photos: [
-        {
-          location: "/Match/2.svg",
-        },
-        {
-          location: "/Match/3.svg",
-        },
-        {
-          location: "/Match/3.svg",
-        },
-        {
-          location: "/Match/3.svg",
-        },
-        {
-          location: "/Match/3.svg",
-        },
-        {
-          location: "/Match/3.svg",
-        },
-      ],
-    },
-    {
-      name: "Test 3",
-      description: "Description 3",
-      currentPlace: "Place 3",
-      recent: ["Place 2", "Place 3", "Place 4"],
-      photos: [
-        {
-          location: "/Match/3.svg",
-        },
-        {
-          location: "/Match/4.svg",
-        },
-        {
-          location: "/Match/4.svg",
-        },
-        {
-          location: "/Match/4.svg",
-        },
-        {
-          location: "/Match/4.svg",
-        },
-        {
-          location: "/Match/4.svg",
-        },
-      ],
-    },
-    {
-      name: "Test 1",
-      description: "Description 1",
-      currentPlace: "Place 1",
-      recent: ["Place 2", "Place 3", "Place 4"],
-      photos: [
-        {
-          location: "/Match/1.svg",
-        },
-        {
-          location: "/Match/2.svg",
-        },
-        {
-          location: "/Match/3.svg",
-        },
-        {
-          location: "/Match/4.svg",
-        },
-        {
-          location: "/Match/5.svg",
-        },
-        {
-          location: "/Match/6.svg",
-        },
-      ],
-    },
-  ]);
+  function useStateRef(defaultValue: any) {
+    const [state, setState] = useState(defaultValue);
+    const ref = useRef(state);
+
+    const dispatch: any = useCallback((value: any) => {
+      ref.current = typeof value === "function" ? value(ref.current) : value;
+      setState(ref.current);
+    }, []);
+
+    return [state, dispatch, ref];
+  }
+
+  const [count, setCount, countRef] = useStateRef(false);
+  const [gsapCount, setGsapCount] = useState(false);
+
+  const router = useRouter();
+  const [people, setPeople] = useState(People);
   const [shown, setShown] = useState(people[0]);
   const [selectedPhoto, setSelectedPhoto] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const [clicked, setClicked] = useState(false);
   const [reversed, setReversed] = useState(false);
-  const main = useRef(null);
+  const [likeAnimation, setLikeAnimation] = useState(false);
   const itemRef = useRef(null);
+  let teste = false;
+  // const { main, mainTL } = MainAnimation();
+  const main = useRef(null);
   const mainTL = useRef<gsap.core.Timeline | null>(null);
-
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
       mainTL.current = gsap
@@ -160,6 +78,9 @@ export default function Match() {
           {
             y: -85,
             scale: 1.11,
+            onReverseComplete: () => {
+              countRef.current ? handleLiked() : null;
+            },
           },
           0
         )
@@ -188,7 +109,16 @@ export default function Match() {
           0
         )
         .fromTo(".footer2", { y: 300 }, { y: 0 }, 0)
-        .fromTo(".slider", { x: "100%" }, { x: 0 }, 0);
+        .fromTo(
+          ".slider",
+          {
+            x: "100%",
+          },
+          {
+            x: 0,
+          },
+          0
+        );
     }, main);
     return () => ctx.revert();
   }, []);
@@ -199,8 +129,29 @@ export default function Match() {
 
   const likedTL = useRef<gsap.core.Timeline | null>(null);
   const [likedClosed, setLikedClosed] = useState(false);
-  console.log(likedClosed);
-  useLayoutEffect(() => {
+  // useLayoutEffect(() => {
+  //   let ctx = gsap.context(() => {
+  //     likedTL.current = gsap
+  //       .timeline({
+  //         defaults: {
+  //           duration: 0.5,
+  //         },
+  //       })
+  //       .fromTo(".fullCard", { x: 0 }, { x: 400, opacity: 0 }, 1)
+  //       .fromTo(
+  //         ".fullCard",
+  //         { x: 400 },
+  //         { x: 0, opacity: 1, duration: 0.000001 }
+  //       );
+  //   }, main);
+  //   return () => ctx.revert();
+  // }, []);
+
+  // useEffect(() => {
+  //   likedClosed === true ? likedTL.current?.play() : likedTL.current?.reverse();
+  // }, [likedClosed]);
+
+  const handleLiked = () => {
     let ctx = gsap.context(() => {
       likedTL.current = gsap
         .timeline({
@@ -208,30 +159,95 @@ export default function Match() {
             duration: 0.5,
           },
         })
-        .fromTo(".fullCard", { x: 0 }, { x: 400, opacity: 0 }, 1)
+        .fromTo(
+          ".fullCard",
+          { x: 0 },
+          {
+            x: 400,
+            opacity: 0,
+            onComplete: () => {
+              console.log("entrou no completou");
+              setShown(people[currentIndex + 1]);
+              setSelectedPhoto(1);
+            },
+          }
+        )
         .fromTo(
           ".fullCard",
           { x: 400 },
-          { x: 0, opacity: 1, duration: 0.000001 }
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.00001,
+            delay: 0.5,
+            onComplete: () => {
+              console.log("entrou no outro completou");
+              setCurrentIndex(currentIndex + 1);
+            },
+          }
+        )
+        .fromTo(
+          ".indDetails",
+          { x: 0, opacity: 1 },
+          {
+            x: -400,
+            opacity: 0,
+          },
+          0.5
+        )
+        .fromTo(
+          ".indDetails",
+          { x: -400, opacity: 0 },
+          { x: 0, opacity: 1 },
+          0.5
         );
+
+      // .fromTo(".behind", { opacity: 0 }, { opacity: 1 }, 0)
+      // .fromTo(".behind", { opacity: 1 }, { opacity: 0 }, 0);
     }, main);
-  }, []);
-
-  useEffect(() => {
-    likedClosed === true ? likedTL.current?.play() : likedTL.current?.reverse();
-  }, [likedClosed]);
-
-  const handleLiked = () => {
-    setLikedClosed(!likedClosed);
-    setReversed(false);
-    setShown(people[currentIndex + 1]);
-    setCurrentIndex(currentIndex + 1);
+    setCount(false);
   };
+  //
+  useEffect(() => {
+    if (countRef.current) return setReversed(!reversed);
+  }, [count]);
 
+  const handleLikedOpen = () => {
+    setCount(true);
+    console.log(
+      "countRef.current dentro da função de dentro:",
+      countRef.current
+    );
+  };
+  // useEffect(() => {
+  //   clicked === true ? setShown(people[currentIndex + 1]) : null;
+
+  //   setShown(people[currentIndex + 1]);
+  //   setCurrentIndex(currentIndex + 1);
+  // }, []);
   const dislikedTL = useRef<gsap.core.Timeline | null>(null);
   const [dislikedClosed, setDislikedClosed] = useState(false);
 
-  useLayoutEffect(() => {
+  // useLayoutEffect(() => {
+  //   let ctx = gsap.context(() => {
+  //     dislikedTL.current = gsap
+  //       .timeline({
+  //         defaults: {
+  //           duration: 0.5,
+  //         },
+  //       })
+  //       .fromTo(".fullCard", { x: 0 }, { x: -400 });
+  //   }, main);
+  //   return () => ctx.revert();
+  // }, []);
+
+  // useEffect(() => {
+  //   dislikedClosed === true
+  //     ? dislikedTL.current?.play()
+  //     : dislikedTL.current?.reverse();
+  // }, [dislikedClosed]);
+
+  const handleDisliked = () => {
     let ctx = gsap.context(() => {
       dislikedTL.current = gsap
         .timeline({
@@ -239,19 +255,28 @@ export default function Match() {
             duration: 0.5,
           },
         })
-        .fromTo(".fullCard", { x: 0 }, { x: -400 });
+        .fromTo(".fullCard", { x: 0 }, { x: -400, opacity: 0 })
+        .fromTo(
+          ".fullCard",
+          { x: -400 },
+          { x: 0, opacity: 1, duration: 0.00001 }
+        )
+        .fromTo(
+          ".indDetails",
+          { x: 0, opacity: 1 },
+          { x: 400, opacity: 0 },
+          0.5
+        )
+        .fromTo(
+          ".indDetails",
+          { x: 400, opacity: 0 },
+          { x: 0, opacity: 1 },
+          0.5
+        );
     }, main);
-    return () => ctx.revert();
-  }, []);
-
-  useEffect(() => {
-    dislikedClosed === true
-      ? dislikedTL.current?.play()
-      : dislikedTL.current?.reverse();
-  }, [dislikedClosed]);
-
-  const handleDisliked = () => {
-    open === true ? null : setDislikedClosed(true);
+    setShown(people[currentIndex + 1]);
+    setCurrentIndex(currentIndex + 1);
+    setSelectedPhoto(1);
   };
 
   const [open, setOpen] = useState(false);
@@ -260,102 +285,133 @@ export default function Match() {
     setReversed(!reversed);
   };
 
+  const handleBack = () => {
+    open === true ? setReversed(!reversed) : router.back();
+  };
   return (
     <Container ref={main}>
-      <Background
-        src="/Match/MatchBackground.svg"
-        width={1000}
-        height={2000}
-        alt=""
-      />
-      <Top>
-        <Back
-          src="/Global/Icons/Back.svg"
-          width={20}
-          height={20}
-          alt=""
-          style={{ top: 100 }}
-        />
-        <Logo
-          src="/Match/matchLogo.svg"
-          width={1000}
-          height={400}
-          alt=""
-          className="logo"
-        />
-      </Top>
       <>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Card onClick={handleOpen} className="fullCard">
-            <Photo
-              src={shown.photos[selectedPhoto - 1].location}
-              width={800}
-              height={1600}
+        <>
+          <Background
+            src="/Match/MatchBackground.svg"
+            width={1000}
+            height={2000}
+            alt=""
+          />
+          <Top>
+            <Back
+              src="/Global/Icons/Back.svg"
+              width={20}
+              height={20}
               alt=""
-              className="photo"
-              ref={itemRef}
+              style={{ top: 100 }}
+              onClick={handleBack}
             />
-            <Name1 className="details">{shown.name}</Name1>
-            <Arrow1
-              src="/Match/Open.svg"
-              width={40}
-              height={40}
+            <Logo
+              src="/Match/matchLogo.svg"
+              width={1000}
+              height={400}
               alt=""
-              className="details"
+              className="logo"
             />
-          </Card>
-          <Behind>
-            <Photo
-              src={people[currentIndex + 1].photos[selectedPhoto - 1].location}
-              width={800}
-              height={1600}
-              alt=""
-              className="photo"
-              ref={itemRef}
-            />
-            <Name1 className="details">{people[currentIndex + 1].name}</Name1>
-            <Arrow1
-              src="/Match/Open.svg"
-              width={40}
-              height={40}
-              alt=""
-              className="details"
-            />
-          </Behind>
-        </div>
-        <Footer1 className="footer">
-          <Buttons onClick={handleDisliked}>1</Buttons>
-          <Buttons>2</Buttons>
-          <Buttons onClick={handleLiked}>3</Buttons>
-        </Footer1>
-        <Slider className="slider">
-          <Swiper slidesPerView={4} spaceBetween={0}>
-            {shown.photos.map((item, index) => (
-              <SwiperSlide style={{ width: 100, height: 100 }}>
-                <Image
-                  src={item.location}
-                  width={500}
-                  height={500}
-                  alt=""
-                  style={{ width: 60, height: "auto", borderRadius: 10 }}
-                  onClick={() => setSelectedPhoto(index + 1)}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </Slider>
+          </Top>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Card onClick={handleOpen} className="fullCard">
+              <Photo
+                src={shown.photos[selectedPhoto - 1].location}
+                width={800}
+                height={1600}
+                alt=""
+                className="photo"
+                ref={itemRef}
+              />
+              <Stack gap={1} style={{ alignSelf: "flex-end" }}>
+                <Name1 className="details">{shown.name}</Name1>
+                <Name1
+                  className="details"
+                  style={{ fontSize: `${px2vw(18, 320)}` }}
+                >
+                  {shown.instagram ? shown.instagram : ""}
+                </Name1>
+              </Stack>
+              <Arrow1
+                src="/Match/Open.svg"
+                width={40}
+                height={40}
+                alt=""
+                className="details"
+              />
+            </Card>
+            {/* {open === true ? (
+            <></>
+          ) : (
+            <> */}
+            <Behind className="behind">
+              <Photo
+                src={
+                  people[currentIndex + 1].photos[selectedPhoto - 1].location
+                }
+                width={800}
+                height={1600}
+                alt=""
+                className="photo"
+                ref={itemRef}
+              />
+              <Stack gap={1} style={{ alignSelf: "flex-end" }}>
+                <Name1 className="details">{shown.name}</Name1>
+                <Name1
+                  className="details"
+                  style={{ fontSize: `${px2vw(18, 320)}` }}
+                >
+                  {shown.instagram ? shown.instagram : ""}
+                </Name1>
+              </Stack>
+              <Arrow1
+                src="/Match/Open.svg"
+                width={40}
+                height={40}
+                alt=""
+                className="details"
+              />
+            </Behind>
+            {/* </>
+          )} */}
+          </div>
+          <Footer1 className="footer">
+            <Buttons onClick={handleDisliked}>1</Buttons>
+            <Buttons>2</Buttons>
+            <Buttons onClick={handleLiked}>3</Buttons>
+          </Footer1>
+          <Slider className="slider">
+            <Swiper slidesPerView={4} spaceBetween={0}>
+              {shown.photos.map((item, index) => (
+                <SwiperSlide style={{ width: 100, height: 100 }}>
+                  <Image
+                    src={item.location}
+                    width={500}
+                    height={500}
+                    alt=""
+                    style={{ width: 60, height: "auto", borderRadius: 10 }}
+                    onClick={() => setSelectedPhoto(index + 1)}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </Slider>
+        </>
+
         <Footer2 className="footer2">
           <FooterHeader>
             <Stack direction="horizontal">
               <Stack gap={1}>
-                <Name2>{shown.name}</Name2>
-                <Location>
+                <Name2 className="indDetails">{shown.name}</Name2>
+                <Location className="indDetails">
                   <Icon
                     src="/Global/Icons/LocationPin.svg"
                     width={20}
@@ -386,15 +442,15 @@ export default function Match() {
               }}
             >
               {shown.recent.map((item) => (
-                <Tags>{item}</Tags>
+                <Tags className="indDetails">{item}</Tags>
               ))}
             </Stack>
           </FooterHeader>
-          <Description>{shown.description}</Description>
+          <Description className="indDetails">{shown.description}</Description>
           <FooterFooter>
             <Buttons onClick={handleDisliked}>1</Buttons>
             <Buttons>2</Buttons>
-            <Buttons onClick={handleLiked}>3</Buttons>
+            <Buttons onClick={handleLikedOpen}>3</Buttons>
           </FooterFooter>
         </Footer2>
       </>

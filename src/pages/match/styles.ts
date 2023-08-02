@@ -33,6 +33,8 @@ export const Back = styled(Image)`
   width: 20px;
   height: 20px;
   margin-right: 50px;
+  margin-left: 10px;
+  z-index: 1;
 `;
 
 export const Card = styled.div`
@@ -59,8 +61,8 @@ export const Photo = styled(Image)`
 export const Name1 = styled.label`
   color: ${({ theme }) => theme.color.gray_10};
   font-size: ${px2vw(25, 320)};
-  align-self: flex-end;
   margin-left: 2%;
+  line-height: 1;
 `;
 
 export const Arrow1 = styled(Image)`
@@ -69,6 +71,7 @@ export const Arrow1 = styled(Image)`
   align-self: flex-end;
   margin-right: 2%;
   margin-bottom: 2%;
+  transform: rotate(180deg);
 `;
 
 export const Footer1 = styled.div`
