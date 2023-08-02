@@ -49,8 +49,8 @@ export const Card = styled.div`
 
 export const Photo = styled(Image)`
   position: absolute;
-  width: 90%;
-  height: 60%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   z-index: -1;
   border-radius: 10px;
@@ -64,61 +64,96 @@ export const Name1 = styled.label`
 `;
 
 export const Arrow1 = styled(Image)`
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   align-self: flex-end;
   margin-right: 2%;
-  margin-bottom: 2%
+  margin-bottom: 2%;
 `;
 
 export const Footer1 = styled.div`
   display: flex;
   justify-content: space-evenly;
-  margin-top: 10%
-`
+  margin-top: 10%;
+`;
 
 export const Buttons = styled.button`
   width: 60px;
   height: 60px;
   border-radius: 100%;
-`
+`;
 
 export const Footer2 = styled.div`
   display: flex;
   flex-direction: column;
-  position: absolute;
   bottom: 0px;
   width: 100%;
-  height: 40%;
+  height: 43vh;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
-  background: linear-gradient(167deg, rgba(35, 1, 68, 0.83) 0%, rgba(21, 0, 41, 0.91) 100%);
-  `
+  background: linear-gradient(
+    167deg,
+    rgba(35, 1, 68, 0.83) 0%,
+    rgba(21, 0, 41, 0.91) 100%
+  );
+`;
 
-  export const FooterHeader = styled.div`
-    display: flex;
-    justify-content: space-between;
-    padding: 10px
-  `
+export const FooterHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+`;
 
-  export const Name2 = styled(Name1)`
-  align-self: normal
-  `
+export const Name2 = styled(Name1)`
+  align-self: normal;
+`;
 
-  export const Arrow2 = styled(Arrow1)`
-    align-self: normal;
-    transform: rotate(180deg);
-  `
+export const Arrow2 = styled(Arrow1)`
+  align-self: normal;
+  transform: rotate(180deg);
+`;
 
-  export const Slider = styled.div`
-    width: 100%;
-    height: 15vh;
-    margin-top: -95%;
+export const Slider = styled.div`
+  width: 100%;
+  height: 15vh;
+  margin-top: -95%;
   overflow: hidden;
-  `
+`;
 
-  export const FooterFooter = styled.div`
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 10%
-  `
+export const FooterFooter = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10%;
+`;
+
+export const Icon = styled(Image)`
+  width: 20px;
+  height: 20px;
+`;
+
+export const Location = styled.label`
+  color: ${({ theme }) => theme.color.gray_10};
+`;
+
+export const Tags = styled.div`
+  color: ${({ theme }) => theme.color.gray_10};
+  background: transparent;
+  border: 1px solid ${({ theme }) => theme.color.primary_60};
+  border-radius: 5px;
+  padding: 5px;
+  font-size: ${px2vw(12, 320)};
+`;
+
+export const Description = styled.label`
+  color: ${({ theme }) => theme.color.gray_10};
+  font-size: ${px2vw(12, 320)};
+  width: 80%;
+  align-self: center;
+  text-align: center;
+`;
+
+export const Behind = styled(Card)`
+  z-index: -1;
+  position: absolute;
+`;
