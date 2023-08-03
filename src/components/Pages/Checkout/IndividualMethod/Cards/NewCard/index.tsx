@@ -16,7 +16,7 @@ import {
   stripeCardExpirValidation,
   stripeCardNumberValidation,
 } from "@/utils/creditCardValidation";
-import { Form, NightAppCard } from "../styles";
+import { CardContainer, CardDetails, Form, NightAppCard } from "../styles";
 interface NewCardProps {
   formData: any;
   setFormData: any;
@@ -70,12 +70,31 @@ export function NewCard({ formData, setFormData, stepTwo }: NewCardProps) {
   };
   return (
     <Container>
-      <NightAppCard
-        src="/Checkout/NightAppCard.svg"
-        width={1000}
-        height={500}
-        alt=""
-      />
+      <CardContainer>
+        <NightAppCard
+          src="/Checkout/blankCard.svg"
+          width={1000}
+          height={500}
+          alt=""
+        />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            marginLeft: "30%",
+            marginTop: "15%",
+          }}
+        >
+          <CardDetails>
+            {formData.cardName === "" ? "Nome no Cartão " : formData.cardName}
+          </CardDetails>
+          <CardDetails>
+            {formData.cardNumber === ""
+              ? "Número do Cartão"
+              : formData.cardNumber}
+          </CardDetails>
+        </div>
+      </CardContainer>
       {stepTwo ? (
         <>
           <br />
@@ -190,7 +209,6 @@ export function NewCard({ formData, setFormData, stepTwo }: NewCardProps) {
           <br />
 
           <Stack
-            gap={2}
             direction="horizontal"
             style={{ display: "flex", width: "100%" }}
           >

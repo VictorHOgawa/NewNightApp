@@ -6,7 +6,10 @@ export function Title() {
   return (
     <Container>
       <CheckoutTitle>CHECKOUT</CheckoutTitle>
-      <Stack direction="horizontal" gap={3} style={{ marginLeft: "4%" }}>
+      <Stack
+        direction="horizontal"
+        style={{ display: "flex", justifyContent: "space-between" }}
+      >
         <Tabs active={true} />
         <Tabs active={true} />
         <Tabs active={true} />

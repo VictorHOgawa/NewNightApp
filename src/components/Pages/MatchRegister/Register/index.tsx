@@ -16,7 +16,17 @@ export function Register() {
   const handleClose = () => setOpenModal(false);
   const [type, setType] = useState("");
   const [description, setDescription] = useState("");
-
+  const [formData, setFormData] = useState({
+    name: "",
+    cpfCnpj: "",
+    age: "",
+    instagram: "",
+    photos: [
+      {
+        location: "",
+      },
+    ],
+  });
   const handleSteps = () => {
     step === 1
       ? setStep(2)
@@ -106,6 +116,8 @@ export function Register() {
         setType={setType}
         description={description}
         setDescription={setDescription}
+        formData={formData}
+        setFormData={setFormData}
       />
       <GlobalButton
         content={

@@ -1,17 +1,39 @@
 import { GlobalTitle } from "@/components/Global/Title";
-import { NightAppCard } from "../styles";
+import { CardContainer, CardDetails, NightAppCard } from "../styles";
 import { Button, Container, Item, ItemText, Menu, Toggle } from "./styles";
 import Theme from "@/styles/themes";
 
-export function Installments() {
+interface InstallmentsProps {
+  formData: any;
+}
+export function Installments({ formData }: InstallmentsProps) {
   return (
     <Container>
-      <NightAppCard
-        src="/Checkout/NightAppCard.svg"
-        width={1000}
-        height={500}
-        alt=""
-      />
+      <CardContainer>
+        <NightAppCard
+          src="/Checkout/blankCard.svg"
+          width={1000}
+          height={500}
+          alt=""
+        />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            marginLeft: "30%",
+            marginTop: "15%",
+          }}
+        >
+          <CardDetails>
+            {formData.cardName === "" ? "Nome no Cartão " : formData.cardName}
+          </CardDetails>
+          <CardDetails>
+            {formData.cardNumber === ""
+              ? "Número do Cartão"
+              : formData.cardNumber}
+          </CardDetails>
+        </div>
+      </CardContainer>
       <br />
       <GlobalTitle title="Parcelas" fontSize={15} />
       <br />

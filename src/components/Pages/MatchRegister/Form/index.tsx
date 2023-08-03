@@ -18,6 +18,8 @@ import Theme from "@/styles/themes";
 import { GlobalButton } from "@/components/Global/Button";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
+import { maskCpfCnpj, minLength, textWithSpacesOnly } from "@/utils/masks";
+import { Error } from "@/components/Global/error";
 
 interface FormProps {
   step: number;
@@ -30,6 +32,8 @@ interface FormProps {
   setType: any;
   description: string;
   setDescription: any;
+  formData: any;
+  setFormData: any;
 }
 
 export function Form({
@@ -43,6 +47,8 @@ export function Form({
   setType,
   description,
   setDescription,
+  formData,
+  setFormData,
 }: FormProps) {
   const router = useRouter();
   const handleEmpty = () =>
@@ -56,15 +62,85 @@ export function Form({
   const handleHidden = () => {
     inputFile.current?.click();
   };
+
+  // const [formData, setFormData] = useState({
+  //   name: "",
+  //   cpfCnpj: "",
+  //   age: "",
+  //   instagram: "",
+  //   photos: [
+  //     {
+  //       location: "",
+  //     },
+  //   ],
+  // });
+  const [error, setError] = useState<any>({});
+
+  const handleValidations = (type: any, value: any) => {
+    let errorText;
+    switch (type) {
+      case "name":
+        errorText =
+          value === "" ? "Campo Obrigatório" : textWithSpacesOnly(value);
+        setError({ ...error, nameError: errorText });
+        console.log("error: ", error);
+        break;
+      case "cpfCnpj":
+        errorText = value === "" ? "Campo Obrigatório" : minLength(11)(value);
+        setError({ ...error, cpfCnpjError: errorText });
+        break;
+      case "age":
+        errorText = value === "" ? "Campo Obrigatório" : "";
+        setError({ ...error, ageError: errorText });
+        break;
+      case "instagram":
+        errorText = value === "" ? "Campo Obrigatório" : "";
+        setError({ ...error, instagramError: errorText });
+        break;
+    }
+  };
+
+  const handleBlur = (e: any) => {
+    handleValidations(e.target.name, e.target.value);
+  };
+  console.log("formData: ", formData);
   return (
     <Container>
       {step === 1 ? (
         <>
           <GlobalTitle title="Seu nome é" fontSize={15} />
-          <Forms placeholder="Nome Aqui..." />
+          <Forms
+            type="text"
+            name="name"
+            placeholder="Nome Aqui..."
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            value={formData.name}
+            required
+            onBlur={handleBlur}
+            autoFocus
+          />
+          {error && error.nameError && error.nameError.length > 1 && (
+            <Error>{error.nameError}</Error>
+          )}
           <br />
           <GlobalTitle title="Insira o Mesmo CPF de Cadastro" fontSize={15} />
-          <Forms placeholder="CPF Aqui..." />
+          <Forms
+            name="cpfCnpj"
+            placeholder="CPF Aqui..."
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                cpfCnpj: maskCpfCnpj(e.target.value),
+              })
+            }
+            value={formData.cpfCnpj}
+            required
+            onBlur={handleBlur}
+            maxLength={14}
+          />
+          {error && error.cpfCnpjError && error.cpfCnpjError.length > 1 && (
+            <Error>{error.cpfCnpjError}</Error>
+          )}
           <br />
           <Stack
             gap={2}
@@ -75,13 +151,40 @@ export function Form({
               style={{ display: "flex", flexDirection: "column", width: "45%" }}
             >
               <GlobalTitle title="Qual sua Idade?" fontSize={15} />
-              <Forms placeholder="Quantos Anos tem?" type="number" />
+              <Forms
+                type="number"
+                name="age"
+                placeholder="Sua Idade"
+                onChange={(e) =>
+                  setFormData({ ...formData, age: e.target.value })
+                }
+                value={formData.age}
+                required
+                onBlur={handleBlur}
+              />
+              {error && error.ageError && error.ageError.length > 1 && (
+                <Error>{error.ageError}</Error>
+              )}
             </div>
             <div
               style={{ display: "flex", flexDirection: "column", width: "45%" }}
             >
               <GlobalTitle title="E seu Instagram?" fontSize={15} />
-              <Forms placeholder="@" />
+              <Forms
+                name="instagram"
+                placeholder="@"
+                onChange={(e) =>
+                  setFormData({ ...formData, instagram: e.target.value })
+                }
+                value={formData.instagram}
+                required
+                onBlur={handleBlur}
+              />
+              {error &&
+                error.instagramError &&
+                error.instagramError.length > 1 && (
+                  <Error>{error.instagramError}</Error>
+                )}
             </div>
           </Stack>
         </>

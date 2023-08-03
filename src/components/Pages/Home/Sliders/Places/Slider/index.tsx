@@ -53,14 +53,50 @@ export function PlaceSlider() {
       place: "Sinop - MT",
       current: false,
     },
+    {
+      location: "/Places/Place1.svg",
+      name: "Balada do Marco Aurélio",
+      place: "Sinop - MT",
+      current: true,
+    },
+    {
+      location: "/Places/Place2.svg",
+      name: "Balada do Marco Aurélio",
+      place: "Sinop - MT",
+      current: false,
+    },
+    {
+      location: "/Places/Place1.svg",
+      name: "Balada do Marco Aurélio",
+      place: "Sinop - MT",
+      current: true,
+    },
+    {
+      location: "/Places/Place2.svg",
+      name: "Balada do Marco Aurélio",
+      place: "Sinop - MT",
+      current: false,
+    },
+    {
+      location: "/Places/Place1.svg",
+      name: "Balada do Marco Aurélio",
+      place: "Sinop - MT",
+      current: true,
+    },
+    {
+      location: "/Places/Place2.svg",
+      name: "Balada do Marco Aurélio",
+      place: "Sinop - MT",
+      current: false,
+    },
   ];
   return (
     <Container>
       <GlobalTitle title="Lugares para Curtir" />
       <br />
       <Swiper
-        slidesPerView={width < 768 ? 2 : width >= 768 && width < 1024 ? 5 : 7}
-        spaceBetween={width < 768 ? 0 : width >= 768 && width < 1024 ? 10 : 20}
+        slidesPerView={width < 768 ? 2 : width >= 768 && width < 1024 ? 4 : 6}
+        spaceBetween={1}
       >
         {Places.map((item) => (
           <SwiperSlide>

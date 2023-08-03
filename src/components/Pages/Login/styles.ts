@@ -6,9 +6,15 @@ export const Container = styled.div`
   flex-direction: column;
   background-color: ${({ theme }) => theme.color.secondary_100};
   width: 80%;
-  height: 60vh;
   border-radius: 15px;
-  padding: 5px 15px;
+  padding: 15px;
+  align-self: center;
+  margin-top: 20%;
+
+  @media (min-width: 768px) {
+    width: 30%;
+    margin-top: 10%;
+  }
 `;
 
 export const Logo = styled(Image)`
@@ -30,4 +36,10 @@ export const Form = styled.input`
   &:focus {
     outline: none;
   }
+`;
+
+export const Forgot = styled(Label)`
+  text-decoration: underline;
+  align-self: center;
+  margin-top: 5%;
 `;

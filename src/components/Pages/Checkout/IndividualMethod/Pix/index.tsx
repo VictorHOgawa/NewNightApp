@@ -1,6 +1,6 @@
 import { GlobalButton } from "@/components/Global/Button";
 import { Container, Pix } from "./styles";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Theme from "@/styles/themes";
 import { Video } from "../../Video";
 import { useRouter } from "next/router";
@@ -11,16 +11,27 @@ export function PixMethod() {
   const handleClick = () => {
     setQrCode(true);
   };
+
+  const [width, setWidth] = useState(100);
+
+  const updateDimensions = () => {
+    setWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    setWidth(window.innerWidth);
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
+  }, []);
   return (
     <Container>
       <>
         <GlobalButton
           background={`${Theme.color.pix}`}
           color={`${Theme.color.gray_10}`}
-          width="80%"
+          width={width < 768 ? "80%" : "30%"}
           height="auto"
           content=""
-          style={{ alignSelf: "center", marginTop: "5%" }}
+          style={{ alignSelf: "center", marginTop: width < 768 ? "5%" : "2%" }}
           onClick={handleClick}
         >
           Clique aqui para <br />
@@ -36,8 +47,11 @@ export function PixMethod() {
               content="Finalizar"
               background={`${Theme.color.confirmation}`}
               color={`${Theme.color.gray_10}`}
-              width="50%"
-              style={{ alignSelf: "center", marginTop: "5%" }}
+              width={width < 768 ? "80%" : "30%"}
+              style={{
+                alignSelf: "center",
+                marginTop: width < 768 ? "5%" : "2%",
+              }}
               onClick={() => router.push("/profile")}
             />
           </>

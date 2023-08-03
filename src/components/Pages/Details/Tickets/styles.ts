@@ -24,6 +24,10 @@ export const TicketType = styled.div`
   width: 95%;
   align-self: center;
   border-radius: 5px;
+
+  @media (min-width: 768px) {
+    width: 90%;
+  }
 `;
 
 export const TicketTitle = styled.label`
@@ -50,6 +54,11 @@ export const Items = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
+  @media (min-width: 768px) {
+    width: 100%;
+    align-self: center;
+  }
 `;
 
 export const ItemButton = styled.button`
@@ -58,9 +67,22 @@ export const ItemButton = styled.button`
   margin: 5px;
   border: 0;
   background-color: transparent;
+
+  @media (min-width: 768px) {
+    width: 100px;
+    height: 100px;
+    margin: 5px 5px;
+  }
+
+  @media (min-width: 1024px) {
+    margin: 10px 15px;
+  }
 `;
 
-export const Item = styled(Image)``;
+export const Item = styled(Image)`
+  width: 100%;
+  height: auto;
+`;
 
 export const Check = styled.div``;
 

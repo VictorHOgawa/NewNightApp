@@ -1,5 +1,5 @@
 import { Header } from "@/components/Global/Header";
-import { Banner, Container, DetailImg, Nav } from "./styles";
+import { Banner, Container, DetailImg, FirstContainer, Nav } from "./styles";
 import { GlobalTitle } from "@/components/Global/Title";
 import { Buttons } from "@/components/Pages/Details/Buttons";
 import { Individual } from "@/components/Pages/Details/Individual";
@@ -12,7 +12,7 @@ import Theme from "@/styles/themes";
 import { StaticImage } from "@/components/Global/StaticImg";
 import { Important } from "@/components/Pages/Details/Important";
 import { Back } from "@/components/Global/Back";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StepOne } from "@/components/Pages/Details/Tickets/Steps/1";
 import { StepTwo } from "@/components/Pages/Details/Tickets/Steps/2";
 import { useRouter } from "next/router";
@@ -23,7 +23,7 @@ interface DetailsProps {
   geo: string;
   instagram: string;
   whatsapp: string;
-  date: /* Date */ any;
+  date: Date;
   time: string;
   place: string;
   city: string;
@@ -140,74 +140,210 @@ export default function Details() {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [type, setType] = useState("");
+  const [width, setWidth] = useState(100);
+
+  const updateDimensions = () => {
+    setWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    setWidth(window.innerWidth);
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
+  }, []);
   return (
     <Container>
       <Header />
-      <DetailImg src={event.location} width={1000} height={400} alt="" />
-      <br />
-      <br />
-      <GlobalTitle title={event.name} />
-
-      <br />
-      <Buttons
-        instagram={event.instagram}
-        whatsapp={event.whatsapp}
-        maps={event.geo}
-      />
-      <br />
-      <Individual date={event.date} place={event.place} city={event.city} />
-      <br />
-      {step === 1 ? (
-        <>
-          <Stack direction="horizontal" gap={3} style={{ marginLeft: "4%" }}>
-            <Tabs active={true} />
-            <Tabs active={false} />
-            <Tabs active={false} />
-          </Stack>
-          <StepOne
-            id={event.ticketSlot.id}
-            name={event.ticketSlot.name}
-            ticket={event.ticketSlot.ticket}
+      <FirstContainer>
+        <Stack
+          style={{
+            display: "flex",
+            flexDirection: width < 768 ? "column" : "column-reverse",
+            width: width < 768 ? "100%" : "50%",
+            justifyContent: "center",
+          }}
+        >
+          <br />
+          <DetailImg src={event.location} width={1000} height={400} alt="" />
+          <br />
+          <br />
+          <GlobalTitle
+            title={event.name}
+            marginLeft={width < 768 ? "2.5%" : "5%"}
           />
-        </>
-      ) : (
-        <>
-          <Stack direction="horizontal" gap={3} style={{ marginLeft: "4%" }}>
-            <Tabs active={true} />
-            <Tabs active={true} />
-            <Tabs active={false} />
-          </Stack>
-          <StepTwo product={event.product} type={type} setType={setType} />
-        </>
-      )}
-      <br />
-      <Nav direction="horizontal" gap={2} style={{ alignSelf: "center" }}>
-        <GlobalButton
-          content="Voltar"
-          background={`${Theme.color.secondary_60}`}
-          color={`${Theme.color.gray_10}`}
-          width="auto"
-          disabled={step === 1 ? true : false}
-          onClick={
-            step === 2 && type !== ""
-              ? () => setType("")
-              : () => setStep(step - 1)
-          }
-        />
-        <GlobalButton
-          content={step === 1 || type !== "" ? "Próximo" : "Finalizar"}
-          background={`${Theme.color.confirmation}`}
-          color={`${Theme.color.gray_10}`}
-          width="auto"
-          onClick={
-            type !== ""
-              ? () => setType("")
-              : step === 2 && type === ""
-              ? () => router.push("/checkout")
-              : () => setStep(step + 1)
-          }
-        />
-      </Nav>
+        </Stack>
+        <br />
+
+        {width < 768 ? (
+          <>
+            <Buttons
+              instagram={event.instagram}
+              whatsapp={event.whatsapp}
+              maps={event.geo}
+            />
+            <br />
+            <Individual
+              date={event.date}
+              place={event.place}
+              city={event.city}
+            />
+            <br />
+            {step === 1 ? (
+              <>
+                <Stack
+                  direction="horizontal"
+                  gap={3}
+                  style={{ marginLeft: "4%" }}
+                >
+                  <Tabs active={true} />
+                  <Tabs active={false} />
+                  <Tabs active={false} />
+                </Stack>
+                <StepOne
+                  id={event.ticketSlot.id}
+                  name={event.ticketSlot.name}
+                  ticket={event.ticketSlot.ticket}
+                />
+              </>
+            ) : (
+              <>
+                <Stack
+                  direction="horizontal"
+                  gap={3}
+                  style={{ marginLeft: "4%" }}
+                >
+                  <Tabs active={true} />
+                  <Tabs active={true} />
+                  <Tabs active={false} />
+                </Stack>
+                <StepTwo
+                  product={event.product}
+                  type={type}
+                  setType={setType}
+                />
+              </>
+            )}
+            <br />
+            <Nav direction="horizontal" gap={2} style={{ alignSelf: "center" }}>
+              <GlobalButton
+                content="Voltar"
+                background={`${Theme.color.secondary_60}`}
+                color={`${Theme.color.gray_10}`}
+                width="auto"
+                disabled={step === 1 ? true : false}
+                onClick={
+                  step === 2 && type !== ""
+                    ? () => setType("")
+                    : () => setStep(step - 1)
+                }
+              />
+              <GlobalButton
+                content={step === 1 || type !== "" ? "Próximo" : "Finalizar"}
+                background={`${Theme.color.confirmation}`}
+                color={`${Theme.color.gray_10}`}
+                width="auto"
+                onClick={
+                  type !== ""
+                    ? () => setType("")
+                    : step === 2 && type === ""
+                    ? () => router.push("/checkout")
+                    : () => setStep(step + 1)
+                }
+              />
+            </Nav>
+          </>
+        ) : (
+          <>
+            <Stack
+              style={{
+                display: "flex",
+                width: "50%",
+                justifyContent: "center",
+              }}
+            >
+              <br />
+              <Individual
+                date={event.date}
+                place={event.place}
+                city={event.city}
+              />
+              <Buttons
+                instagram={event.instagram}
+                whatsapp={event.whatsapp}
+                maps={event.geo}
+              />
+              <br />
+              {step === 1 ? (
+                <>
+                  <Stack
+                    direction="horizontal"
+                    gap={3}
+                    style={{ marginLeft: "7.5%" }}
+                  >
+                    <Tabs active={true} />
+                    <Tabs active={false} />
+                    <Tabs active={false} />
+                  </Stack>
+                  <StepOne
+                    id={event.ticketSlot.id}
+                    name={event.ticketSlot.name}
+                    ticket={event.ticketSlot.ticket}
+                  />
+                </>
+              ) : (
+                <>
+                  <Stack
+                    direction="horizontal"
+                    gap={3}
+                    style={{ marginLeft: "4%" }}
+                  >
+                    <Tabs active={true} />
+                    <Tabs active={true} />
+                    <Tabs active={false} />
+                  </Stack>
+                  <StepTwo
+                    product={event.product}
+                    type={type}
+                    setType={setType}
+                  />
+                </>
+              )}
+              <br />
+              <Nav
+                direction="horizontal"
+                gap={2}
+                style={{ alignSelf: "center" }}
+              >
+                <GlobalButton
+                  content="Voltar"
+                  background={`${Theme.color.secondary_60}`}
+                  color={`${Theme.color.gray_10}`}
+                  width="auto"
+                  disabled={step === 1 ? true : false}
+                  onClick={
+                    step === 2 && type !== ""
+                      ? () => setType("")
+                      : () => setStep(step - 1)
+                  }
+                />
+                <GlobalButton
+                  content={step === 1 || type !== "" ? "Próximo" : "Finalizar"}
+                  background={`${Theme.color.confirmation}`}
+                  color={`${Theme.color.gray_10}`}
+                  width="auto"
+                  onClick={
+                    type !== ""
+                      ? () => setType("")
+                      : step === 2 && type === ""
+                      ? () => router.push("/checkout")
+                      : () => setStep(step + 1)
+                  }
+                />
+              </Nav>
+            </Stack>
+          </>
+        )}
+        <br />
+      </FirstContainer>
       <br />
       <Banner />
       <br />
@@ -217,7 +353,6 @@ export default function Details() {
       <br />
       <Music music={event.music} />
       <br />
-
       <Stack direction="horizontal" gap={2} style={{ alignSelf: "center" }}>
         <GlobalButton
           background={`${Theme.color.confirmation}`}

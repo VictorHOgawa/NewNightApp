@@ -15,6 +15,12 @@ export const Container = styled.div`
   border-bottom-right-radius: 10px;
   border-top-left-radius: 10px;
   object-fit: cover;
+
+  @media (min-width: 768px) {
+    width: 30%;
+    margin-left: 35%;
+    margin-top: 2%;
+  }
 `;
 
 export const Img = styled(Image)`

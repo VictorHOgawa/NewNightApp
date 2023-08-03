@@ -63,22 +63,22 @@ export function StepTwo({ product, type, setType }: StepTwoProps) {
       {type === "" ? (
         <Items>
           <ItemButton onClick={() => handleSelectType("VODKA")}>
-            <Item src="/Events/Item1.svg" width={75} height={75} alt="" />
+            <Item src="/Events/Item1.svg" width={200} height={200} alt="" />
           </ItemButton>
           <ItemButton onClick={() => handleSelectType("WHISKEY")}>
-            <Item src="/Events/Item2.svg" width={75} height={75} alt="" />
+            <Item src="/Events/Item2.svg" width={200} height={200} alt="" />
           </ItemButton>
           <ItemButton onClick={() => handleSelectType("CERVEJA")}>
-            <Item src="/Events/Item3.svg" width={75} height={75} alt="" />
+            <Item src="/Events/Item3.svg" width={200} height={200} alt="" />
           </ItemButton>
           <ItemButton onClick={() => handleSelectType("COMBOS")}>
-            <Item src="/Events/Item4.svg" width={75} height={75} alt="" />
+            <Item src="/Events/Item4.svg" width={200} height={200} alt="" />
           </ItemButton>
           <ItemButton onClick={() => handleSelectType("ENERGÉTICOS")}>
-            <Item src="/Events/Item5.svg" width={75} height={75} alt="" />
+            <Item src="/Events/Item5.svg" width={200} height={200} alt="" />
           </ItemButton>
           <ItemButton onClick={() => handleSelectType("OUTROS")}>
-            <Item src="/Events/Item6.svg" width={75} height={75} alt="" />
+            <Item src="/Events/Item6.svg" width={200} height={200} alt="" />
           </ItemButton>
         </Items>
       ) : (

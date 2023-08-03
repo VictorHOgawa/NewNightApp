@@ -8,6 +8,7 @@ export function Description({ description }: DescriptionProps) {
   return (
     <Container>
       <GlobalTitle title={description.name} />
+      <br />
       {description.description}
     </Container>
   );

@@ -1,4 +1,3 @@
-import { Cards } from "@/components/Pages/Match/Cards";
 import {
   Arrow1,
   Arrow2,
@@ -49,20 +48,28 @@ export default function Match() {
     return [state, dispatch, ref];
   }
 
+  function useStateRefIndex(defaultValue: any) {
+    const [state, setState] = useState(defaultValue);
+    const ref = useRef(state);
+
+    const dispatch: any = useCallback((value: any) => {
+      ref.current = typeof value === "function" ? value(ref.current) : value;
+      setState(ref.current);
+    }, []);
+
+    return [state, dispatch, ref];
+  }
+
   const [count, setCount, countRef] = useStateRef(false);
-  const [gsapCount, setGsapCount] = useState(false);
+  const [index, setIndex, indexRef] = useStateRefIndex(0);
 
   const router = useRouter();
   const [people, setPeople] = useState(People);
   const [shown, setShown] = useState(people[0]);
   const [selectedPhoto, setSelectedPhoto] = useState(1);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [clicked, setClicked] = useState(false);
   const [reversed, setReversed] = useState(false);
-  const [likeAnimation, setLikeAnimation] = useState(false);
   const itemRef = useRef(null);
   let teste = false;
-  // const { main, mainTL } = MainAnimation();
   const main = useRef(null);
   const mainTL = useRef<gsap.core.Timeline | null>(null);
   useLayoutEffect(() => {
@@ -128,28 +135,6 @@ export default function Match() {
   }, [reversed]);
 
   const likedTL = useRef<gsap.core.Timeline | null>(null);
-  const [likedClosed, setLikedClosed] = useState(false);
-  // useLayoutEffect(() => {
-  //   let ctx = gsap.context(() => {
-  //     likedTL.current = gsap
-  //       .timeline({
-  //         defaults: {
-  //           duration: 0.5,
-  //         },
-  //       })
-  //       .fromTo(".fullCard", { x: 0 }, { x: 400, opacity: 0 }, 1)
-  //       .fromTo(
-  //         ".fullCard",
-  //         { x: 400 },
-  //         { x: 0, opacity: 1, duration: 0.000001 }
-  //       );
-  //   }, main);
-  //   return () => ctx.revert();
-  // }, []);
-
-  // useEffect(() => {
-  //   likedClosed === true ? likedTL.current?.play() : likedTL.current?.reverse();
-  // }, [likedClosed]);
 
   const handleLiked = () => {
     let ctx = gsap.context(() => {
@@ -166,8 +151,7 @@ export default function Match() {
             x: 400,
             opacity: 0,
             onComplete: () => {
-              console.log("entrou no completou");
-              setShown(people[currentIndex + 1]);
+              setShown(people[indexRef.current + 1]);
               setSelectedPhoto(1);
             },
           }
@@ -181,8 +165,7 @@ export default function Match() {
             duration: 0.00001,
             delay: 0.5,
             onComplete: () => {
-              console.log("entrou no outro completou");
-              setCurrentIndex(currentIndex + 1);
+              setIndex(indexRef.current + 1);
             },
           }
         )
@@ -201,51 +184,19 @@ export default function Match() {
           { x: 0, opacity: 1 },
           0.5
         );
-
-      // .fromTo(".behind", { opacity: 0 }, { opacity: 1 }, 0)
-      // .fromTo(".behind", { opacity: 1 }, { opacity: 0 }, 0);
     }, main);
     setCount(false);
   };
-  //
+
   useEffect(() => {
     if (countRef.current) return setReversed(!reversed);
   }, [count]);
 
   const handleLikedOpen = () => {
     setCount(true);
-    console.log(
-      "countRef.current dentro da função de dentro:",
-      countRef.current
-    );
   };
-  // useEffect(() => {
-  //   clicked === true ? setShown(people[currentIndex + 1]) : null;
 
-  //   setShown(people[currentIndex + 1]);
-  //   setCurrentIndex(currentIndex + 1);
-  // }, []);
   const dislikedTL = useRef<gsap.core.Timeline | null>(null);
-  const [dislikedClosed, setDislikedClosed] = useState(false);
-
-  // useLayoutEffect(() => {
-  //   let ctx = gsap.context(() => {
-  //     dislikedTL.current = gsap
-  //       .timeline({
-  //         defaults: {
-  //           duration: 0.5,
-  //         },
-  //       })
-  //       .fromTo(".fullCard", { x: 0 }, { x: -400 });
-  //   }, main);
-  //   return () => ctx.revert();
-  // }, []);
-
-  // useEffect(() => {
-  //   dislikedClosed === true
-  //     ? dislikedTL.current?.play()
-  //     : dislikedTL.current?.reverse();
-  // }, [dislikedClosed]);
 
   const handleDisliked = () => {
     let ctx = gsap.context(() => {
@@ -255,16 +206,38 @@ export default function Match() {
             duration: 0.5,
           },
         })
-        .fromTo(".fullCard", { x: 0 }, { x: -400, opacity: 0 })
+        .fromTo(
+          ".fullCard",
+          { x: 0 },
+          {
+            x: -400,
+            opacity: 0,
+            onComplete: () => {
+              setShown(people[indexRef.current + 1]);
+              setSelectedPhoto(1);
+            },
+          }
+        )
         .fromTo(
           ".fullCard",
           { x: -400 },
-          { x: 0, opacity: 1, duration: 0.00001 }
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.00001,
+            delay: 0.5,
+            onComplete: () => {
+              setIndex(indexRef.current + 1);
+            },
+          }
         )
         .fromTo(
           ".indDetails",
           { x: 0, opacity: 1 },
-          { x: 400, opacity: 0 },
+          {
+            x: 400,
+            opacity: 0,
+          },
           0.5
         )
         .fromTo(
@@ -274,9 +247,11 @@ export default function Match() {
           0.5
         );
     }, main);
-    setShown(people[currentIndex + 1]);
-    setCurrentIndex(currentIndex + 1);
-    setSelectedPhoto(1);
+    setCount(false);
+  };
+
+  const handleDislikedOpen = () => {
+    setCount(true);
   };
 
   const [open, setOpen] = useState(false);
@@ -348,14 +323,11 @@ export default function Match() {
                 className="details"
               />
             </Card>
-            {/* {open === true ? (
-            <></>
-          ) : (
-            <> */}
             <Behind className="behind">
               <Photo
                 src={
-                  people[currentIndex + 1].photos[selectedPhoto - 1].location
+                  people[indexRef.current + 1].photos[selectedPhoto - 1]
+                    .location
                 }
                 width={800}
                 height={1600}
@@ -380,8 +352,6 @@ export default function Match() {
                 className="details"
               />
             </Behind>
-            {/* </>
-          )} */}
           </div>
           <Footer1 className="footer">
             <Buttons onClick={handleDisliked}>1</Buttons>
@@ -448,7 +418,7 @@ export default function Match() {
           </FooterHeader>
           <Description className="indDetails">{shown.description}</Description>
           <FooterFooter>
-            <Buttons onClick={handleDisliked}>1</Buttons>
+            <Buttons onClick={handleDislikedOpen}>1</Buttons>
             <Buttons>2</Buttons>
             <Buttons onClick={handleLikedOpen}>3</Buttons>
           </FooterFooter>

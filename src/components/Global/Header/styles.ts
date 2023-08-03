@@ -10,9 +10,6 @@ export const Top = styled.div`
   align-items: center;
   padding: 0 10px;
   justify-content: space-between;
-
-  @media (min-width: 768px) {
-  }
 `;
 
 export const Logo = styled(Image)`
@@ -54,9 +51,20 @@ export const Moon = styled(Image)`
   height: 65px;
 `;
 
+export const XTop = styled(Top)`
+  justify-content: center;
+`;
+
 export const XLogo = styled(Image)`
   width: 40%;
   height: auto;
   align-self: center;
-  margin-left: 30%;
+
+  @media (min-width: 768px) {
+    width: 35%;
+  }
+
+  @media (min-width: 1024px) {
+    width: 15%;
+  }
 `;

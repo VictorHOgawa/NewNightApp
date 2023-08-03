@@ -16,8 +16,8 @@ export function Individual({ date, place, city }: IndividualProps) {
         <Text>
           <Icons src="/Global/Icons/Clock.svg" width={20} height={20} alt="" />{" "}
           {""}
-          <strong>{moment(date).format("LL")}</strong> {""} às {""}
-          {moment(date).format("LT")}
+          <strong>{/* {moment(date).format("LL")} */}</strong> {""} às {""}
+          {/* {moment(date).format("LT")} */}
         </Text>
         <Text>
           <Icons

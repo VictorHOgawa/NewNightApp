@@ -9,6 +9,11 @@ export const Container = styled.div`
   width: 80%;
   margin-left: 10%;
   padding: 10px;
+
+  @media (min-width: 768px) {
+    width: 40%;
+    margin-left: 30%;
+  }
 `;
 
 export const IndividualTotal = styled.div`

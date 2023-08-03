@@ -7,9 +7,15 @@ interface SelectedProps {
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: column;
   width: 95%;
   margin-left: 2.5%;
+  justify-content: space-between;
+
+  @media (min-width: 768px) {
+    width: 50%;
+    margin-left: 25%;
+    justify-content: space-evenly;
+  }
 `;
 
 export const Button = styled.button<SelectedProps>`
@@ -23,6 +29,10 @@ export const Button = styled.button<SelectedProps>`
   color: ${({ theme }) => theme.color.gray_10};
   background-color: ${({ theme, selected }) =>
     selected ? theme.color.secondary_100 : "transparent"};
+
+  @media (min-width: 768px) {
+    width: 40%;
+  }
 `;
 
 export const Icon = styled(Image)`

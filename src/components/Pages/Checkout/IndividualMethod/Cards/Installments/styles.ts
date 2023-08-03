@@ -7,6 +7,10 @@ export const Container = styled.div`
   margin-top: 5%;
   width: 90%;
   align-self: center;
+
+  @media (min-width: 768px) {
+    width: 30%;
+  }
 `;
 
 export const Button = styled(Dropdown)``;

@@ -11,10 +11,28 @@ export const Icon = styled(Image)`
   height: 20px;
 `;
 
+export const CardContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5%;
+  margin-bottom: 20%;
+`;
+
 export const NightAppCard = styled(Image)`
+  position: absolute;
   width: 100%;
   height: auto;
   align-self: center;
+
+  @media (min-width: 768px) {
+    width: 30%;
+  }
+`;
+
+export const CardDetails = styled.label`
+  z-index: 2;
+  color: ${({ theme }) => theme.color.gray_10};
 `;
 
 export const Form = styled.input`

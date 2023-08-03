@@ -16,6 +16,16 @@ export const Main = styled.div`
   line-height: 1;
   border-radius: 5px;
   padding-top: 5px;
+
+  @media (min-width: 768px) {
+    width: 55px;
+    height: 55px;
+  }
+
+  @media (min-width: 1024px) {
+    width: 60px;
+    height: 60px;
+  }
 `;
 
 export const Footer = styled.div`
@@ -24,17 +34,15 @@ export const Footer = styled.div`
   justify-content: center;
   text-align: center;
   background-color: ${({ theme }) => theme.color.primary_60};
-  height: 15px;
+  height: 20px;
   width: 100%;
   color: ${({ theme }) => theme.color.gray_10};
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  padding-top: 3px;
 `;
 
 export const Date = styled.label`
   font-size: ${px2vw(13, 320)};
-  font-weight: bold;
 
   @media (min-width: 768px) {
     font-size: ${px2vw(13, 768)};

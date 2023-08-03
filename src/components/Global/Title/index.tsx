@@ -1,6 +1,6 @@
 import { Container, Text } from "./styles";
 
-interface TitleProps {
+interface TitleProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   marginTop?: any;
   marginLeft?: any;
@@ -16,7 +16,9 @@ export function GlobalTitle({
 }: TitleProps) {
   return (
     <Container marginTop={marginTop} marginLeft={marginLeft} {...rest}>
-      <Text fontSize={fontSize}>{title}</Text>
+      <Text fontSize={fontSize} {...rest}>
+        {title}
+      </Text>
     </Container>
   );
 }

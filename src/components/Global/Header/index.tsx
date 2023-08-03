@@ -10,6 +10,7 @@ import {
   Moon,
   Top,
   XLogo,
+  XTop,
 } from "./styles";
 import { useRouter } from "next/router";
 import { Back } from "../Back";
@@ -39,12 +40,14 @@ export function Header({ page = "secondary" }: HeaderProps) {
                 background={`${Theme.color.primary_80}`}
                 color={`${Theme.color.gray_10}`}
                 width="auto"
+                fontSize={12}
               />
               <GlobalButton
                 content="Se Cadastrar"
                 background={`${Theme.color.primary_80}`}
                 color={`${Theme.color.gray_10}`}
                 width="auto"
+                fontSize={12}
               />
             </ButtonGroup>
           </Top>
@@ -68,7 +71,7 @@ export function Header({ page = "secondary" }: HeaderProps) {
               width={65}
               height={65}
               alt=""
-              onClick={() => router.push("/match")}
+              onClick={() => router.push("/matchregister")}
             />
             <Icon
               src="/Global/Icons/TicketIcon.svg"
@@ -88,7 +91,7 @@ export function Header({ page = "secondary" }: HeaderProps) {
         </>
       ) : (
         <>
-          <Top>
+          <XTop>
             <Back />
             <XLogo
               src="/Global/logoHorizontal.svg"
@@ -96,7 +99,7 @@ export function Header({ page = "secondary" }: HeaderProps) {
               height={300}
               alt=""
             />
-          </Top>
+          </XTop>
         </>
       )}
     </Container>

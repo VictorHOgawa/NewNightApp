@@ -33,6 +33,7 @@ export function StepOne({ id, name, ticket }: StepOneProps) {
     const tickets = cart.ticket.ticket.filter(
       (item: { id: string }) => item.id !== ticket.id
     );
+
     if (type === "increase") {
       const quantity = exists ? exists.quantity + 1 : 1;
 
@@ -60,8 +61,8 @@ export function StepOne({ id, name, ticket }: StepOneProps) {
   }
   return (
     <>
-      <Title>{name}</Title>
       <Stack gap={2}>
+        <Title>{name}</Title>
         {ticket.map((item) => (
           <TicketType>
             <StaticImage

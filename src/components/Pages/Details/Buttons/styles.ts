@@ -18,6 +18,15 @@ export const Button = styled.button<ButtonProps>`
   color: ${({ theme }) => theme.color.gray_10};
   padding: 2px 5px;
   font-size: ${px2vw(14, 320)};
+
+  @media (min-width: 768px) {
+    font-size: ${px2vw(14, 768)};
+  }
+
+  @media (min-width: 1024px) {
+    font-size: ${px2vw(14, 1024)};
+    margin: 10px;
+  }
 `;
 
 export const Icons = styled(Image)`

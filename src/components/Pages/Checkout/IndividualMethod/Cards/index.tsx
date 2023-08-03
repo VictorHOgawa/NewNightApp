@@ -2,7 +2,7 @@ import { Stack } from "react-bootstrap";
 import { Container, Icon } from "./styles";
 import { GlobalButton } from "@/components/Global/Button";
 import Theme from "@/styles/themes";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NewCard } from "./NewCard";
 import { Installments } from "./Installments";
 export function CardMethod() {
@@ -11,6 +11,16 @@ export function CardMethod() {
   const [stepTwo, setStepTwo] = useState(false);
   const [installments, setInstallments] = useState(false);
   const [stepThree, setStepThree] = useState(false);
+  const [width, setWidth] = useState(100);
+
+  const updateDimensions = () => {
+    setWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    setWidth(window.innerWidth);
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
+  }, []);
 
   const [formData, setFormData] = useState({
     cardName: "",
@@ -23,7 +33,20 @@ export function CardMethod() {
     Number: "",
   });
 
-  function handleBack() {}
+  function handleBack() {
+    if (installments && !newCard && !stepTwo) {
+      return setInstallments(false);
+    }
+    if (newCard && !stepTwo) {
+      return setNewCard(false);
+    }
+    if (stepTwo && !installments) {
+      return setStepTwo(false);
+    }
+    if (stepTwo && installments) {
+      return setNewCard(true);
+    }
+  }
   function handleNext() {
     if (selected === "") {
       return alert("Selecione um Cartão");
@@ -59,7 +82,10 @@ export function CardMethod() {
       formData.CEP !== "" &&
       formData.Number !== ""
     ) {
-      return setInstallments(true);
+      {
+        setInstallments(true);
+        setNewCard(false);
+      }
     }
     if (
       selected === "selected3" &&
@@ -82,11 +108,16 @@ export function CardMethod() {
     }
   }
 
-  console.log("selected:", selected);
-  console.log("newCard:", newCard);
-  console.log("installments:", installments);
-  console.log("stepTwo:", stepTwo);
-  console.log("formData:", formData);
+  // console.log("selected:", selected);
+  console.log(
+    "newCard, stepTwo, installments:",
+    newCard,
+    stepTwo,
+    installments
+  );
+  // console.log("installments:", installments);
+  // console.log("stepTwo:", stepTwo);
+  // console.log("formData:", formData);
   return (
     <Container>
       {newCard ? (
@@ -98,19 +129,19 @@ export function CardMethod() {
           />
         </>
       ) : installments ? (
-        <Installments />
+        <Installments formData={formData} />
       ) : (
         <>
           <Stack>
             <GlobalButton
               background={`${Theme.color.secondary_80}`}
               color={`${Theme.color.gray_10}`}
-              width="75%"
+              width={width < 768 ? "75%" : "25%"}
               height="auto"
               content=""
               style={{
                 alignSelf: "center",
-                marginTop: "5%",
+                marginTop: width < 768 ? "5%" : "2%",
                 display: "flex",
                 justifyContent: "space-evenly",
                 padding: 10,
@@ -124,18 +155,21 @@ export function CardMethod() {
                 value="selected1"
                 onChange={() => setSelected("selected1")}
               />
-              <Icon src="/Checkout/Cards.svg" width={20} height={20} alt="" />
-              <label htmlFor="selected1">XXXX XXXX XXXX 1234</label>
+
+              <label htmlFor="selected1">
+                <Icon src="/Checkout/Cards.svg" width={20} height={20} alt="" />
+                {""} XXXX XXXX XXXX 1234
+              </label>
             </GlobalButton>
             <GlobalButton
               background={`${Theme.color.secondary_80}`}
               color={`${Theme.color.gray_10}`}
-              width="75%"
+              width={width < 768 ? "75%" : "25%"}
               height="auto"
               content=""
               style={{
                 alignSelf: "center",
-                marginTop: "5%",
+                marginTop: width < 768 ? "5%" : "2%",
                 display: "flex",
                 justifyContent: "space-evenly",
                 padding: 10,
@@ -149,21 +183,25 @@ export function CardMethod() {
                 value="selected2"
                 onChange={() => setSelected("selected2")}
               />
-              <Icon src="/Checkout/Cards.svg" width={20} height={20} alt="" />
-              <label htmlFor="selected2">XXXX XXXX XXXX 1234</label>
+
+              <label htmlFor="selected2">
+                <Icon src="/Checkout/Cards.svg" width={20} height={20} alt="" />
+                {""} XXXX XXXX XXXX 1234
+              </label>
             </GlobalButton>
             <GlobalButton
               background={`${Theme.color.secondary_80}`}
               color={`${Theme.color.gray_10}`}
-              width="75%"
+              width={width < 768 ? "75%" : "25%"}
               height="auto"
               content=""
               style={{
                 alignSelf: "center",
-                marginTop: "5%",
+                marginTop: width < 768 ? "5%" : "2%",
                 display: "flex",
                 justifyContent: "space-evenly",
                 padding: 10,
+                alignItems: "center",
               }}
             >
               <input
@@ -173,8 +211,11 @@ export function CardMethod() {
                 value="selected3"
                 onChange={() => setSelected("selected3")}
               />
-              <Icon src="/Checkout/Add.svg" width={20} height={20} alt="" />
-              <label htmlFor="selected3">Pagar com Outro Cartão</label>
+
+              <label htmlFor="selected3">
+                <Icon src="/Checkout/Add.svg" width={20} height={20} alt="" />
+                {""} Pagar com Outro Cartão
+              </label>
             </GlobalButton>
           </Stack>
         </>
@@ -196,11 +237,12 @@ export function CardMethod() {
           width="auto"
           disabled={newCard || installments ? false : true}
           onClick={
-            newCard === true
-              ? () => setNewCard(false)
-              : installments === true
-              ? () => setInstallments(false)
-              : () => null
+            () => handleBack()
+            // newCard === true
+            //   ? () => setNewCard(false)
+            //   : installments === true
+            //   ? () => setInstallments(false)
+            //   : () => null
           }
         />
         <GlobalButton

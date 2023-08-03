@@ -1,3 +1,4 @@
+import px2vw from "@/utils/size";
 import Image from "next/image";
 import { styled } from "styled-components";
 
@@ -20,7 +21,7 @@ export const Container = styled.div`
   }
 
   @media (min-width: 1024px) {
-    width: 30%;
+    width: 25%;
   }
 `;
 
@@ -33,10 +34,27 @@ export const EventBody = styled.div`
   display: flex;
   flex-direction: column;
   padding: 5px;
+
+  @media (min-width: 768px) {
+    padding: 10px;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 15px;
+  }
 `;
 
 export const EventTitle = styled.label`
   color: ${({ theme }) => theme.color.gray_10};
+  font-size: ${px2vw(15, 320)};
+
+  @media (min-width: 768px) {
+    font-size: ${px2vw(15, 768)};
+  }
+
+  @media (min-width: 1024px) {
+    font-size: ${px2vw(15, 1024)};
+  }
 `;
 
 export const EventFooter = styled.div`
