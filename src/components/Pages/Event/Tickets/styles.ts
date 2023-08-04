@@ -1,3 +1,4 @@
+import px2vw from "@/utils/size";
 import Image from "next/image";
 import { test } from "node:test";
 import { styled } from "styled-components";
@@ -18,9 +19,12 @@ export const TicketType = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 5px;
+  padding: 5px;
   margin-top: 5px;
-  background-color: ${({ theme }) => theme.color.secondary_80};
+  /* background-color: ${({ theme }) => theme.color.secondary_80};
+   */
+  background: linear-gradient(90deg, #8f00ff, #dd7cff);
+
   width: 95%;
   align-self: center;
   border-radius: 5px;
@@ -33,6 +37,16 @@ export const TicketType = styled.div`
 export const TicketTitle = styled.label`
   color: ${({ theme }) => theme.color.gray_10};
   text-align: start;
+  font-size: ${px2vw(15, 320)};
+  margin-right: 30px;
+
+  @media (min-width: 768px) {
+    font-size: ${px2vw(15, 768)};
+  }
+
+  @media (min-width: 1024px) {
+    font-size: ${px2vw(15, 1024)};
+  }
 `;
 
 export const CounterArea = styled.div`
@@ -46,7 +60,7 @@ export const Counter = styled.div`
   color: white;
   width: 50px;
   justify-content: center;
-  margin: 0 5px;
+  margin: 0 10px;
   padding-top: 2px;
 `;
 
@@ -62,8 +76,8 @@ export const Items = styled.div`
 `;
 
 export const ItemButton = styled.button`
-  width: 75px;
-  height: 75px;
+  width: 85px;
+  height: 85px;
   margin: 5px;
   border: 0;
   background-color: transparent;

@@ -42,18 +42,6 @@ export const Nav = styled(Stack)`
   display: flex;
   width: 100%;
   justify-content: center;
-  &::after {
-    align-self: center;
-    position: absolute;
-    content: "";
-    width: 70%;
-    border-bottom: 1px solid white;
-    margin-top: 60px;
-
-    @media (min-width: 768px) {
-      width: 30%;
-    }
-  }
 `;
 
 export const Banner = styled.div`
@@ -62,6 +50,7 @@ export const Banner = styled.div`
   background-color: red;
   align-self: center;
   border-radius: 20px;
+  margin-top: 5%;
 
   @media (min-width: 768px) {
     width: 70%;

@@ -24,7 +24,7 @@ export function Items() {
   ];
   return (
     <Container>
-      <Row>
+      <Row style={{ display: "flex", justifyContent: "center" }}>
         {List.map((item) => (
           <Btn>
             <Img

@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import {
   Container,
   PlaceCurrent,
@@ -13,8 +14,9 @@ interface Props {
   current: boolean;
 }
 export function Card({ location, name, place, current }: Props) {
+  const router = useRouter();
   return (
-    <Container>
+    <Container onClick={() => router.push("/place")}>
       <SliderImg src={location} width={400} height={200} alt="" />
       <PlaceCurrent current={current}>
         {current ? "Aberto" : "Fechado"}

@@ -24,7 +24,7 @@ export const Container = styled.div`
     @media (min-width: 768px) {
       margin-left: 0;
       width: 32%;
-      margin-top: 120px;
+      margin-top: 75px;
     }
   }
 `;

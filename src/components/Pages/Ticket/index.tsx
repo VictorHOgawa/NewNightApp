@@ -24,7 +24,7 @@ export function TicketCards() {
   const Tickets = [1, 2, 3];
   return (
     <Container>
-      <GlobalTitle title="Meus Ingressos" marginTop="10%" />
+      <GlobalTitle title="Meus Ingressos" marginTop="15%" />
       <br />
       <Stack gap={0}>
         {Tickets.map((item) => (

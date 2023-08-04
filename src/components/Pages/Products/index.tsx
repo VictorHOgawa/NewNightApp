@@ -171,7 +171,7 @@ export function ProductCards() {
                             height="auto"
                           />
                           <GlobalButton
-                            content="Produtos"
+                            content="Pagamento"
                             background={`${Theme.color.confirmation}`}
                             color={`${Theme.color.background}`}
                             width="auto"

@@ -8,6 +8,11 @@ export const Container = styled.div`
   justify-content: center;
   margin-top: 5%;
   margin-left: 10%;
+
+  @media (min-width: 768px) {
+    width: 60%;
+    margin-left: 20%;
+  }
 `;
 
 export const Btn = styled.button`
@@ -17,6 +22,11 @@ export const Btn = styled.button`
   background-color: ${({ theme }) => theme.color.primary_40};
   border-radius: 10px;
   margin: 5%;
+
+  @media (min-width: 768px) {
+    width: 20%;
+    margin: 2%;
+  }
 `;
 
 export const Img = styled(Image)`

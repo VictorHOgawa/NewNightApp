@@ -8,6 +8,10 @@ export const Container = styled.div`
   flex-direction: column;
   width: 95%;
   align-self: center;
+
+  @media (min-width: 768px) {
+    width: 30%;
+  }
 `;
 
 export const Card = styled.div`
@@ -35,17 +39,33 @@ export const Icons = styled(Image)`
 `;
 
 export const Text = styled.div`
-  font-size: ${px2vw(12, 320)};
   color: ${({ theme }) => theme.color.gray_10};
+  font-size: ${px2vw(12, 320)};
+
+  @media (min-width: 768px) {
+    font-size: ${px2vw(12, 768)};
+  }
+
+  @media (min-width: 1024px) {
+    font-size: ${px2vw(12, 1024)};
+  }
 `;
 
 export const Area = styled.div`
   border: 1px solid ${({ theme }) => theme.color.primary_60};
   border-radius: 5px;
   color: ${({ theme }) => theme.color.gray_10};
-  font-size: ${px2vw(12, 320)};
   padding: 0px 2px;
   height: max-content;
+  font-size: ${px2vw(12, 320)};
+
+  @media (min-width: 768px) {
+    font-size: ${px2vw(12, 768)};
+  }
+
+  @media (min-width: 1024px) {
+    font-size: ${px2vw(12, 1024)};
+  }
 `;
 
 export const Match = styled(Image)`

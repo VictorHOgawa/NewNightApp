@@ -11,10 +11,8 @@ export default function MatchRegister() {
         height={2000}
         alt=""
       />
-
       <Register />
       <br />
-
       <Learn />
     </Container>
   );

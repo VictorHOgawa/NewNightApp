@@ -1,5 +1,6 @@
 import { Col, Row } from "react-bootstrap";
 import { Container, FullTotal, IndividualTotal } from "./styles";
+import { useState } from "react";
 
 export function Total() {
   const Items = [
@@ -29,43 +30,51 @@ export function Total() {
     },
   ];
 
+  const [seeAll, setSeeAll] = useState(false);
+
   return (
     <Container>
-      {Items.map((item) =>
-        item.cost === 0 ? (
-          <></>
-        ) : (
-          <IndividualTotal>
-            <Row
-              style={{
-                display: "flex",
-                width: "100%",
-                alignItems: "center",
-                justifyContent: "space-between",
-                textAlign: "center",
-              }}
-            >
-              <Col
-                style={{
-                  display: "flex",
-                }}
-              >
-                {item.product}
-              </Col>
-              <Col
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                }}
-              >
-                {item.cost.toLocaleString("pt-br", {
-                  style: "currency",
-                  currency: "BRL",
-                })}
-              </Col>
-            </Row>
-          </IndividualTotal>
-        )
+      {!seeAll ? (
+        <></>
+      ) : (
+        <>
+          {Items.map((item) =>
+            item.cost === 0 ? (
+              <></>
+            ) : (
+              <IndividualTotal>
+                <Row
+                  style={{
+                    display: "flex",
+                    width: "100%",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    textAlign: "center",
+                  }}
+                >
+                  <Col
+                    style={{
+                      display: "flex",
+                    }}
+                  >
+                    {item.product}
+                  </Col>
+                  <Col
+                    style={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                    }}
+                  >
+                    {item.cost.toLocaleString("pt-br", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
+                  </Col>
+                </Row>
+              </IndividualTotal>
+            )
+          )}
+        </>
       )}
       <FullTotal>
         <Row
@@ -88,6 +97,17 @@ export function Total() {
           </Col>
         </Row>
       </FullTotal>
+      <a
+        onClick={() => setSeeAll(!seeAll)}
+        style={{
+          textAlign: "center",
+          marginTop: "5%",
+          textDecoration: "underline",
+          cursor: "pointer",
+        }}
+      >
+        Ver Detalhes
+      </a>
     </Container>
   );
 }

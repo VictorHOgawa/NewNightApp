@@ -31,4 +31,10 @@ export const Container = styled(Button)<ButtonProps>`
   &:disabled {
     background-color: ${({ theme }) => theme.color.secondary_60};
   }
+
+  &:hover {
+    background: ${(props) => (props.background ? props.background : "black")};
+    opacity: 0.8;
+    scale: 1.025;
+  }
 `;

@@ -82,7 +82,25 @@ export function NewCard({ formData, setFormData, stepTwo }: NewCardProps) {
             display: "flex",
             flexDirection: "column",
             marginLeft: "30%",
-            marginTop: "15%",
+            textAlign: "center",
+          }}
+        >
+          <CardDetails>
+            {formData.expirationDate === ""
+              ? "Expiração"
+              : formData.expirationDate}
+          </CardDetails>
+          <CardDetails>
+            {formData.cvc === "" ? "CVC" : formData.cvc}
+          </CardDetails>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            marginLeft: "30%",
+            marginTop: "5%",
+            textAlign: "center",
           }}
         >
           <CardDetails>

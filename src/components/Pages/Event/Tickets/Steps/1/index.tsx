@@ -9,6 +9,8 @@ import {
 import { StaticImage } from "@/components/Global/StaticImg";
 import { StaticImg } from "@/components/Global/StaticImg/styles";
 import { useCart } from "@/context/cart";
+import { GlobalTitle } from "@/components/Global/Title";
+import { useState, useEffect } from "react";
 
 interface StepOneProps {
   id: string;
@@ -21,6 +23,16 @@ interface StepOneProps {
 }
 
 export function StepOne({ id, name, ticket }: StepOneProps) {
+  const [width, setWidth] = useState(100);
+
+  const updateDimensions = () => {
+    setWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    setWidth(window.innerWidth);
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
+  }, []);
   const { cart, add } = useCart();
 
   const handleChange = (
@@ -62,17 +74,20 @@ export function StepOne({ id, name, ticket }: StepOneProps) {
   return (
     <>
       <Stack gap={2}>
-        <Title>{name}</Title>
+        <GlobalTitle
+          title={name}
+          style={{ marginTop: "15%", marginLeft: width < 768 ? "2.5%" : "5%" }}
+        />
         {ticket.map((item) => (
           <TicketType>
             <StaticImage
-              src="/Global/Icons/TicketIcon.svg"
-              width={20}
-              height={20}
+              src="/Checkout/ticket.svg"
+              width={40}
+              height={40}
               alt=""
             />
             <TicketTitle>
-              <strong>{item.name}</strong>
+              <strong style={{ fontSize: 18 }}>{item.name}</strong>
               <br />{" "}
               {item.value.toLocaleString("pt-BR", {
                 style: "currency",
@@ -82,16 +97,16 @@ export function StepOne({ id, name, ticket }: StepOneProps) {
             <CounterArea>
               <StaticImg
                 src="/Global/Icons/Minus.svg"
-                width={20}
-                height={20}
+                width={30}
+                height={30}
                 alt=""
                 onClick={() => handleChange("decrease", item)}
               />
               <Counter>{ticketQuantity(item.id)}</Counter>
               <StaticImg
                 src="/Global/Icons/Plus.svg"
-                width={20}
-                height={20}
+                width={30}
+                height={30}
                 alt=""
                 onClick={() => handleChange("increase", item)}
               />

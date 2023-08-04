@@ -1,10 +1,11 @@
 import { Stack } from "react-bootstrap";
-import { Container, Icon } from "./styles";
+import { Container, Form, Icon } from "./styles";
 import { GlobalButton } from "@/components/Global/Button";
 import Theme from "@/styles/themes";
 import { useState, useEffect } from "react";
 import { NewCard } from "./NewCard";
 import { Installments } from "./Installments";
+import { GlobalTitle } from "@/components/Global/Title";
 export function CardMethod() {
   const [selected, setSelected] = useState("");
   const [newCard, setNewCard] = useState(false);
@@ -214,10 +215,20 @@ export function CardMethod() {
 
               <label htmlFor="selected3">
                 <Icon src="/Checkout/Add.svg" width={20} height={20} alt="" />
-                {""} Pagar com Outro Cartão
+                {""} Inserir dados de um Cartão
               </label>
             </GlobalButton>
           </Stack>
+          <GlobalTitle
+            title="Código da Galera"
+            fontSize={15}
+            marginTop={width < 768 ? "10%" : "2%"}
+            marginLeft={width < 768 ? "5%" : "35%"}
+          />
+          <Form
+            placeholder="Insira o Melhor Código aqui"
+            style={{ width: width < 768 ? "90%" : "30%", alignSelf: "center" }}
+          />
         </>
       )}
       <br />
@@ -234,7 +245,9 @@ export function CardMethod() {
           content="Voltar"
           background={`${Theme.color.secondary_60}`}
           color={`${Theme.color.gray_10}`}
-          width="auto"
+          width={width < 768 ? "45%" : "20%"}
+          height="auto"
+          fontSize={18}
           disabled={newCard || installments ? false : true}
           onClick={
             () => handleBack()
@@ -246,10 +259,12 @@ export function CardMethod() {
           }
         />
         <GlobalButton
-          content={installments ? "Finalizar" : "Próximo"}
-          background={`${Theme.color.confirmation}`}
+          content={installments ? "Finalizar" : "Pagamento"}
+          background={`${Theme.color.next}`}
           color={`${Theme.color.gray_10}`}
-          width="auto"
+          width={width < 768 ? "45%" : "20%"}
+          height="auto"
+          fontSize={18}
           onClick={() => handleNext()}
         />
       </Stack>

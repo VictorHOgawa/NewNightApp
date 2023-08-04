@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import Theme from "@/styles/themes";
 import { Video } from "../../Video";
 import { useRouter } from "next/router";
+import { GlobalTitle } from "@/components/Global/Title";
+import { Form } from "../Cards/styles";
 
 export function PixMethod() {
   const router = useRouter();
@@ -25,6 +27,16 @@ export function PixMethod() {
   return (
     <Container>
       <>
+        <GlobalTitle
+          title="Código da Galera"
+          fontSize={15}
+          marginTop={width < 768 ? "10%" : "2%"}
+          marginLeft={width < 768 ? "5%" : "35%"}
+        />
+        <Form
+          placeholder="Insira o Melhor Código aqui"
+          style={{ width: width < 768 ? "90%" : "30%", alignSelf: "center" }}
+        />
         <GlobalButton
           background={`${Theme.color.pix}`}
           color={`${Theme.color.gray_10}`}

@@ -11,6 +11,10 @@ export const Container = styled.div`
   background: linear-gradient(145deg, #9c38ce90, #420a8990, #9c38ce90);
   align-self: center;
   align-items: center;
+
+  @media (min-width: 768px) {
+    width: 30%;
+  }
 `;
 
 export const Top = styled.div`
@@ -18,6 +22,10 @@ export const Top = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: 5%;
+
+  @media (min-width: 768px) {
+    margin-top: 2%;
+  }
 `;
 
 export const Logo = styled(Image)`
@@ -41,7 +49,15 @@ export const Download = styled.button`
   color: ${({ theme }) => theme.color.gray_10};
   border: 0;
   padding: 5px;
-  font-size: ${px2vw(12, 320)};
   width: 75%;
   margin: 5px 0px;
+  font-size: ${px2vw(12, 320)};
+
+  @media (min-width: 768px) {
+    font-size: ${px2vw(12, 768)};
+  }
+
+  @media (min-width: 1024px) {
+    font-size: ${px2vw(12, 1024)};
+  }
 `;

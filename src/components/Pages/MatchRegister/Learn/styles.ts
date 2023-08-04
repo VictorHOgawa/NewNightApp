@@ -16,6 +16,15 @@ export const Container = styled.button`
   justify-content: center;
   align-items: center;
   font-size: ${px2vw(12, 320)};
+
+  @media (min-width: 768px) {
+    font-size: ${px2vw(12, 768)};
+    width: 30%;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: ${px2vw(12, 1024)};
+  }
 `;
 
 export const Icon = styled(Image)`

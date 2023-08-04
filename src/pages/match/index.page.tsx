@@ -24,7 +24,7 @@ import {
 } from "./styles";
 import { useCallback, useState } from "react";
 import { useLayoutEffect, useRef, useEffect } from "react";
-import { Power2, gsap } from "gsap";
+import { gsap } from "gsap/dist/gsap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Image from "next/image";
@@ -61,8 +61,8 @@ export default function Match() {
   }
 
   const [count, setCount, countRef] = useStateRef(false);
-  const [index, setIndex, indexRef] = useStateRefIndex(0);
-
+  const [like, setLike, likeRef] = useStateRef(false);
+  const [index, setIndex, indexRef] = useStateRefIndex(-1);
   const router = useRouter();
   const [people, setPeople] = useState(People);
   const [shown, setShown] = useState(people[0]);
@@ -86,7 +86,11 @@ export default function Match() {
             y: -85,
             scale: 1.11,
             onReverseComplete: () => {
-              countRef.current ? handleLiked() : null;
+              countRef.current && likeRef.current
+                ? handleLiked()
+                : countRef.current && !likeRef.current
+                ? handleDisliked()
+                : null;
             },
           },
           0
@@ -135,7 +139,57 @@ export default function Match() {
   }, [reversed]);
 
   const likedTL = useRef<gsap.core.Timeline | null>(null);
-
+  useLayoutEffect(() => {
+    let ctx = gsap.context(() => {
+      likedTL.current = gsap
+        .timeline({
+          defaults: {
+            duration: 0.5,
+          },
+        })
+        .fromTo(
+          ".fullCard",
+          { x: 0 },
+          {
+            x: 400,
+            opacity: 0,
+            onComplete: () => {
+              setShown(people[indexRef.current + 1]);
+              setSelectedPhoto(1);
+            },
+          }
+        )
+        .fromTo(
+          ".fullCard",
+          { x: 400 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.00001,
+            delay: 0.5,
+            onComplete: () => {
+              setIndex(indexRef.current + 1);
+            },
+          }
+        )
+        .fromTo(
+          ".indDetails",
+          { x: 0, opacity: 1 },
+          {
+            x: -400,
+            opacity: 0,
+          },
+          0.5
+        )
+        .fromTo(
+          ".indDetails",
+          { x: -400, opacity: 0 },
+          { x: 0, opacity: 1 },
+          0.5
+        );
+    }, main);
+    return () => ctx.revert();
+  }, []);
   const handleLiked = () => {
     let ctx = gsap.context(() => {
       likedTL.current = gsap
@@ -193,6 +247,7 @@ export default function Match() {
   }, [count]);
 
   const handleLikedOpen = () => {
+    setLike(true);
     setCount(true);
   };
 
@@ -252,6 +307,7 @@ export default function Match() {
 
   const handleDislikedOpen = () => {
     setCount(true);
+    setLike(false);
   };
 
   const [open, setOpen] = useState(false);
@@ -261,7 +317,7 @@ export default function Match() {
   };
 
   const handleBack = () => {
-    open === true ? setReversed(!reversed) : router.back();
+    open === true ? setReversed(!reversed) : router.push("/");
   };
   return (
     <Container ref={main}>

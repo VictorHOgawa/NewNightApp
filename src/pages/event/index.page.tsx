@@ -1,23 +1,21 @@
 import { Header } from "@/components/Global/Header";
 import { Banner, Container, DetailImg, FirstContainer, Nav } from "./styles";
 import { GlobalTitle } from "@/components/Global/Title";
-import { Buttons } from "@/components/Pages/Details/Buttons";
-import { Individual } from "@/components/Pages/Details/Individual";
+import { Buttons } from "@/components/Pages/Event/Buttons";
+import { Individual } from "@/components/Pages/Event/Individual";
 import { Stack } from "react-bootstrap";
 import { Tabs } from "@/components/Global/Tabs";
-import { Description } from "@/components/Pages/Details/Description";
-import { Music } from "@/components/Pages/Details/Music";
+import { Description } from "@/components/Pages/Event/Description";
+import { Music } from "@/components/Pages/Event/Music";
 import { GlobalButton } from "@/components/Global/Button";
 import Theme from "@/styles/themes";
 import { StaticImage } from "@/components/Global/StaticImg";
-import { Important } from "@/components/Pages/Details/Important";
-import { Back } from "@/components/Global/Back";
 import { useEffect, useState } from "react";
-import { StepOne } from "@/components/Pages/Details/Tickets/Steps/1";
-import { StepTwo } from "@/components/Pages/Details/Tickets/Steps/2";
+import { StepOne } from "@/components/Pages/Event/Tickets/Steps/1";
+import { StepTwo } from "@/components/Pages/Event/Tickets/Steps/2";
 import { useRouter } from "next/router";
 
-interface DetailsProps {
+interface EventProps {
   location: string;
   name: string;
   geo: string;
@@ -44,8 +42,8 @@ interface DetailsProps {
     type: string;
   }[];
 }
-export default function Details() {
-  const [event, setEvent] = useState<DetailsProps>({
+export default function Event() {
+  const [event, setEvent] = useState<EventProps>({
     location: "/Events/Event1.svg",
     name: "teste",
     geo: "",
@@ -162,6 +160,22 @@ export default function Details() {
             justifyContent: "center",
           }}
         >
+          {width > 768 ? (
+            <>
+              <Individual
+                date={event.date}
+                place={event.place}
+                city={event.city}
+              />
+              <Buttons
+                instagram={event.instagram}
+                whatsapp={event.whatsapp}
+                maps={event.geo}
+              />
+            </>
+          ) : (
+            <></>
+          )}
           <br />
           <DetailImg src={event.location} width={1000} height={400} alt="" />
           <br />
@@ -172,7 +186,6 @@ export default function Details() {
           />
         </Stack>
         <br />
-
         {width < 768 ? (
           <>
             <Buttons
@@ -192,7 +205,7 @@ export default function Details() {
                 <Stack
                   direction="horizontal"
                   gap={3}
-                  style={{ marginLeft: "4%" }}
+                  style={{ marginLeft: "4%", marginTop: "5%" }}
                 >
                   <Tabs active={true} />
                   <Tabs active={false} />
@@ -209,7 +222,7 @@ export default function Details() {
                 <Stack
                   direction="horizontal"
                   gap={3}
-                  style={{ marginLeft: "4%" }}
+                  style={{ marginLeft: "4%", marginTop: "5%" }}
                 >
                   <Tabs active={true} />
                   <Tabs active={true} />
@@ -222,13 +235,16 @@ export default function Details() {
                 />
               </>
             )}
+
             <br />
-            <Nav direction="horizontal" gap={2} style={{ alignSelf: "center" }}>
+            <Nav direction="horizontal" gap={3} style={{ alignSelf: "center" }}>
               <GlobalButton
                 content="Voltar"
                 background={`${Theme.color.secondary_60}`}
                 color={`${Theme.color.gray_10}`}
-                width="auto"
+                width="45%"
+                height="auto"
+                fontSize={18}
                 disabled={step === 1 ? true : false}
                 onClick={
                   step === 2 && type !== ""
@@ -238,9 +254,11 @@ export default function Details() {
               />
               <GlobalButton
                 content={step === 1 || type !== "" ? "Próximo" : "Finalizar"}
-                background={`${Theme.color.confirmation}`}
+                background={`${Theme.color.next}`}
                 color={`${Theme.color.gray_10}`}
-                width="auto"
+                width="45%"
+                height="auto"
+                fontSize={18}
                 onClick={
                   type !== ""
                     ? () => setType("")
@@ -261,16 +279,6 @@ export default function Details() {
               }}
             >
               <br />
-              <Individual
-                date={event.date}
-                place={event.place}
-                city={event.city}
-              />
-              <Buttons
-                instagram={event.instagram}
-                whatsapp={event.whatsapp}
-                maps={event.geo}
-              />
               <br />
               {step === 1 ? (
                 <>
@@ -317,7 +325,9 @@ export default function Details() {
                   content="Voltar"
                   background={`${Theme.color.secondary_60}`}
                   color={`${Theme.color.gray_10}`}
-                  width="auto"
+                  width="45%"
+                  height="auto"
+                  fontSize={18}
                   disabled={step === 1 ? true : false}
                   onClick={
                     step === 2 && type !== ""
@@ -329,7 +339,9 @@ export default function Details() {
                   content={step === 1 || type !== "" ? "Próximo" : "Finalizar"}
                   background={`${Theme.color.confirmation}`}
                   color={`${Theme.color.gray_10}`}
-                  width="auto"
+                  width="45%"
+                  height="auto"
+                  fontSize={18}
                   onClick={
                     type !== ""
                       ? () => setType("")

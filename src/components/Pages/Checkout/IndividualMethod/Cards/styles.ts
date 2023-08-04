@@ -13,6 +13,7 @@ export const Icon = styled(Image)`
 
 export const CardContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-top: 5%;
@@ -21,7 +22,7 @@ export const CardContainer = styled.div`
 
 export const NightAppCard = styled(Image)`
   position: absolute;
-  width: 100%;
+  width: 95%;
   height: auto;
   align-self: center;
 

@@ -103,7 +103,6 @@ export function Form({
   const handleBlur = (e: any) => {
     handleValidations(e.target.name, e.target.value);
   };
-  console.log("formData: ", formData);
   return (
     <Container>
       {step === 1 ? (

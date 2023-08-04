@@ -1,6 +1,7 @@
 const Theme = {
   color: {
     background: "#150029",
+    next: "#00b001",
     confirmation: "#00ff01",
     pix: "#37B5AA",
 

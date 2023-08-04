@@ -118,7 +118,7 @@ export function Card() {
     }
   }, [type]); */
   return (
-    <Container /* {...rest} */ onClick={() => router.push("/details")}>
+    <Container /* {...rest} */ onClick={() => router.push("/event")}>
       <SliderImg src={events.location} width={400} height={200} alt="" />
       <EventBody>
         <EventTitle>{events.name}</EventTitle>

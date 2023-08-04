@@ -24,11 +24,16 @@ export const AddPhoto = styled.button`
   display: flex;
   border: 1px dashed ${({ theme }) => theme.color.gray_10};
   width: 25vw;
-  height: 40vw;
+  height: 35vw;
   align-items: center;
   justify-content: center;
   background-color: ${({ theme }) => theme.color.secondary_100};
   margin: 5px;
+
+  @media (min-width: 768px) {
+    width: 6vw;
+    height: 8vw;
+  }
 `;
 
 export const Hidden = styled.input`
@@ -37,7 +42,12 @@ export const Hidden = styled.input`
   position: absolute;
   align-self: center;
   width: 25vw;
-  height: 40vw;
+  height: 35vw;
+
+  @media (min-width: 768px) {
+    width: 6vw;
+    height: 8vw;
+  }
 `;
 
 export const Icon = styled(Image)`
@@ -48,6 +58,7 @@ export const Icon = styled(Image)`
 export const Photos = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 `;
 
 export const Description = styled.textarea`
@@ -72,10 +83,18 @@ export const Models = styled.button`
   color: ${({ theme }) => theme.color.gray_10};
   border: 1px solid ${({ theme }) => theme.color.secondary_100};
   padding: 5px;
-  font-size: ${px2vw(12, 320)};
   margin: 5px 0px;
   width: 45%;
   align-self: flex-end;
+  font-size: ${px2vw(12, 320)};
+
+  @media (min-width: 768px) {
+    font-size: ${px2vw(12, 768)};
+  }
+
+  @media (min-width: 1024px) {
+    font-size: ${px2vw(12, 1024)};
+  }
 `;
 
 export const RadioContainer = styled.div`
@@ -93,4 +112,12 @@ export const RadioLabel = styled.label`
   padding: 5px;
   width: 90%;
   font-size: ${px2vw(12, 320)};
+
+  @media (min-width: 768px) {
+    font-size: ${px2vw(12, 768)};
+  }
+
+  @media (min-width: 1024px) {
+    font-size: ${px2vw(12, 1024)};
+  }
 `;
