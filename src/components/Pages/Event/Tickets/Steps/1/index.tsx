@@ -34,6 +34,7 @@ export function StepOne({ id, name, ticket }: StepOneProps) {
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
   const { cart, add } = useCart();
+  console.log("cart.ticket:", cart.ticket);
 
   const handleChange = (
     type: string,

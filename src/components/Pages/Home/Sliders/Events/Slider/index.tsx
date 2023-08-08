@@ -6,7 +6,7 @@ import { Card } from "../Card";
 import { useEffect, useState } from "react";
 
 export function EventSlider() {
-  const [width, setWidth] = useState(500);
+  const [width, setWidth] = useState(100);
 
   const updateDimensions = () => {
     setWidth(window.innerWidth);
@@ -19,67 +19,59 @@ export function EventSlider() {
   const Events = [
     {
       location: "/Events/Event1.svg",
-      name: "Balada do Marco Aurélio",
+      name: "Balada do Marco Aurélio asd asd asdasdasads",
       place: "Sinop - MT",
-      weekDay: "Sáb",
-      day: "12",
-      month: "JUL",
+      date: new Date(),
+      id: "a",
     },
     {
       location: "/Events/Event2.svg",
       name: "Balada do Marco Aurélio",
       place: "Sinop - MT",
-      weekDay: "Sáb",
-      day: "12",
-      month: "JUL",
+      date: new Date(),
+      id: "b",
     },
     {
       location: "/Events/Event1.svg",
       name: "Balada do Marco Aurélio",
       place: "Sinop - MT",
-      weekDay: "Sáb",
-      day: "12",
-      month: "JUL",
+      date: new Date(),
+      id: "c",
     },
     {
       location: "/Events/Event2.svg",
       name: "Balada do Marco Aurélio",
       place: "Sinop - MT",
-      weekDay: "Sáb",
-      day: "12",
-      month: "JUL",
+      date: new Date(),
+      id: "d",
     },
     {
       location: "/Events/Event1.svg",
       name: "Balada do Marco Aurélio",
       place: "Sinop - MT",
-      weekDay: "Sáb",
-      day: "12",
-      month: "JUL",
+      date: new Date(),
+      id: "e",
     },
     {
       location: "/Events/Event2.svg",
       name: "Balada do Marco Aurélio",
       place: "Sinop - MT",
-      weekDay: "Sáb",
-      day: "12",
-      month: "JUL",
+      date: new Date(),
+      id: "f",
     },
     {
       location: "/Events/Event1.svg",
       name: "Balada do Marco Aurélio",
       place: "Sinop - MT",
-      weekDay: "Sáb",
-      day: "12",
-      month: "JUL",
+      date: new Date(),
+      id: "g",
     },
     {
       location: "/Events/Event2.svg",
       name: "Balada do Marco Aurélio",
       place: "Sinop - MT",
-      weekDay: "Sáb",
-      day: "12",
-      month: "JUL",
+      date: new Date(),
+      id: "h",
     },
   ];
   return (
@@ -99,7 +91,13 @@ export function EventSlider() {
       >
         {Events.map((item) => (
           <SwiperSlide>
-            <Card />
+            <Card
+              location={item.location}
+              name={item.name}
+              place={item.place}
+              date={item.date}
+              id={item.id}
+            />
           </SwiperSlide>
         ))}
       </Swiper>

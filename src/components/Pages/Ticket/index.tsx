@@ -12,16 +12,20 @@ import {
   Text,
   TicketImage,
 } from "./styles";
-import { Stack } from "react-bootstrap";
+import { Modal, Stack } from "react-bootstrap";
 import { Calendar } from "@/components/Global/Calendar";
 import Theme from "@/styles/themes";
 import { GlobalButton } from "@/components/Global/Button";
 import { More } from "@/components/Global/More";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 export function TicketCards() {
   const router = useRouter();
   const Tickets = [1, 2, 3];
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <Container>
       <GlobalTitle title="Meus Ingressos" marginTop="15%" />
@@ -104,11 +108,21 @@ export function TicketCards() {
           </>
         ))}
       </Stack>
-      <Button>
-        <Icon src="/Checkout/Video.svg" width={20} height={20} alt="" />{" "}
-        Dúvidas? Veja esse Rápido Vídeo
-      </Button>
-      <More onClick={() => router.push("/details")} />
+      <a
+        style={{ alignSelf: "center", textDecoration: "none" }}
+        href="https://www.youtube.com/embed/enYuqLBiisw"
+        target="blank"
+        rel="noreferrer"
+      >
+        <Button>
+          <Icon src="/Checkout/Video.svg" width={20} height={20} alt="" />{" "}
+          Dúvidas? Veja esse Rápido Vídeo
+        </Button>
+      </a>
+      <More onClick={handleOpen} />
+      <Modal show={open} onHide={handleClose}>
+        <Modal.Body>Test</Modal.Body>
+      </Modal>
     </Container>
   );
 }

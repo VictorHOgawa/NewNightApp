@@ -40,6 +40,7 @@ interface EventProps {
     name: string;
     value: number;
     type: string;
+    location: string;
   }[];
 }
 export default function Event() {
@@ -101,36 +102,42 @@ export default function Event() {
         name: "Smirnoff",
         value: 1,
         type: "VODKA",
+        location: "/Events/Item1.svg",
       },
       {
         id: "id2",
         name: "Lote Promocional",
         value: 1,
         type: "WHISKEY",
+        location: "/Events/Item2.svg",
       },
       {
         id: "id3",
         name: "Lote Promocional",
         value: 1,
         type: "CERVEJA",
+        location: "/Events/Item3.svg",
       },
       {
         id: "id4",
         name: "Lote Promocional",
         value: 1,
         type: "COMBOS",
+        location: "/Events/Item4.svg",
       },
       {
         id: "id5",
         name: "Lote Promocional",
         value: 1,
         type: "ENERGÉTICOS",
+        location: "/Events/Item5.svg",
       },
       {
         id: "id6",
         name: "Lote Promocional",
         value: 1,
         type: "OUTROS",
+        location: "/Events/Item6.svg",
       },
     ],
   });
@@ -167,6 +174,7 @@ export default function Event() {
                 place={event.place}
                 city={event.city}
               />
+              <br />
               <Buttons
                 instagram={event.instagram}
                 whatsapp={event.whatsapp}
@@ -263,7 +271,7 @@ export default function Event() {
                   type !== ""
                     ? () => setType("")
                     : step === 2 && type === ""
-                    ? () => router.push("/checkout")
+                    ? () => router.push(`/checkout/${event.ticketSlot.id}`)
                     : () => setStep(step + 1)
                 }
               />

@@ -3,14 +3,16 @@ import { styled } from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  width: 95%;
-  margin-left: 2.5%;
+  width: 85%;
+  margin-left: 7.5%;
   @media (min-width: 768px) {
+    width: 70%;
+    margin-left: 15%;
   }
 
   @media (min-width: 1024px) {
-    width: 60%;
-    margin-left: 20%;
+    width: 50%;
+    margin-left: 25%;
   }
 `;
 

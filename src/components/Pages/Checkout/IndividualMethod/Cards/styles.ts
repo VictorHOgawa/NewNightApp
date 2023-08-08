@@ -1,3 +1,4 @@
+import px2vw from "@/utils/size";
 import Image from "next/image";
 import { styled } from "styled-components";
 
@@ -16,7 +17,7 @@ export const CardContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 5%;
+  margin-top: 10%;
   margin-bottom: 20%;
 `;
 
@@ -27,6 +28,10 @@ export const NightAppCard = styled(Image)`
   align-self: center;
 
   @media (min-width: 768px) {
+    width: 45%;
+  }
+
+  @media (min-width: 1024px) {
     width: 30%;
   }
 `;
@@ -34,6 +39,15 @@ export const NightAppCard = styled(Image)`
 export const CardDetails = styled.label`
   z-index: 2;
   color: ${({ theme }) => theme.color.gray_10};
+  font-size: ${px2vw(12, 320)};
+
+  @media (min-width: 768px) {
+    font-size: ${px2vw(12, 768)};
+  }
+
+  @media (min-width: 1024px) {
+    font-size: ${px2vw(12, 1024)};
+  }
 `;
 
 export const Form = styled.input`

@@ -83,12 +83,14 @@ export const ItemButton = styled.button`
   background-color: transparent;
 
   @media (min-width: 768px) {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     margin: 5px 5px;
   }
 
   @media (min-width: 1024px) {
+    width: 100px;
+    height: 100px;
     margin: 10px 15px;
   }
 `;

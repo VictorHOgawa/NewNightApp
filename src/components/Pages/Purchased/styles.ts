@@ -16,16 +16,20 @@ export const Container = styled.div`
 `;
 
 export const Btn = styled.button`
-  width: 40%;
+  width: 45%;
   height: auto;
   border: 0;
   background-color: ${({ theme }) => theme.color.primary_40};
   border-radius: 10px;
-  margin: 5%;
+  margin: 2.5%;
 
   @media (min-width: 768px) {
+    width: 30%;
+  }
+
+  @media (min-width: 1024px) {
     width: 20%;
-    margin: 2%;
+    margin: 2.5%;
   }
 `;
 

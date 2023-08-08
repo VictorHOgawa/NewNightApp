@@ -29,8 +29,11 @@ export function ProductCards() {
   const Products = [1, 2, 3];
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-
   const handleClose = () => setOpen(false);
+
+  const [add, setAdd] = useState(false);
+  const handleAdd = () => setAdd(true);
+  const handleRemove = () => setAdd(false);
 
   return (
     <Container>
@@ -197,11 +200,21 @@ export function ProductCards() {
           </>
         ))}
       </Stack>
-      <Button>
-        <Icon src="/Checkout/Video.svg" width={20} height={20} alt="" />{" "}
-        Dúvidas? Veja esse Rápido Vídeo
-      </Button>
-      <More onClick={() => router.push("/checkout")} />
+      <a
+        style={{ textDecoration: "none", alignSelf: "center" }}
+        href="https://www.youtube.com/embed/enYuqLBiisw"
+        target="blank"
+        rel="noreferrer"
+      >
+        <Button>
+          <Icon src="/Checkout/Video.svg" width={20} height={20} alt="" />{" "}
+          Dúvidas? Veja esse Rápido Vídeo
+        </Button>
+      </a>
+      <More onClick={handleAdd} />
+      <Modal show={add} onHide={handleRemove}>
+        <Modal.Body>Test</Modal.Body>
+      </Modal>
     </Container>
   );
 }

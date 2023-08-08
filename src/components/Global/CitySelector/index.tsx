@@ -8,6 +8,7 @@ import {
   Menu,
   Toggle,
 } from "./styles";
+import { useState } from "react";
 
 export function CitySelector({ ...rest }: any) {
   const Cities = [
@@ -19,6 +20,7 @@ export function CitySelector({ ...rest }: any) {
     "Maringá - PR",
   ];
 
+  const [selected, setSelected] = useState("Qualquer Lugar");
   return (
     <>
       <Container {...rest}>
@@ -28,12 +30,15 @@ export function CitySelector({ ...rest }: any) {
             style={{ color: `${Theme.color.gray_10}` }}
           >
             <Icon />
-            Qualquer Lugar
+            {selected === "Qualquer Lugar" ? "Qualquer Lugar" : selected}
+            {/* Qualquer Lugar */}
           </Toggle>
           <Menu>
-            <ItemText>test</ItemText>
+            <ItemText>Escolha sua Cidade</ItemText>
             {Cities.map((item) => (
-              <Item key={item}>{item}</Item>
+              <Item onClick={() => setSelected(item)} key={item}>
+                {item}
+              </Item>
             ))}
           </Menu>
         </Button>

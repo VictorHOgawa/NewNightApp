@@ -27,6 +27,7 @@ export function PixMethod() {
   return (
     <Container>
       <>
+        <br />
         <GlobalTitle
           title="Código da Galera"
           fontSize={15}
@@ -64,7 +65,7 @@ export function PixMethod() {
                 alignSelf: "center",
                 marginTop: width < 768 ? "5%" : "2%",
               }}
-              onClick={() => router.push("/profile")}
+              onClick={() => router.push("/purchased")}
             />
           </>
         ) : (

@@ -185,7 +185,6 @@ export default function Place() {
               city={place.city}
             />
             <br />
-
             <br />
             <Nav direction="horizontal" gap={3} style={{ alignSelf: "center" }}>
               <GlobalButton
@@ -262,7 +261,7 @@ export default function Place() {
         <br />
       </FirstContainer>
       <br />
-      {width > 768 ? (
+      {width >= 768 ? (
         <>
           <Nav direction="horizontal" gap={2} style={{ alignSelf: "center" }}>
             <GlobalButton
@@ -327,7 +326,7 @@ export default function Place() {
         <GlobalButton
           background={`${Theme.color.confirmation}`}
           color={`${Theme.color.background}`}
-          content="Escolher Meus Ingressos"
+          content="Escolher Meus Produtos"
           width="auto"
         >
           <StaticImage

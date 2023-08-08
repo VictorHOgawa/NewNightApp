@@ -63,17 +63,6 @@ export function Form({
     inputFile.current?.click();
   };
 
-  // const [formData, setFormData] = useState({
-  //   name: "",
-  //   cpfCnpj: "",
-  //   age: "",
-  //   instagram: "",
-  //   photos: [
-  //     {
-  //       location: "",
-  //     },
-  //   ],
-  // });
   const [error, setError] = useState<any>({});
 
   const handleValidations = (type: any, value: any) => {

@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { Card } from "../Card";
 
 export function PlaceSlider() {
-  const [width, setWidth] = useState(500);
+  const [width, setWidth] = useState(100);
 
   const updateDimensions = () => {
     setWidth(window.innerWidth);
@@ -19,75 +19,87 @@ export function PlaceSlider() {
   const Places = [
     {
       location: "/Places/Place1.svg",
-      name: "Balada do Marco Aurélio",
+      name: "Balada do Marco Aurélio asdasd asd asds",
       place: "Sinop - MT",
       current: true,
+      id: "a",
     },
     {
       location: "/Places/Place2.svg",
       name: "Balada do Marco Aurélio",
       place: "Sinop - MT",
       current: false,
+      id: "b",
     },
     {
       location: "/Places/Place1.svg",
       name: "Balada do Marco Aurélio",
       place: "Sinop - MT",
       current: true,
+      id: "c",
     },
     {
       location: "/Places/Place2.svg",
       name: "Balada do Marco Aurélio",
       place: "Sinop - MT",
       current: false,
+      id: "d",
     },
     {
       location: "/Places/Place1.svg",
       name: "Balada do Marco Aurélio",
       place: "Sinop - MT",
       current: true,
+      id: "e",
     },
     {
       location: "/Places/Place2.svg",
       name: "Balada do Marco Aurélio",
       place: "Sinop - MT",
       current: false,
+      id: "f",
     },
     {
       location: "/Places/Place1.svg",
       name: "Balada do Marco Aurélio",
       place: "Sinop - MT",
       current: true,
+      id: "g",
     },
     {
       location: "/Places/Place2.svg",
       name: "Balada do Marco Aurélio",
       place: "Sinop - MT",
       current: false,
+      id: "h",
     },
     {
       location: "/Places/Place1.svg",
       name: "Balada do Marco Aurélio",
       place: "Sinop - MT",
       current: true,
+      id: "i",
     },
     {
       location: "/Places/Place2.svg",
       name: "Balada do Marco Aurélio",
       place: "Sinop - MT",
       current: false,
+      id: "j",
     },
     {
       location: "/Places/Place1.svg",
       name: "Balada do Marco Aurélio",
       place: "Sinop - MT",
       current: true,
+      id: "k",
     },
     {
       location: "/Places/Place2.svg",
       name: "Balada do Marco Aurélio",
       place: "Sinop - MT",
       current: false,
+      id: "l",
     },
   ];
   return (
@@ -105,6 +117,7 @@ export function PlaceSlider() {
               name={item.name}
               place={item.place}
               current={item.current}
+              id={item.id}
             />
           </SwiperSlide>
         ))}

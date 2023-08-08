@@ -10,6 +10,10 @@ export const Container = styled.div`
   align-self: center;
 
   @media (min-width: 768px) {
+    width: 60%;
+  }
+
+  @media (min-width: 1024px) {
     width: 30%;
   }
 `;

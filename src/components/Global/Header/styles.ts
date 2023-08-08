@@ -6,7 +6,7 @@ export const Container = styled.div``;
 
 export const Top = styled.div`
   display: flex;
-  height: 100px;
+  height: 75px;
   align-items: center;
   padding: 0 10px;
   justify-content: space-between;
@@ -61,7 +61,7 @@ export const XLogo = styled(Image)`
   align-self: center;
 
   @media (min-width: 768px) {
-    width: 35%;
+    width: 25%;
   }
 
   @media (min-width: 1024px) {

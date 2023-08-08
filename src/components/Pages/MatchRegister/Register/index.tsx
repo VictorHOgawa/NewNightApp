@@ -6,7 +6,6 @@ import { Tabs } from "@/components/Global/Tabs";
 import { Form } from "../Form";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { FaBullseye } from "react-icons/fa6";
 
 export function Register() {
   const router = useRouter();
@@ -28,11 +27,6 @@ export function Register() {
     ],
   });
 
-  console.log("step", step);
-  console.log("formData", formData);
-  console.log("openModal", openModal);
-  console.log("type", type);
-  console.log("description", description);
   const handleSteps = () => {
     if (
       step === 1 &&
@@ -69,13 +63,6 @@ export function Register() {
     if (step === 3 && description !== "") {
       router.push("/match");
     }
-    // step === 1
-    //   ? setStep(2)
-    //   : step === 2
-    //   ? setStep(3)
-    //   : description !== ""
-    //   ? router.push("/match")
-    //   : alert("Adicione uma Descrição, ou selecione um Modelo já pronto");
   };
   const handleBack = () => {
     step === 1

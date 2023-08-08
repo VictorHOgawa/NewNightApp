@@ -33,7 +33,7 @@ export function Header({ page = "secondary" }: HeaderProps) {
               alt="Logo"
               onClick={() => router.push("/")}
             />
-            <CitySelector style={{ alignSelf: "center" }} />
+            <CitySelector />
             <ButtonGroup direction="horizontal" gap={2}>
               <GlobalButton
                 content="Entrar"
@@ -41,6 +41,7 @@ export function Header({ page = "secondary" }: HeaderProps) {
                 color={`${Theme.color.gray_10}`}
                 width="auto"
                 fontSize={12}
+                onClick={() => router.push("/login")}
               />
               <GlobalButton
                 content="Se Cadastrar"
@@ -71,7 +72,7 @@ export function Header({ page = "secondary" }: HeaderProps) {
               width={65}
               height={65}
               alt=""
-              onClick={() => router.push("/matchregister")}
+              onClick={() => router.push("/match")}
             />
             <Icon
               src="/Global/Icons/TicketIcon.svg"

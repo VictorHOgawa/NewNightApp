@@ -24,16 +24,14 @@ import {
 } from "./styles";
 import { useCallback, useState } from "react";
 import { useLayoutEffect, useRef, useEffect } from "react";
-import { gsap } from "gsap/dist/gsap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Image from "next/image";
 import { Stack } from "react-bootstrap";
 import { useRouter } from "next/router";
-import { MainAnimation } from "./Animations/Main";
-import { LikedAnimation } from "./Animations/Liked";
 import px2vw from "@/utils/size";
-import { People } from "@/utils/peaple";
+import { People } from "@/utils/people";
+import { gsap } from "gsap";
 
 export default function Match() {
   function useStateRef(defaultValue: any) {

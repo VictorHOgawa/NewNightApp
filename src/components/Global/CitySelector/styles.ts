@@ -1,14 +1,25 @@
 import { Dropdown } from "react-bootstrap";
 import { styled } from "styled-components";
 import { FaLocationDot } from "react-icons/fa6";
+import px2vw from "@/utils/size";
 
 export const Container = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
-export const Button = styled(Dropdown)``;
+export const Button = styled(Dropdown)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
-export const Toggle = styled(Dropdown.Toggle)``;
+export const Toggle = styled(Dropdown.Toggle)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 export const Menu = styled(Dropdown.Menu)`
   background-color: ${({ theme }) => theme.color.background};

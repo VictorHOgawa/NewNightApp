@@ -21,10 +21,14 @@ export const FirstContainer = styled.div`
 
   @media (min-width: 768px) {
     flex-direction: row;
-    width: 70%;
+    width: 85%;
     margin-top: 20px;
     justify-content: space-between;
     align-self: center;
+  }
+
+  @media (min-width: 1024px) {
+    width: 70%;
   }
 `;
 

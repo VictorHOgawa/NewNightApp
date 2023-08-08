@@ -17,13 +17,20 @@ import { GlobalTitle } from "@/components/Global/Title";
 import { Back } from "@/components/Global/Back";
 
 interface StepTwoProps {
-  product: { name: string; value: number; id: string; type: string }[];
+  product: {
+    name: string;
+    value: number;
+    id: string;
+    type: string;
+    location: string;
+  }[];
   type: string;
   setType: any;
 }
 export function StepTwo({ product, type, setType }: StepTwoProps) {
   const [filteredProduct, setFilteredProduct] = useState<any>([]);
   const { cart, add } = useCart();
+  const [moreProducts, setMoreProducts] = useState(true);
 
   function handleSelectType(type: string) {
     setFilteredProduct(product.filter((item) => item.type === type));
@@ -94,8 +101,13 @@ export function StepTwo({ product, type, setType }: StepTwoProps) {
               marginTop: "2%",
             }}
           >
-            <input type="checkbox" /> {""}
-            <label style={{ color: "white", marginLeft: "2%" }}>
+            <input
+              type="checkbox"
+              id="more"
+              onChange={() => setMoreProducts(!moreProducts)}
+            />{" "}
+            {""}
+            <label htmlFor="more" style={{ color: "white", marginLeft: "2%" }}>
               {""} Não quero comprar Produtos
             </label>
           </div>
@@ -107,9 +119,9 @@ export function StepTwo({ product, type, setType }: StepTwoProps) {
             <Stack gap={2}>
               <TicketType>
                 <StaticImage
-                  src="/Global/Icons/TicketIcon.svg"
-                  width={20}
-                  height={20}
+                  src={item.location}
+                  width={40}
+                  height={40}
                   alt=""
                 />
                 <TicketTitle>

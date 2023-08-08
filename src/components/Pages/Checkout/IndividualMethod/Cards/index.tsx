@@ -6,13 +6,14 @@ import { useState, useEffect } from "react";
 import { NewCard } from "./NewCard";
 import { Installments } from "./Installments";
 import { GlobalTitle } from "@/components/Global/Title";
+import { useRouter } from "next/router";
 export function CardMethod() {
   const [selected, setSelected] = useState("");
   const [newCard, setNewCard] = useState(false);
   const [stepTwo, setStepTwo] = useState(false);
   const [installments, setInstallments] = useState(false);
-  const [stepThree, setStepThree] = useState(false);
   const [width, setWidth] = useState(100);
+  const router = useRouter();
 
   const updateDimensions = () => {
     setWidth(window.innerWidth);
@@ -33,6 +34,10 @@ export function CardMethod() {
     CEP: "",
     Number: "",
   });
+  console.log("selected", selected);
+  console.log("newCard", newCard);
+  console.log("stepTwo", stepTwo);
+  console.log("installments", installments);
 
   function handleBack() {
     if (installments && !newCard && !stepTwo) {
@@ -45,28 +50,33 @@ export function CardMethod() {
       return setStepTwo(false);
     }
     if (stepTwo && installments) {
-      return setNewCard(true);
+      setNewCard(true);
+      setInstallments(false);
     }
   }
   function handleNext() {
     if (selected === "") {
+      console.log("Step 1");
       return alert("Selecione um Cartão");
     }
-    if (selected === "selected1" || selected === "selected2") {
+    if (selected !== "selected3") {
+      console.log("Step 2");
       return setInstallments(true);
     }
-    if (selected === "selected3" && !newCard) {
+    if (selected === "selected3" && !newCard && !installments) {
+      console.log("Step 3");
       return setNewCard(true);
     }
     if (
       selected === "selected3" &&
-      !stepTwo &&
       newCard === true &&
+      !stepTwo &&
       formData.cardName !== "" &&
       formData.cardNumber !== "" &&
       formData.expirationDate !== "" &&
       formData.cvc !== ""
     ) {
+      console.log("Step 4");
       return setStepTwo(true);
     }
     if (
@@ -84,41 +94,17 @@ export function CardMethod() {
       formData.Number !== ""
     ) {
       {
+        console.log("Step 5");
         setInstallments(true);
         setNewCard(false);
       }
     }
-    if (
-      selected === "selected3" &&
-      stepTwo &&
-      newCard === true &&
-      formData.cardName !== "" &&
-      formData.cardNumber !== "" &&
-      formData.expirationDate !== "" &&
-      formData.cvc !== "" &&
-      formData.userName !== "" &&
-      formData.cpfCnpj !== "" &&
-      formData.CEP !== "" &&
-      formData.Number !== "" &&
-      installments === true
-    ) {
-      return setNewCard(false);
-    }
     if (!newCard && installments) {
-      return console.log("done");
+      console.log("Step 6");
+      return router.push("/purchased");
     }
   }
 
-  // console.log("selected:", selected);
-  console.log(
-    "newCard, stepTwo, installments:",
-    newCard,
-    stepTwo,
-    installments
-  );
-  // console.log("installments:", installments);
-  // console.log("stepTwo:", stepTwo);
-  // console.log("formData:", formData);
   return (
     <Container>
       {newCard ? (
@@ -134,7 +120,7 @@ export function CardMethod() {
       ) : (
         <>
           <Stack>
-            <GlobalButton
+            {/* <GlobalButton
               background={`${Theme.color.secondary_80}`}
               color={`${Theme.color.gray_10}`}
               width={width < 768 ? "75%" : "25%"}
@@ -189,7 +175,7 @@ export function CardMethod() {
                 <Icon src="/Checkout/Cards.svg" width={20} height={20} alt="" />
                 {""} XXXX XXXX XXXX 1234
               </label>
-            </GlobalButton>
+            </GlobalButton> */}
             <GlobalButton
               background={`${Theme.color.secondary_80}`}
               color={`${Theme.color.gray_10}`}
@@ -249,17 +235,16 @@ export function CardMethod() {
           height="auto"
           fontSize={18}
           disabled={newCard || installments ? false : true}
-          onClick={
-            () => handleBack()
-            // newCard === true
-            //   ? () => setNewCard(false)
-            //   : installments === true
-            //   ? () => setInstallments(false)
-            //   : () => null
-          }
+          onClick={() => handleBack()}
         />
         <GlobalButton
-          content={installments ? "Finalizar" : "Pagamento"}
+          content={
+            installments
+              ? "Finalizar"
+              : selected === "selected3"
+              ? "Continuar"
+              : "Pagamento"
+          }
           background={`${Theme.color.next}`}
           color={`${Theme.color.gray_10}`}
           width={width < 768 ? "45%" : "20%"}
