@@ -6,11 +6,12 @@ import { Container, Dets, Icons, Text } from "./styles";
 
 interface IndividualProps {
   date: Date;
-  place: string;
+  local: string;
   city: string;
+  state: string;
 }
 moment.locale("pt-br");
-export function Individual({ date, place, city }: IndividualProps) {
+export function Individual({ date, local, city, state }: IndividualProps) {
   return (
     <Container>
       <Dets gap={2}>
@@ -28,7 +29,7 @@ export function Individual({ date, place, city }: IndividualProps) {
             alt=""
           />{" "}
           {""}
-          <strong>{place}</strong> {""} {city}
+          <strong>{local}</strong> {""} {city} - {state}
         </Text>
       </Dets>
       <Calendar date={date} />

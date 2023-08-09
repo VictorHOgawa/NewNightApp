@@ -3,16 +3,18 @@ import { Container, Forgot, Form, Label, Logo } from "./styles";
 import { GlobalButton } from "@/components/Global/Button";
 import Theme from "@/styles/themes";
 import { maskCpfCnpj, minLength } from "@/utils/masks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Error } from "@/components/Global/error";
+import { PostAPI } from "@/lib/axios";
+import { useRouter } from "next/router";
 
 export function LoginContainer() {
+  const router = useRouter();
   const [loginData, setLoginData] = useState({
     cpfCnpj: "",
     password: "",
   });
   const [error, setError] = useState<any>({});
-  console.log("loginData:", loginData);
   const handleValidations = (type: any, value: any) => {
     let errorText;
     switch (type) {
@@ -25,6 +27,25 @@ export function LoginContainer() {
   const handleBlur = (e: any) => {
     handleValidations(e.target.name, e.target.value);
   };
+
+  function handleSubmit() {
+    if (loginData.cpfCnpj === "" || loginData.password === "") {
+      return alert("Preencha todos os campos");
+    } else {
+      handleLogin();
+    }
+  }
+
+  async function handleLogin() {
+    const connect = await PostAPI("/user/login", loginData);
+    console.log(connect);
+    if (connect.status !== 200) {
+      return alert(connect.body);
+    }
+    localStorage.setItem("nightToken", connect.body.token);
+    return router.push("/");
+  }
+
   return (
     <Container>
       <Label>CPF</Label>
@@ -60,10 +81,10 @@ export function LoginContainer() {
       <Forgot>Esqueci a Senha.</Forgot>
       <Stack
         gap={2}
+        direction="horizontal"
         style={{
           alignSelf: "center",
           display: "flex",
-          width: "50%",
         }}
       >
         <GlobalButton
@@ -72,6 +93,7 @@ export function LoginContainer() {
           color={`${Theme.color.gray_100}`}
           width="100%"
           height="auto"
+          onClick={handleSubmit}
         />
         <GlobalButton
           content="Cadastro"
@@ -79,7 +101,7 @@ export function LoginContainer() {
           color={`${Theme.color.gray_100}`}
           width="100%"
           height="auto"
-          disabled
+          onClick={() => router.push("/register")}
         />
       </Stack>
     </Container>

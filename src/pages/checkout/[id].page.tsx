@@ -11,7 +11,6 @@ import { useCart } from "@/context/cart";
 export default function Checkout() {
   const [selected, setSelected] = useState("Pix");
   const { cart, add } = useCart();
-  console.log(cart);
 
   return (
     <Container>

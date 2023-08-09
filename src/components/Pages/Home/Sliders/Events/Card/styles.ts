@@ -28,6 +28,7 @@ export const Container = styled.div`
 export const SliderImg = styled(Image)`
   width: 100%;
   height: auto;
+  border-radius: 10px;
 `;
 
 export const EventBody = styled.div`
@@ -65,4 +66,13 @@ export const EventFooter = styled.div`
 
 export const EventPlace = styled(EventTitle)`
   align-self: end;
+  font-size: ${px2vw(10, 320)};
+
+  @media (min-width: 768px) {
+    font-size: ${px2vw(10, 768)};
+  }
+
+  @media (min-width: 1024px) {
+    font-size: ${px2vw(10, 1024)};
+  }
 `;

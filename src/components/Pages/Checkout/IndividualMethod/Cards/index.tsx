@@ -34,10 +34,6 @@ export function CardMethod() {
     CEP: "",
     Number: "",
   });
-  console.log("selected", selected);
-  console.log("newCard", newCard);
-  console.log("stepTwo", stepTwo);
-  console.log("installments", installments);
 
   function handleBack() {
     if (installments && !newCard && !stepTwo) {
@@ -56,15 +52,12 @@ export function CardMethod() {
   }
   function handleNext() {
     if (selected === "") {
-      console.log("Step 1");
       return alert("Selecione um Cartão");
     }
     if (selected !== "selected3") {
-      console.log("Step 2");
       return setInstallments(true);
     }
     if (selected === "selected3" && !newCard && !installments) {
-      console.log("Step 3");
       return setNewCard(true);
     }
     if (
@@ -76,7 +69,6 @@ export function CardMethod() {
       formData.expirationDate !== "" &&
       formData.cvc !== ""
     ) {
-      console.log("Step 4");
       return setStepTwo(true);
     }
     if (
@@ -94,13 +86,11 @@ export function CardMethod() {
       formData.Number !== ""
     ) {
       {
-        console.log("Step 5");
         setInstallments(true);
         setNewCard(false);
       }
     }
     if (!newCard && installments) {
-      console.log("Step 6");
       return router.push("/purchased");
     }
   }

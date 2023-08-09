@@ -22,7 +22,7 @@ interface StepTwoProps {
     value: number;
     id: string;
     type: string;
-    location: string;
+    photo_location: string;
   }[];
   type: string;
   setType: any;
@@ -66,6 +66,7 @@ export function StepTwo({ product, type, setType }: StepTwoProps) {
     );
     return ticketExists ? ticketExists.quantity : 0;
   }
+
   return (
     <>
       <GlobalTitle
@@ -81,10 +82,10 @@ export function StepTwo({ product, type, setType }: StepTwoProps) {
             <ItemButton onClick={() => handleSelectType("WHISKEY")}>
               <Item src="/Events/Item2.svg" width={200} height={200} alt="" />
             </ItemButton>
-            <ItemButton onClick={() => handleSelectType("CERVEJA")}>
+            <ItemButton onClick={() => handleSelectType("BEER")}>
               <Item src="/Events/Item3.svg" width={200} height={200} alt="" />
             </ItemButton>
-            <ItemButton onClick={() => handleSelectType("COMBOS")}>
+            <ItemButton onClick={() => handleSelectType("COMBO")}>
               <Item src="/Events/Item4.svg" width={200} height={200} alt="" />
             </ItemButton>
             <ItemButton onClick={() => handleSelectType("ENERGÉTICOS")}>
@@ -94,6 +95,7 @@ export function StepTwo({ product, type, setType }: StepTwoProps) {
               <Item src="/Events/Item6.svg" width={200} height={200} alt="" />
             </ItemButton>
           </Items>
+
           <div
             style={{
               display: "flex",
@@ -115,42 +117,60 @@ export function StepTwo({ product, type, setType }: StepTwoProps) {
       ) : (
         filteredProduct.map((item: any) => (
           <>
-            <Title>{item.type}</Title>
-            <Stack gap={2}>
-              <TicketType>
-                <StaticImage
-                  src={item.location}
-                  width={40}
-                  height={40}
-                  alt=""
-                />
-                <TicketTitle>
-                  <strong>{item.name}</strong>
-                  <br />{" "}
-                  {item.value.toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
-                  })}
-                </TicketTitle>
-                <CounterArea>
-                  <StaticImg
-                    src="/Global/Icons/Minus.svg"
-                    width={20}
-                    height={20}
-                    alt=""
-                    onClick={() => handleChange("decrease", item)}
-                  />
-                  <Counter>{ticketQuantity(item.id)}</Counter>
-                  <StaticImg
-                    src="/Global/Icons/Plus.svg"
-                    width={20}
-                    height={20}
-                    alt=""
-                    onClick={() => handleChange("increase", item)}
-                  />
-                </CounterArea>
-              </TicketType>
-            </Stack>
+            {filteredProduct.length === 0 ? (
+              <>
+                <div
+                  style={{
+                    display: "flex",
+                    width: 100,
+                    height: 100,
+                    background: "red",
+                    color: "red",
+                  }}
+                >
+                  test
+                </div>
+              </>
+            ) : (
+              <>
+                <Title>{item.type}</Title>
+                <Stack gap={2}>
+                  <TicketType>
+                    <StaticImage
+                      src={item.photo_location}
+                      width={40}
+                      height={40}
+                      alt=""
+                    />
+                    <TicketTitle>
+                      <strong>{item.name}</strong>
+                      <br />{" "}
+                      {item.value.toLocaleString("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                      })}
+                    </TicketTitle>
+                    <CounterArea>
+                      <StaticImg
+                        src="/Global/Icons/Minus.svg"
+                        width={20}
+                        height={20}
+                        alt=""
+                        onClick={() => handleChange("decrease", item)}
+                      />
+                      <Counter>{ticketQuantity(item.id)}</Counter>
+                      <StaticImg
+                        src="/Global/Icons/Plus.svg"
+                        width={20}
+                        height={20}
+                        alt=""
+                        onClick={() => handleChange("increase", item)}
+                      />
+                    </CounterArea>
+                  </TicketType>
+                </Stack>
+              </>
+            )}
           </>
         ))
       )}

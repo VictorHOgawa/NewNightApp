@@ -72,7 +72,6 @@ export function Form({
         errorText =
           value === "" ? "Campo Obrigatório" : textWithSpacesOnly(value);
         setError({ ...error, nameError: errorText });
-        console.log("error: ", error);
         break;
       case "cpfCnpj":
         errorText = value === "" ? "Campo Obrigatório" : minLength(11)(value);

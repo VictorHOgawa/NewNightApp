@@ -14,15 +14,15 @@ import { useState, useEffect } from "react";
 
 interface StepOneProps {
   id: string;
-  name: string;
   ticket: {
+    ticket: any;
     id: string;
     name: string;
     value: number;
   }[];
 }
 
-export function StepOne({ id, name, ticket }: StepOneProps) {
+export function StepOne({ id, ticket }: StepOneProps) {
   const [width, setWidth] = useState(100);
 
   const updateDimensions = () => {
@@ -34,7 +34,6 @@ export function StepOne({ id, name, ticket }: StepOneProps) {
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
   const { cart, add } = useCart();
-  console.log("cart.ticket:", cart.ticket);
 
   const handleChange = (
     type: string,
@@ -74,47 +73,58 @@ export function StepOne({ id, name, ticket }: StepOneProps) {
   }
   return (
     <>
-      <Stack gap={2}>
-        <GlobalTitle
-          title={name}
-          style={{ marginTop: "15%", marginLeft: width < 768 ? "2.5%" : "5%" }}
-        />
-        {ticket.map((item) => (
-          <TicketType>
-            <StaticImage
-              src="/Checkout/ticket.svg"
-              width={40}
-              height={40}
-              alt=""
-            />
-            <TicketTitle>
-              <strong style={{ fontSize: 18 }}>{item.name}</strong>
-              <br />{" "}
-              {item.value.toLocaleString("pt-BR", {
-                style: "currency",
-                currency: "BRL",
-              })}
-            </TicketTitle>
-            <CounterArea>
-              <StaticImg
-                src="/Global/Icons/Minus.svg"
-                width={30}
-                height={30}
-                alt=""
-                onClick={() => handleChange("decrease", item)}
-              />
-              <Counter>{ticketQuantity(item.id)}</Counter>
-              <StaticImg
-                src="/Global/Icons/Plus.svg"
-                width={30}
-                height={30}
-                alt=""
-                onClick={() => handleChange("increase", item)}
-              />
-            </CounterArea>
-          </TicketType>
-        ))}
-      </Stack>
+      {ticket.map((item) => (
+        <Stack gap={2}>
+          <GlobalTitle
+            title={item.name}
+            style={{
+              marginTop: "15%",
+              marginLeft: width < 768 ? "2.5%" : "5%",
+            }}
+          />
+          {ticket.length === 0 ? (
+            <></>
+          ) : (
+            <>
+              {item.ticket.map((item: { name: any; value: any; id: any }) => (
+                <TicketType>
+                  <StaticImage
+                    src="/Checkout/ticket.svg"
+                    width={40}
+                    height={40}
+                    alt=""
+                  />
+                  <TicketTitle>
+                    <strong style={{ fontSize: 18 }}>{item.name}</strong>
+                    <br />{" "}
+                    {item.value.toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
+                  </TicketTitle>
+                  <CounterArea>
+                    <StaticImg
+                      src="/Global/Icons/Minus.svg"
+                      width={30}
+                      height={30}
+                      alt=""
+                      onClick={() => handleChange("decrease", item)}
+                    />
+                    <Counter>{ticketQuantity(item.id)}</Counter>
+                    <StaticImg
+                      src="/Global/Icons/Plus.svg"
+                      width={30}
+                      height={30}
+                      alt=""
+                      onClick={() => handleChange("increase", item)}
+                    />
+                  </CounterArea>
+                </TicketType>
+              ))}
+            </>
+          )}
+        </Stack>
+      ))}
     </>
   );
 }

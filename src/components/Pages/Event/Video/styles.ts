@@ -11,7 +11,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Video = styled.iframe`
+export const IFrame = styled.iframe`
   @media (min-width: 768px) {
     height: 40vh;
   }
