@@ -1,10 +1,11 @@
 import axios from "axios";
 
-export const api_url = "http://192.168.10.38:3333";
+export const amazonik = "http://192.168.10.38:3333";
+export const deployed = "https://night-server.onrender.com";
 export const token = "";
 
 export const api = axios.create({
-  baseURL: api_url,
+  baseURL: deployed,
 });
 
 export const PostAPI = async (url: string, data: any) => {

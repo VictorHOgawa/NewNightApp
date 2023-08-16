@@ -22,6 +22,7 @@ export function EventSlider() {
 
   async function getEvents() {
     const connect = await getAPI("/event");
+    console.log("connect:", connect);
     if (connect.status === 200) {
       setEvents(connect.body.events);
       return setLoading(false);

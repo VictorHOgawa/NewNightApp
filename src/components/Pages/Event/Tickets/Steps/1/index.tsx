@@ -24,7 +24,6 @@ interface StepOneProps {
 
 export function StepOne({ id, ticket }: StepOneProps) {
   const [width, setWidth] = useState(100);
-
   const updateDimensions = () => {
     setWidth(window.innerWidth);
   };

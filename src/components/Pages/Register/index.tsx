@@ -146,7 +146,7 @@ export function RegisterContainer() {
         value={registerData.password}
         required
       />
-      <Forgot>Esqueci a Senha.</Forgot>
+      <br />
       <GlobalButton
         content="Cadastro"
         background={`${Theme.color.primary_60}`}

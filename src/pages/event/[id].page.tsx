@@ -1,5 +1,12 @@
 import { Header } from "@/components/Global/Header";
-import { Banner, Container, DetailImg, FirstContainer, Nav } from "./styles";
+import {
+  Banner,
+  Container,
+  DetailImg,
+  FirstContainer,
+  Label,
+  Nav,
+} from "./styles";
 import { GlobalTitle } from "@/components/Global/Title";
 import { Buttons } from "@/components/Pages/Event/Buttons";
 import { Individual } from "@/components/Pages/Event/Individual";
@@ -168,11 +175,16 @@ export default function Event() {
     }
   }
 
+  console.log("step", step);
+  console.log("type", type);
+  console.log("eventDetails", eventDetails);
   useEffect(() => {
     if (id) {
       getEventDetails();
     }
   }, [id]);
+
+  useEffect(() => {}, [eventDetails]);
 
   return (
     <Container>
@@ -239,7 +251,7 @@ export default function Event() {
                 />
                 <br />
                 {eventDetails.ticketSlots.length === 0 ? (
-                  <>Test</>
+                  <Label>Nenhum Ingresso Disponível</Label>
                 ) : (
                   <>
                     {step === 1 ? (
@@ -340,7 +352,7 @@ export default function Event() {
                         <Tabs active={false} />
                       </Stack>
                       <StepOne
-                        id={eventDetails.ticketSlots.id}
+                        id={eventDetails.ticketSlots[0].id}
                         ticket={eventDetails.ticketSlots}
                       />
                     </>
@@ -357,7 +369,7 @@ export default function Event() {
                       </Stack>
                       <StepTwo
                         product={eventDetails.products}
-                        type={eventDetails.products.type}
+                        type={type}
                         setType={setType}
                       />
                     </>

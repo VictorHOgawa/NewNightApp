@@ -1,3 +1,4 @@
+import px2vw from "@/utils/size";
 import Image from "next/image";
 import { Stack } from "react-bootstrap";
 import { styled } from "styled-components";
@@ -72,4 +73,11 @@ export const Banner = styled.div`
   @media (min-width: 768px) {
     width: 70%;
   }
+`;
+
+export const Label = styled.label`
+  color: ${({ theme }) => theme.color.gray_10};
+  font-size: ${px2vw(20, 320)};
+  align-self: center;
+  text-align: center;
 `;
