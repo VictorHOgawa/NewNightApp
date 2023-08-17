@@ -1,4 +1,3 @@
-import { Stack } from "react-bootstrap";
 import { Button, Container, Icon } from "./styles";
 
 interface MethodProps {

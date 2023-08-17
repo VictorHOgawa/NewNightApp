@@ -1,12 +1,12 @@
 import { Header } from "@/components/Global/Header";
-import { Container } from "./styles";
-import { Title } from "@/components/Pages/Checkout/Title";
+import { IndividualMethod } from "@/components/Pages/Checkout/IndividualMethod";
 import { Method } from "@/components/Pages/Checkout/Method";
 import { Safe } from "@/components/Pages/Checkout/Safe";
-import { useState } from "react";
-import { IndividualMethod } from "@/components/Pages/Checkout/IndividualMethod";
+import { Title } from "@/components/Pages/Checkout/Title";
 import { Total } from "@/components/Pages/Checkout/Total";
 import { useCart } from "@/context/cart";
+import { useState } from "react";
+import { Container } from "./styles";
 
 export default function Checkout() {
   const [selected, setSelected] = useState("Pix");

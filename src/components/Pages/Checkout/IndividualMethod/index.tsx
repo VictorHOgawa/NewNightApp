@@ -1,6 +1,6 @@
-import { Container } from "./styles";
-import { PixMethod } from "./Pix";
 import { CardMethod } from "./Cards";
+import { PixMethod } from "./Pix";
+import { Container } from "./styles";
 
 interface IndividualMethodProps {
   selected: string;

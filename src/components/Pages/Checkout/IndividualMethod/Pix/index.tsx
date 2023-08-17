@@ -1,11 +1,11 @@
 import { GlobalButton } from "@/components/Global/Button";
-import { Container, Pix } from "./styles";
-import { useState, useEffect } from "react";
-import Theme from "@/styles/themes";
-import { Video } from "../../Video";
-import { useRouter } from "next/router";
 import { GlobalTitle } from "@/components/Global/Title";
+import Theme from "@/styles/themes";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Video } from "../../Video";
 import { Form } from "../Cards/styles";
+import { Container, Pix } from "./styles";
 
 export function PixMethod() {
   const router = useRouter();
