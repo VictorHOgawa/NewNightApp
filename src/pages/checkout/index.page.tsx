@@ -11,7 +11,6 @@ import { Container } from "./styles";
 export default function Checkout() {
   const [selected, setSelected] = useState("Pix");
   const { cart, add } = useCart();
-
   return (
     <Container>
       <Header />

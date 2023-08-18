@@ -22,135 +22,11 @@ import { StepOne } from "@/components/Pages/Event/Tickets/Steps/1";
 import { StepTwo } from "@/components/Pages/Event/Tickets/Steps/2";
 import { useRouter } from "next/router";
 import { getAPI } from "@/lib/axios";
+import { useCart } from "@/context/cart";
 
-// interface EventProps {
-//   location: string;
-//   name: string;
-//   geo: string;
-//   instagram: string;
-//   whatsapp: string;
-//   date: Date;
-//   time: string;
-//   place: string;
-//   city: string;
-//   weekDay: string;
-//   day: string;
-//   month: string;
-//   description: { name: string; description: string }[];
-//   music: string;
-//   ticketSlot: {
-//     id: string;
-//     name: string;
-//     ticket: { id: string; name: string; value: number }[];
-//   };
-//   product: {
-//     id: string;
-//     name: string;
-//     value: number;
-//     type: string;
-//     location: string;
-//   }[];
-// }
 export default function Event() {
-  // const [event, setEvent] = useState<EventProps>({
-  //   location: "/Events/Event1.svg",
-  //   name: "teste",
-  //   geo: "",
-  //   instagram: "",
-  //   whatsapp: "",
-  //   date: new Date(),
-  //   time: "21:00h",
-  //   place: "Cerveja de Garrafa",
-  //   city: "Sinop / MT",
-  //   weekDay: "Segunda",
-  //   day: "29",
-  //   month: "JUL",
-  //   description: [
-  //     {
-  //       name: "Titulo 1",
-  //       description:
-  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-  //     },
-  //     {
-  //       name: "Título 2",
-  //       description:
-  //         " has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a typ has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a typ",
-  //     },
-  //     {
-  //       name: "Título 3",
-  //       description:
-  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsume specimen book.",
-  //     },
-  //   ],
-  //   music: "https://www.youtube.com/embed/enYuqLBiisw",
-  //   ticketSlot: {
-  //     id: "id",
-  //     name: "Lote Promocional",
-  //     ticket: [
-  //       {
-  //         name: "Área 1",
-  //         value: 1,
-  //         id: "1",
-  //       },
-  //       {
-  //         name: "Área 2",
-  //         value: 2,
-  //         id: "2",
-  //       },
-  //       {
-  //         name: "Área 3",
-  //         value: 3,
-  //         id: "3",
-  //       },
-  //     ],
-  //   },
-  //   product: [
-  //     {
-  //       id: "id1",
-  //       name: "Smirnoff",
-  //       value: 1,
-  //       type: "VODKA",
-  //       location: "/Events/Item1.svg",
-  //     },
-  //     {
-  //       id: "id2",
-  //       name: "Lote Promocional",
-  //       value: 1,
-  //       type: "WHISKEY",
-  //       location: "/Events/Item2.svg",
-  //     },
-  //     {
-  //       id: "id3",
-  //       name: "Lote Promocional",
-  //       value: 1,
-  //       type: "CERVEJA",
-  //       location: "/Events/Item3.svg",
-  //     },
-  //     {
-  //       id: "id4",
-  //       name: "Lote Promocional",
-  //       value: 1,
-  //       type: "COMBOS",
-  //       location: "/Events/Item4.svg",
-  //     },
-  //     {
-  //       id: "id5",
-  //       name: "Lote Promocional",
-  //       value: 1,
-  //       type: "ENERGÉTICOS",
-  //       location: "/Events/Item5.svg",
-  //     },
-  //     {
-  //       id: "id6",
-  //       name: "Lote Promocional",
-  //       value: 1,
-  //       type: "OUTROS",
-  //       location: "/Events/Item6.svg",
-  //     },
-  //   ],
-  // });
-
   const router = useRouter();
+  const { cart } = useCart();
   const { id } = useRouter().query as any;
   const [step, setStep] = useState(1);
   const [type, setType] = useState("");
@@ -184,7 +60,28 @@ export default function Event() {
     }
   }, [id]);
 
-  useEffect(() => {}, [eventDetails]);
+  const handleNext = () => {
+    if (type !== "") {
+      return setType("");
+    }
+    if (step === 1) {
+      return setStep(step + 1);
+    }
+    if (
+      step === 2 &&
+      type === "" &&
+      cart.ticket.ticket.length === 0 &&
+      cart.product.length === 0
+    ) {
+      return alert("Selecione um (ou mais) Produto(s)");
+    }
+    if (
+      (step === 2 && type === "" && cart.ticket.ticket.length !== 0) ||
+      cart.product.length !== 0
+    ) {
+      return router.push("/checkout");
+    }
+  };
 
   return (
     <Container>
@@ -319,13 +216,7 @@ export default function Event() {
                     width="45%"
                     height="auto"
                     fontSize={18}
-                    onClick={
-                      type !== ""
-                        ? () => setType("")
-                        : step === 2 && type === ""
-                        ? () => router.push("/checkout")
-                        : () => setStep(step + 1)
-                    }
+                    onClick={handleNext}
                   />
                 </Nav>
               </>
@@ -403,13 +294,7 @@ export default function Event() {
                       width="45%"
                       height="auto"
                       fontSize={18}
-                      onClick={
-                        type !== ""
-                          ? () => setType("")
-                          : step === 2 && type === ""
-                          ? () => router.push("/checkout")
-                          : () => setStep(step + 1)
-                      }
+                      onClick={handleNext}
                     />
                   </Nav>
                 </Stack>

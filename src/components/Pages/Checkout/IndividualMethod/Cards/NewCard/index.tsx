@@ -253,7 +253,7 @@ export function NewCard({ formData, setFormData, stepTwo }: NewCardProps) {
                 )}
             </Col>
             <Col xs={{ span: 5, offset: 1 }}>
-              <GlobalTitle title="cvc" fontSize={15} />
+              <GlobalTitle title="CVC" fontSize={15} />
               <Form
                 name="cvc"
                 placeholder="Insira Aqui..."

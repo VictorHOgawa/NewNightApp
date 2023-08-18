@@ -110,62 +110,6 @@ export function CardMethod() {
       ) : (
         <>
           <Stack>
-            {/* <GlobalButton
-              background={`${Theme.color.secondary_80}`}
-              color={`${Theme.color.gray_10}`}
-              width={width < 768 ? "75%" : "25%"}
-              height="auto"
-              content=""
-              style={{
-                alignSelf: "center",
-                marginTop: width < 768 ? "5%" : "2%",
-                display: "flex",
-                justifyContent: "space-evenly",
-                padding: 10,
-                alignItems: "center",
-              }}
-            >
-              <input
-                type="radio"
-                id="selected1"
-                name="cards"
-                value="selected1"
-                onChange={() => setSelected("selected1")}
-              />
-
-              <label htmlFor="selected1">
-                <Icon src="/Checkout/Cards.svg" width={20} height={20} alt="" />
-                {""} XXXX XXXX XXXX 1234
-              </label>
-            </GlobalButton>
-            <GlobalButton
-              background={`${Theme.color.secondary_80}`}
-              color={`${Theme.color.gray_10}`}
-              width={width < 768 ? "75%" : "25%"}
-              height="auto"
-              content=""
-              style={{
-                alignSelf: "center",
-                marginTop: width < 768 ? "5%" : "2%",
-                display: "flex",
-                justifyContent: "space-evenly",
-                padding: 10,
-                alignItems: "center",
-              }}
-            >
-              <input
-                type="radio"
-                id="selected2"
-                name="cards"
-                value="selected2"
-                onChange={() => setSelected("selected2")}
-              />
-
-              <label htmlFor="selected2">
-                <Icon src="/Checkout/Cards.svg" width={20} height={20} alt="" />
-                {""} XXXX XXXX XXXX 1234
-              </label>
-            </GlobalButton> */}
             <GlobalButton
               background={`${Theme.color.secondary_80}`}
               color={`${Theme.color.gray_10}`}

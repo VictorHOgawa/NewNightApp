@@ -68,6 +68,7 @@ export function StepOne({ id, ticket }: StepOneProps) {
     const ticketExists = cart.ticket.ticket.find(
       (ticket: { id: string }) => ticket.id === id
     );
+    console.log("ticketExists: ", ticketExists);
     return ticketExists ? ticketExists.quantity : 0;
   }
   return (
