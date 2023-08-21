@@ -1,6 +1,6 @@
-import { Row, Stack } from "react-bootstrap";
-import { Btn, Container, Img } from "./styles";
 import { useRouter } from "next/router";
+import { Row } from "react-bootstrap";
+import { Btn, Container, Img } from "./styles";
 
 export function Items() {
   const router = useRouter();
