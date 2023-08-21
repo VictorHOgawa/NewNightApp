@@ -42,6 +42,15 @@ export function TicketCards() {
                   alt=""
                 />
                 <Dets gap={2}>
+                  <Text
+                    style={{
+                      marginLeft: "10%",
+                      fontWeight: "bold",
+                      fontSize: 15,
+                    }}
+                  >
+                    Nome do Evento
+                  </Text>
                   <Text>
                     <Icons
                       src="/Global/Icons/Clock.svg"

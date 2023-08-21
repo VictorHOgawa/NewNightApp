@@ -5,7 +5,7 @@ import { Container } from "./styles";
 export default function Shop() {
   return (
     <Container>
-      <Header page="main" />
+      <Header page="main" selected="shop" />
       <Ad />
     </Container>
   );

@@ -17,9 +17,10 @@ import { Back } from "../Back";
 
 interface HeaderProps {
   page?: string;
+  selected?: string;
 }
 
-export function Header({ page = "secondary" }: HeaderProps) {
+export function Header({ page = "secondary", selected }: HeaderProps) {
   const router = useRouter();
   return (
     <Container>
@@ -59,6 +60,7 @@ export function Header({ page = "secondary" }: HeaderProps) {
               height={35}
               alt=""
               onClick={() => router.push("/")}
+              style={{ opacity: selected === "home" ? 1 : 0.5 }}
             />
             <Icon
               src="/Global/Icons/BagIcon.svg"
@@ -66,6 +68,7 @@ export function Header({ page = "secondary" }: HeaderProps) {
               height={35}
               alt=""
               onClick={() => router.push("/shop")}
+              style={{ opacity: selected === "shop" ? 1 : 0.5 }}
             />
             <Moon
               src="/Global/Icons/MoonIcon.svg"
@@ -73,6 +76,7 @@ export function Header({ page = "secondary" }: HeaderProps) {
               height={65}
               alt=""
               onClick={() => router.push("/match")}
+              style={{ opacity: selected === "match" ? 1 : 0.5 }}
             />
             <Icon
               src="/Global/Icons/TicketIcon.svg"
@@ -80,6 +84,7 @@ export function Header({ page = "secondary" }: HeaderProps) {
               height={35}
               alt=""
               onClick={() => router.push("/purchased")}
+              style={{ opacity: selected === "purchased" ? 1 : 0.5 }}
             />
             <Icon
               src="/Global/Icons/ProfileIcon.svg"
@@ -87,6 +92,7 @@ export function Header({ page = "secondary" }: HeaderProps) {
               height={35}
               alt=""
               onClick={() => router.push("/profile")}
+              style={{ opacity: selected === "profile" ? 1 : 0.5 }}
             />
           </Footer>
         </>

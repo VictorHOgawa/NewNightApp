@@ -24,7 +24,7 @@ export default function Profile() {
 
   return (
     <Container>
-      <Header page="main" />
+      <Header page="main" selected="profile" />
       <br />
       {width < 768 ? (
         <>

@@ -7,7 +7,7 @@ import { PlaceSlider } from "@/components/Pages/Home/Sliders/Places/Slider";
 export default function Home() {
   return (
     <Container>
-      <Header page="main" />
+      <Header page="main" selected="home" />
       <Ad />
       <br />
       <br />
