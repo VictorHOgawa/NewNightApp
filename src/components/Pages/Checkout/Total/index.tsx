@@ -1,8 +1,10 @@
+import { useCart } from "@/context/cart";
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Container, FullTotal, IndividualTotal } from "./styles";
-import { useState } from "react";
 
 export function Total() {
+  const { cart } = useCart();
   const Items = [
     {
       product: "Produto 1",
