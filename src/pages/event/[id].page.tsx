@@ -99,7 +99,7 @@ export default function Event() {
                 justifyContent: "center",
               }}
             >
-              {width > 768 ? (
+              {width >= 768 ? (
                 <>
                   <Individual
                     date={eventDetails.date}
@@ -125,7 +125,6 @@ export default function Event() {
                 alt=""
               />
               <br />
-              <br />
               <GlobalTitle
                 title={eventDetails.name}
                 marginLeft={width < 768 ? "2.5%" : "5%"}
@@ -147,46 +146,46 @@ export default function Event() {
                   state={eventDetails.city.state}
                 />
                 <br />
-                {eventDetails.ticketSlots.length === 0 ? (
+
+                {step === 1 && eventDetails.ticketSlots.length === 0 ? (
                   <Label>Nenhum Ingresso Disponível</Label>
+                ) : step === 1 && eventDetails.ticketSlots.length !== 0 ? (
+                  <>
+                    <Stack
+                      direction="horizontal"
+                      gap={3}
+                      style={{ marginLeft: "4%", marginTop: "5%" }}
+                    >
+                      <Tabs active={true} />
+                      <Tabs active={false} />
+                      <Tabs active={false} />
+                    </Stack>
+                    <StepOne
+                      ticket={eventDetails.ticketSlots}
+                      id={eventDetails.ticketSlots.id}
+                    />
+                  </>
+                ) : step === 2 && eventDetails.products.length === 0 ? (
+                  <Label>Nenhum Produto Disponível</Label>
                 ) : (
                   <>
-                    {step === 1 ? (
-                      <>
-                        <Stack
-                          direction="horizontal"
-                          gap={3}
-                          style={{ marginLeft: "4%", marginTop: "5%" }}
-                        >
-                          <Tabs active={true} />
-                          <Tabs active={false} />
-                          <Tabs active={false} />
-                        </Stack>
-                        <StepOne
-                          ticket={eventDetails.ticketSlots}
-                          id={eventDetails.ticketSlots.id}
-                        />
-                      </>
-                    ) : (
-                      <>
-                        <Stack
-                          direction="horizontal"
-                          gap={3}
-                          style={{ marginLeft: "4%", marginTop: "5%" }}
-                        >
-                          <Tabs active={true} />
-                          <Tabs active={true} />
-                          <Tabs active={false} />
-                        </Stack>
-                        <StepTwo
-                          product={eventDetails.products}
-                          type={type}
-                          setType={setType}
-                        />
-                      </>
-                    )}
+                    <Stack
+                      direction="horizontal"
+                      gap={3}
+                      style={{ marginLeft: "4%", marginTop: "5%" }}
+                    >
+                      <Tabs active={true} />
+                      <Tabs active={true} />
+                      <Tabs active={false} />
+                    </Stack>
+                    <StepTwo
+                      product={eventDetails.products}
+                      type={type}
+                      setType={setType}
+                    />
                   </>
                 )}
+
                 <br />
                 <Nav
                   direction="horizontal"
@@ -217,6 +216,12 @@ export default function Event() {
                     height="auto"
                     fontSize={18}
                     onClick={handleNext}
+                    disabled={
+                      eventDetails.ticketSlots.length === 0 &&
+                      eventDetails.products.length === 0
+                        ? true
+                        : false
+                    }
                   />
                 </Nav>
               </>
@@ -231,7 +236,10 @@ export default function Event() {
                 >
                   <br />
                   <br />
-                  {step === 1 ? (
+
+                  {step === 1 && eventDetails.ticketSlots.length === 0 ? (
+                    <Label>Nenhum Ingresso Disponível</Label>
+                  ) : step === 1 && eventDetails.ticketSlots.length !== 0 ? (
                     <>
                       <Stack
                         direction="horizontal"
@@ -243,10 +251,12 @@ export default function Event() {
                         <Tabs active={false} />
                       </Stack>
                       <StepOne
-                        id={eventDetails.ticketSlots[0].id}
+                        id={eventDetails.ticketSlots.id}
                         ticket={eventDetails.ticketSlots}
                       />
                     </>
+                  ) : step === 2 && eventDetails.products.length === 0 ? (
+                    <Label>Nenhum Produto Disponível</Label>
                   ) : (
                     <>
                       <Stack
@@ -265,6 +275,7 @@ export default function Event() {
                       />
                     </>
                   )}
+
                   <br />
                   <Nav
                     direction="horizontal"
@@ -295,6 +306,12 @@ export default function Event() {
                       height="auto"
                       fontSize={18}
                       onClick={handleNext}
+                      disabled={
+                        eventDetails.ticketSlots.length === 0 &&
+                        eventDetails.products.length === 0
+                          ? true
+                          : false
+                      }
                     />
                   </Nav>
                 </Stack>

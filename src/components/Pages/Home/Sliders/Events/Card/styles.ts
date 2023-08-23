@@ -13,28 +13,33 @@ export const Container = styled.div`
     #9d38cd 100%
   );
   width: 60%;
+  min-height: ${px2vw(250, 320)};
+  justify-content: space-between;
   margin: 0px;
-  padding: 0px;
+  padding-bottom: 10px;
 
   @media (min-width: 768px) {
     width: 40%;
+    min-height: ${px2vw(250, 768)};
   }
 
   @media (min-width: 1024px) {
     width: 25%;
+    min-height: ${px2vw(250, 1024)};
   }
 `;
 
 export const SliderImg = styled(Image)`
   width: 100%;
-  height: auto;
   border-radius: 10px;
+  object-fit: cover;
 `;
 
 export const EventBody = styled.div`
   display: flex;
   flex-direction: column;
   padding: 5px;
+  height: 100%;
 
   @media (min-width: 768px) {
     padding: 10px;

@@ -47,6 +47,13 @@ export function Info() {
           color={`${Theme.color.gray_10}`}
           width="100%"
           height="auto"
+          content="Jobs na Night"
+        />
+        <GlobalButton
+          background={`${Theme.color.primary_40}`}
+          color={`${Theme.color.gray_10}`}
+          width="100%"
+          height="auto"
           content="Sair"
         />
       </Stack>

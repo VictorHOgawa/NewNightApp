@@ -31,11 +31,25 @@ export const Details = styled.div`
 `;
 
 export const ProductImage = styled(Image)`
-  width: 50px;
-  height: 50px;
+  width: ${px2vw(100, 320)};
+  height: ${px2vw(100, 320)};
+  align-self: center;
+
+  @media (min-width: 768px) {
+    width: ${px2vw(150, 768)};
+    height: ${px2vw(150, 768)};
+  }
+
+  @media (min-width: 1024px) {
+    width: ${px2vw(100, 1024)};
+    height: ${px2vw(100, 1024)};
+  }
 `;
 
-export const Dets = styled(Stack)``;
+export const Dets = styled(Stack)`
+  align-self: center;
+  align-items: center;
+`;
 
 export const Icons = styled(Image)`
   width: 20px;
@@ -44,23 +58,6 @@ export const Icons = styled(Image)`
 
 export const Text = styled.div`
   color: ${({ theme }) => theme.color.gray_10};
-  font-size: ${px2vw(12, 320)};
-
-  @media (min-width: 768px) {
-    font-size: ${px2vw(12, 768)};
-  }
-
-  @media (min-width: 1024px) {
-    font-size: ${px2vw(12, 1024)};
-  }
-`;
-
-export const Area = styled.div`
-  border: 1px solid ${({ theme }) => theme.color.primary_60};
-  border-radius: 5px;
-  color: ${({ theme }) => theme.color.gray_10};
-  padding: 0px 2px;
-  height: max-content;
   font-size: ${px2vw(12, 320)};
 
   @media (min-width: 768px) {

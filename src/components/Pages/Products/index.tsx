@@ -1,6 +1,5 @@
 import { GlobalTitle } from "@/components/Global/Title";
 import {
-  Area,
   Button,
   Card,
   Container,
@@ -50,12 +49,12 @@ export function ProductCards() {
                   height={80}
                   alt=""
                 />
-                <Dets gap={2}>
+                <Dets gap={1}>
                   <Text
                     style={{
-                      marginLeft: "10%",
                       fontWeight: "bold",
                       fontSize: 15,
+                      lineHeight: 1,
                     }}
                   >
                     Nome do Evento
@@ -82,12 +81,6 @@ export function ProductCards() {
                     <strong>Cerveja de Garrafa</strong> {""} Sinop/MT
                   </Text>
                 </Dets>
-                <Area>
-                  Área:{" "}
-                  <strong style={{ color: `${Theme.color.primary_60}` }}>
-                    Pista
-                  </strong>
-                </Area>
               </Details>
               <Stack
                 gap={2}
@@ -141,12 +134,12 @@ export function ProductCards() {
                             height={80}
                             alt=""
                           />
-                          <Dets gap={2}>
+                          <Dets gap={1}>
                             <Text
                               style={{
-                                marginLeft: "10%",
                                 fontWeight: "bold",
                                 fontSize: 15,
+                                lineHeight: 1,
                               }}
                             >
                               Nome do Produto

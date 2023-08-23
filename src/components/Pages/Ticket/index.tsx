@@ -41,12 +41,12 @@ export function TicketCards() {
                   height={80}
                   alt=""
                 />
-                <Dets gap={2}>
+                <Dets gap={1}>
                   <Text
                     style={{
-                      marginLeft: "10%",
                       fontWeight: "bold",
                       fontSize: 15,
+                      lineHeight: 1,
                     }}
                   >
                     Nome do Evento

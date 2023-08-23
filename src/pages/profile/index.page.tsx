@@ -1,6 +1,5 @@
 import { Header } from "@/components/Global/Header";
 import { Container } from "./styles";
-import { Purchased } from "@/components/Pages/Profile/Purchased";
 import { Info } from "@/components/Pages/Profile/Info";
 import { Support } from "@/components/Global/Support";
 import { Stack } from "react-bootstrap";
@@ -24,7 +23,7 @@ export default function Profile() {
 
   return (
     <Container>
-      <Header page="main" selected="profile" />
+      <Header page="secondary" selected="profile" />
       <br />
       {width < 768 ? (
         <>
@@ -60,10 +59,6 @@ export default function Profile() {
       ) : (
         <></>
       )}
-      <br />
-      <Purchased />
-      <br />
-      <br />
       <Info />
       <br />
       <Support />

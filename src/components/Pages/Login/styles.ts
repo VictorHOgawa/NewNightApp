@@ -9,11 +9,10 @@ export const Container = styled.div`
   border-radius: 15px;
   padding: 15px;
   align-self: center;
-  margin-top: 20%;
+  margin-top: 5%;
 
   @media (min-width: 768px) {
     width: 30%;
-    margin-top: 10%;
   }
 `;
 

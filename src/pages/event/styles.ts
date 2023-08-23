@@ -80,4 +80,12 @@ export const Label = styled.label`
   font-size: ${px2vw(20, 320)};
   align-self: center;
   text-align: center;
+
+  @media (min-width: 768px) {
+    font-size: ${px2vw(20, 768)};
+  }
+
+  @media (min-width: 1024px) {
+    font-size: ${px2vw(20, 1024)};
+  }
 `;

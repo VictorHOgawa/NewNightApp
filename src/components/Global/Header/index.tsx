@@ -20,7 +20,7 @@ interface HeaderProps {
   selected?: string;
 }
 
-export function Header({ page = "secondary", selected }: HeaderProps) {
+export function Header({ page = "other", selected }: HeaderProps) {
   const router = useRouter();
   return (
     <Container>
@@ -28,7 +28,7 @@ export function Header({ page = "secondary", selected }: HeaderProps) {
         <>
           <Top>
             <Logo
-              src="/Global/FullLogo.svg"
+              src="/Global/logoHorizontal.svg"
               width={200}
               height={50}
               alt="Logo"
@@ -53,6 +53,60 @@ export function Header({ page = "secondary", selected }: HeaderProps) {
               />
             </ButtonGroup>
           </Top>
+          <Footer>
+            <Icon
+              src="/Global/Icons/HomeIcon.svg"
+              width={35}
+              height={35}
+              alt=""
+              onClick={() => router.push("/")}
+              style={{ opacity: selected === "home" ? 1 : 0.5 }}
+            />
+            <Icon
+              src="/Global/Icons/BagIcon.svg"
+              width={35}
+              height={35}
+              alt=""
+              onClick={() => router.push("/shop")}
+              style={{ opacity: selected === "shop" ? 1 : 0.5 }}
+            />
+            <Moon
+              src="/Global/Icons/MoonIcon.svg"
+              width={65}
+              height={65}
+              alt=""
+              onClick={() => router.push("/match")}
+              style={{ opacity: selected === "match" ? 1 : 0.5 }}
+            />
+            <Icon
+              src="/Global/Icons/TicketIcon.svg"
+              width={35}
+              height={35}
+              alt=""
+              onClick={() => router.push("/purchased")}
+              style={{ opacity: selected === "purchased" ? 1 : 0.5 }}
+            />
+            <Icon
+              src="/Global/Icons/ProfileIcon.svg"
+              width={35}
+              height={35}
+              alt=""
+              onClick={() => router.push("/profile")}
+              style={{ opacity: selected === "profile" ? 1 : 0.5 }}
+            />
+          </Footer>
+        </>
+      ) : page === "secondary" ? (
+        <>
+          <XTop>
+            <Back />
+            <XLogo
+              src="/Global/logoHorizontal.svg"
+              width={1000}
+              height={300}
+              alt=""
+            />
+          </XTop>
           <Footer>
             <Icon
               src="/Global/Icons/HomeIcon.svg"
