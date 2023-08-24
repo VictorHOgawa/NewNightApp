@@ -23,9 +23,7 @@ import { useState } from "react";
 export function TicketCards() {
   const router = useRouter();
   const Tickets = [1, 2, 3];
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
   return (
     <Container>
       <GlobalTitle title="Meus Ingressos" marginTop="15%" />
@@ -128,10 +126,7 @@ export function TicketCards() {
           Dúvidas? Veja esse Rápido Vídeo
         </Button>
       </a>
-      <More onClick={handleOpen} />
-      <Modal show={open} onHide={handleClose}>
-        <Modal.Body>Test</Modal.Body>
-      </Modal>
+      <More type={"ticket"} />
     </Container>
   );
 }

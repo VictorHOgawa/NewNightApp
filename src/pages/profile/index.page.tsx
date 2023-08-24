@@ -7,6 +7,7 @@ import { GlobalButton } from "@/components/Global/Button";
 import Theme from "@/styles/themes";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 export default function Profile() {
   const [width, setWidth] = useState(100);
@@ -24,6 +25,13 @@ export default function Profile() {
   return (
     <Container>
       <Header page="secondary" selected="profile" />
+      <Image
+        src="/Global/FullLogo.svg"
+        width={125}
+        height={125}
+        alt=""
+        style={{ alignSelf: "center" }}
+      />{" "}
       <br />
       {width < 768 ? (
         <>

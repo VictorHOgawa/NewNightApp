@@ -5,12 +5,14 @@ interface Props {
   marginTop?: number;
   marginLeft?: number;
   fontSize?: number;
+  background?: string;
 }
 
 export const Container = styled.div<Props>`
   display: flex;
   flex-direction: column-reverse;
-  background-color: ${({ theme }) => theme.color.primary_80};
+  background-color: ${({ background, theme }) =>
+    background ? background : theme.color.primary_80};
   width: 50px;
   height: ${(props) => (props.fontSize ? props.fontSize / 2 : 10)}px;
   margin-left: ${(props) => (props.marginLeft ? props.marginLeft : 0)};

@@ -4,8 +4,10 @@ import { Stack } from "react-bootstrap";
 import { GlobalButton } from "@/components/Global/Button";
 import Theme from "@/styles/themes";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 export function Info() {
+  const router = useRouter();
   const [width, setWidth] = useState(100);
 
   const updateDimensions = () => {
@@ -48,6 +50,7 @@ export function Info() {
           width="100%"
           height="auto"
           content="Jobs na Night"
+          onClick={() => router.push("/jobs")}
         />
         <GlobalButton
           background={`${Theme.color.primary_40}`}

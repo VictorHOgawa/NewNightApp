@@ -30,10 +30,6 @@ export function ProductCards() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [add, setAdd] = useState(false);
-  const handleAdd = () => setAdd(true);
-  const handleRemove = () => setAdd(false);
-
   return (
     <Container>
       <GlobalTitle title="Meus Produtos" marginTop="10%" />
@@ -222,10 +218,7 @@ export function ProductCards() {
           Dúvidas? Veja esse Rápido Vídeo
         </Button>
       </a>
-      <More onClick={handleAdd} />
-      <Modal show={add} onHide={handleRemove}>
-        <Modal.Body>Test</Modal.Body>
-      </Modal>
+      <More type={"product"} />
     </Container>
   );
 }

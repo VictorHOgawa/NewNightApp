@@ -5,6 +5,7 @@ interface TitleProps extends React.HTMLAttributes<HTMLDivElement> {
   marginTop?: any;
   marginLeft?: any;
   fontSize?: number;
+  background?: string;
 }
 
 export function GlobalTitle({
@@ -12,10 +13,16 @@ export function GlobalTitle({
   marginTop,
   marginLeft,
   fontSize,
+  background,
   ...rest
 }: TitleProps) {
   return (
-    <Container marginTop={marginTop} marginLeft={marginLeft} {...rest}>
+    <Container
+      marginTop={marginTop}
+      marginLeft={marginLeft}
+      background={background}
+      {...rest}
+    >
       <Text fontSize={fontSize} {...rest}>
         {title}
       </Text>

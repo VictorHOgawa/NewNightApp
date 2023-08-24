@@ -14,6 +14,7 @@ import {
 } from "./styles";
 import { useRouter } from "next/router";
 import { Back } from "../Back";
+import { useState, useEffect } from "react";
 
 interface HeaderProps {
   page?: string;
@@ -21,6 +22,15 @@ interface HeaderProps {
 }
 
 export function Header({ page = "other", selected }: HeaderProps) {
+  const [width, setWidth] = useState(100);
+  const updateDimensions = () => {
+    setWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    setWidth(window.innerWidth);
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
+  }, []);
   const router = useRouter();
   return (
     <Container>
@@ -75,7 +85,7 @@ export function Header({ page = "other", selected }: HeaderProps) {
               width={65}
               height={65}
               alt=""
-              onClick={() => router.push("/match")}
+              onClick={() => router.push("/mymatches")}
               style={{ opacity: selected === "match" ? 1 : 0.5 }}
             />
             <Icon
@@ -98,15 +108,7 @@ export function Header({ page = "other", selected }: HeaderProps) {
         </>
       ) : page === "secondary" ? (
         <>
-          <XTop>
-            <Back />
-            <XLogo
-              src="/Global/logoHorizontal.svg"
-              width={1000}
-              height={300}
-              alt=""
-            />
-          </XTop>
+          {width < 768 ? <></> : <Back />}
           <Footer>
             <Icon
               src="/Global/Icons/HomeIcon.svg"
@@ -129,7 +131,7 @@ export function Header({ page = "other", selected }: HeaderProps) {
               width={65}
               height={65}
               alt=""
-              onClick={() => router.push("/match")}
+              onClick={() => router.push("/mymatches")}
               style={{ opacity: selected === "match" ? 1 : 0.5 }}
             />
             <Icon

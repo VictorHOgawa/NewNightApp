@@ -9,11 +9,15 @@ export const Container = styled.div`
 `;
 
 export const Img = styled(Image)`
-  width: 60%;
+  width: 70vw;
   height: auto;
   align-self: center;
 
   @media (min-width: 768px) {
-    width: 30%;
+    width: 30vw;
+  }
+
+  @media (min-width: 1024px) {
+    width: 20vw;
   }
 `;
