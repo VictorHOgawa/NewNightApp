@@ -1,11 +1,11 @@
 import axios from "axios";
 
-export const amazonik = "http://192.168.10.38:3333";
+export const amazonik = "http://192.168.10.47:3333";
 export const deployed = "https://night-server.onrender.com";
 export const token = "";
 
 export const api = axios.create({
-  baseURL: deployed,
+  baseURL: amazonik,
 });
 
 export const PostAPI = async (url: string, data: any) => {
@@ -62,14 +62,12 @@ export const getAPI = async (url: string) => {
   const connect = await api
     .get(url)
     .then(({ data }) => {
-      console.log(data);
       return {
         status: 200,
         body: data,
       };
     })
     .catch((err) => {
-      console.log(err);
       const message = err.response.data;
       const status = err.response.status;
       return { status: status, body: message };
@@ -178,7 +176,6 @@ export const AuthPostAPI = async (url: string, data: any) => {
       const status = err.response.status;
       return { status: status, body: message };
     });
-  console.log(connect);
   return connect.status === 500
     ? { status: connect.status, body: "Ops! algo deu errado, tente novamente" }
     : connect.status === 413

@@ -4,8 +4,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { useState, useEffect } from "react";
 import { Card } from "../Card";
+import { getAPI } from "@/lib/axios";
 
 export function PlaceSlider() {
+  const [loading, setLoading] = useState(true);
+  const [places, setPlaces] = useState<any[]>([]);
   const [width, setWidth] = useState(100);
 
   const updateDimensions = () => {
@@ -16,112 +19,48 @@ export function PlaceSlider() {
     window.addEventListener("resize", updateDimensions);
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
-  const Places = [
-    {
-      location: "/Places/Place1.svg",
-      name: "Balada do Marco Aurélio asdasd asd asds",
-      place: "Sinop - MT",
-      current: true,
-      id: "a",
-    },
-    {
-      location: "/Places/Place2.svg",
-      name: "Balada do Marco Aurélio",
-      place: "Sinop - MT",
-      current: false,
-      id: "b",
-    },
-    {
-      location: "/Places/Place1.svg",
-      name: "Balada do Marco Aurélio",
-      place: "Sinop - MT",
-      current: true,
-      id: "c",
-    },
-    {
-      location: "/Places/Place2.svg",
-      name: "Balada do Marco Aurélio",
-      place: "Sinop - MT",
-      current: false,
-      id: "d",
-    },
-    {
-      location: "/Places/Place1.svg",
-      name: "Balada do Marco Aurélio",
-      place: "Sinop - MT",
-      current: true,
-      id: "e",
-    },
-    {
-      location: "/Places/Place2.svg",
-      name: "Balada do Marco Aurélio",
-      place: "Sinop - MT",
-      current: false,
-      id: "f",
-    },
-    {
-      location: "/Places/Place1.svg",
-      name: "Balada do Marco Aurélio",
-      place: "Sinop - MT",
-      current: true,
-      id: "g",
-    },
-    {
-      location: "/Places/Place2.svg",
-      name: "Balada do Marco Aurélio",
-      place: "Sinop - MT",
-      current: false,
-      id: "h",
-    },
-    {
-      location: "/Places/Place1.svg",
-      name: "Balada do Marco Aurélio",
-      place: "Sinop - MT",
-      current: true,
-      id: "i",
-    },
-    {
-      location: "/Places/Place2.svg",
-      name: "Balada do Marco Aurélio",
-      place: "Sinop - MT",
-      current: false,
-      id: "j",
-    },
-    {
-      location: "/Places/Place1.svg",
-      name: "Balada do Marco Aurélio",
-      place: "Sinop - MT",
-      current: true,
-      id: "k",
-    },
-    {
-      location: "/Places/Place2.svg",
-      name: "Balada do Marco Aurélio",
-      place: "Sinop - MT",
-      current: false,
-      id: "l",
-    },
-  ];
+
+  async function getEvents() {
+    const connect = await getAPI("/places");
+    console.log("connect places: ", connect.body.places);
+    if (connect.status === 200) {
+      setPlaces(connect.body.places);
+      return setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    getEvents();
+  }, []);
+
   return (
     <Container>
       <GlobalTitle title="Lugares para Curtir" />
-      <br />
-      <Swiper
-        slidesPerView={width < 768 ? 2 : width >= 768 && width < 1024 ? 4 : 6}
-        spaceBetween={1}
-      >
-        {Places.map((item) => (
-          <SwiperSlide>
-            <Card
-              location={item.location}
-              name={item.name}
-              place={item.place}
-              current={item.current}
-              id={item.id}
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>{" "}
+      {loading ? (
+        <></>
+      ) : (
+        <>
+          <br />
+          <Swiper
+            slidesPerView={
+              width < 768 ? 2 : width >= 768 && width < 1024 ? 4 : 6
+            }
+            spaceBetween={1}
+          >
+            {places.map((item) => (
+              <SwiperSlide>
+                <Card
+                  photo={item.photo[0].photo_location}
+                  name={item.name}
+                  city={item.city}
+                  id={item.id}
+                  openTime={item.openTime}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </>
+      )}
     </Container>
   );
 }

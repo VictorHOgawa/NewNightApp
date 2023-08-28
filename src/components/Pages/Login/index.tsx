@@ -38,7 +38,6 @@ export function LoginContainer() {
 
   async function handleLogin() {
     const connect = await PostAPI("/user/login", loginData);
-    console.log(connect);
     if (connect.status !== 200) {
       return alert(connect.body);
     }

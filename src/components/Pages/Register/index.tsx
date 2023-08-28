@@ -64,7 +64,6 @@ export function RegisterContainer() {
 
   async function handleRegister() {
     const connect = await PostAPI("/user/register", registerData);
-    console.log(connect);
     if (connect.status !== 200) {
       return alert(connect.body);
     }

@@ -51,9 +51,6 @@ export default function Event() {
     }
   }
 
-  console.log("step", step);
-  console.log("type", type);
-  console.log("eventDetails", eventDetails);
   useEffect(() => {
     if (id) {
       getEventDetails();

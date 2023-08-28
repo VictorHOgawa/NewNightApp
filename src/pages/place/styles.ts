@@ -31,7 +31,7 @@ export const FirstContainer = styled.div`
 export const DetailImg = styled(Image)`
   width: 100%;
   height: auto;
-
+  border-radius: 10px;
   @media (min-width: 768px) {
     width: 90%;
     align-self: center;
