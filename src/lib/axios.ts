@@ -5,7 +5,7 @@ export const deployed = "https://night-server.onrender.com";
 export const token = "";
 
 export const api = axios.create({
-  baseURL: amazonik,
+  baseURL: deployed,
 });
 
 export const PostAPI = async (url: string, data: any) => {
@@ -222,18 +222,17 @@ export const AuthPutAPI = async (url: string, data: any) => {
 };
 
 export const loginVerifyAPI = async () => {
-  const storageToken = localStorage.getItem(token);
-
-  if (!storageToken) {
+  const token = localStorage.getItem("nightRefreshToken");
+  if (!token) {
     return 400;
   }
 
   const config = {
-    headers: { Authorization: `Bearer ${storageToken}` },
+    headers: { Authorization: `Bearer ${token}` },
   };
 
   const requisition = await api
-    .get("/token", config)
+    .patch("/user/refresh", {}, config)
     .then(async ({ data }) => {
       return { status: 200, body: "" };
     })

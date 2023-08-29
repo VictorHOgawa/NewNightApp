@@ -1,14 +1,20 @@
-import { GlobalTitle } from "@/components/Global/Title";
-import { Container, NightPremium } from "./styles";
-import { Stack } from "react-bootstrap";
 import { GlobalButton } from "@/components/Global/Button";
+import { GlobalTitle } from "@/components/Global/Title";
 import Theme from "@/styles/themes";
-import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Stack } from "react-bootstrap";
+import { Container, NightPremium } from "./styles";
 
 export function Info() {
   const router = useRouter();
   const [width, setWidth] = useState(100);
+
+  async function logOut() {
+    localStorage.removeItem("nightToken");
+    localStorage.removeItem("nightRefreshToken");
+    router.push("/");
+  }
 
   const updateDimensions = () => {
     setWidth(window.innerWidth);
@@ -58,6 +64,7 @@ export function Info() {
           width="100%"
           height="auto"
           content="Sair"
+          onClick={logOut}
         />
       </Stack>
     </Container>

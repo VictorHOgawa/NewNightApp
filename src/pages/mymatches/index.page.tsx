@@ -1,11 +1,28 @@
 import { Header } from "@/components/Global/Header";
-import { Container, MainContainer } from "./styles";
-import Image from "next/image";
-import { Matched } from "@/components/Pages/MyMatches/Matched";
-import { Crew } from "@/components/Pages/MyMatches/Crew";
+import { LoginValidation } from "@/components/Global/Login";
 import { Chat } from "@/components/Pages/MyMatches/Chat";
+import { Crew } from "@/components/Pages/MyMatches/Crew";
+import { Matched } from "@/components/Pages/MyMatches/Matched";
+import { loginVerifyAPI } from "@/lib/axios";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { Container, MainContainer } from "./styles";
 
 export default function MyMatches() {
+  const [logged, setLogged] = useState(false);
+  async function handleVerify() {
+    const verify = await loginVerifyAPI();
+    console.log("verify: ", verify);
+    if (verify === 200) {
+      setLogged(true);
+      console.log("entrou");
+    }
+  }
+
+  useEffect(() => {
+    handleVerify();
+  }, []);
+
   return (
     <Container>
       <Header page="secondary" selected="match" />
@@ -16,15 +33,22 @@ export default function MyMatches() {
         alt=""
         style={{ alignSelf: "center" }}
       />
-      <MainContainer>
-        <br />
-        <br />
-        <Matched />
-        <br />
-        <Crew />
-        <br />
-        <Chat />
-      </MainContainer>
+      <br />
+      {logged ? (
+        <>
+          <MainContainer>
+            <br />
+            <br />
+            <Matched />
+            <br />
+            <Crew />
+            <br />
+            <Chat />
+          </MainContainer>
+        </>
+      ) : (
+        <LoginValidation />
+      )}
     </Container>
   );
 }

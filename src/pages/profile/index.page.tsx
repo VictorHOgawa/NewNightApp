@@ -1,15 +1,15 @@
 import { Header } from "@/components/Global/Header";
-import { Container } from "./styles";
-import { Info } from "@/components/Pages/Profile/Info";
+import { LoginValidation } from "@/components/Global/Login";
 import { Support } from "@/components/Global/Support";
-import { Stack } from "react-bootstrap";
-import { GlobalButton } from "@/components/Global/Button";
-import Theme from "@/styles/themes";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { Info } from "@/components/Pages/Profile/Info";
+import { loginVerifyAPI } from "@/lib/axios";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Container } from "./styles";
 
 export default function Profile() {
+  const [logged, setLogged] = useState(false);
   const [width, setWidth] = useState(100);
   const router = useRouter();
 
@@ -20,6 +20,19 @@ export default function Profile() {
     setWidth(window.innerWidth);
     window.addEventListener("resize", updateDimensions);
     return () => window.removeEventListener("resize", updateDimensions);
+  }, []);
+
+  async function handleVerify() {
+    const verify = await loginVerifyAPI();
+    console.log("verify: ", verify);
+    if (verify === 200) {
+      setLogged(true);
+      console.log("entrou");
+    }
+  }
+
+  useEffect(() => {
+    handleVerify();
   }, []);
 
   return (
@@ -33,43 +46,15 @@ export default function Profile() {
         style={{ alignSelf: "center" }}
       />{" "}
       <br />
-      {width < 768 ? (
+      {logged ? (
         <>
-          <Stack
-            direction="horizontal"
-            gap={2}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginBottom: "10%",
-              marginTop: "-5%",
-            }}
-          >
-            <GlobalButton
-              content="Entrar"
-              background={`${Theme.color.primary_80}`}
-              color={`${Theme.color.gray_10}`}
-              width="45%"
-              height="auto"
-              fontSize={18}
-              onClick={() => router.push("/login")}
-            />
-            <GlobalButton
-              content="Se Cadastrar"
-              background={`${Theme.color.primary_80}`}
-              color={`${Theme.color.gray_10}`}
-              width="45%"
-              height="auto"
-              fontSize={18}
-            />
-          </Stack>
+          <Info />
+          <br />
+          <Support />
         </>
       ) : (
-        <></>
+        <LoginValidation />
       )}
-      <Info />
-      <br />
-      <Support />
     </Container>
   );
 }

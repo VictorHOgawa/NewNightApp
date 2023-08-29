@@ -1,6 +1,6 @@
-import { Stack } from "react-bootstrap";
-import { Container, Forgot, Form, Label, Logo } from "./styles";
 import { GlobalButton } from "@/components/Global/Button";
+import { Error } from "@/components/Global/error";
+import { PostAPI } from "@/lib/axios";
 import Theme from "@/styles/themes";
 import {
   maskCpfCnpj,
@@ -8,10 +8,9 @@ import {
   minLength,
   textWithSpacesOnly,
 } from "@/utils/masks";
-import { useEffect, useState } from "react";
-import { Error } from "@/components/Global/error";
-import { PostAPI } from "@/lib/axios";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import { Container, Form, Label } from "./styles";
 
 export function RegisterContainer() {
   const router = useRouter();
@@ -68,6 +67,7 @@ export function RegisterContainer() {
       return alert(connect.body);
     }
     localStorage.setItem("nightToken", connect.body.token);
+    console.log("connect: ", connect);
     return router.push("/");
   }
 

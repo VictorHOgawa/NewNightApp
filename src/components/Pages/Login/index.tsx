@@ -1,12 +1,12 @@
-import { Stack } from "react-bootstrap";
-import { Container, Forgot, Form, Label, Logo } from "./styles";
 import { GlobalButton } from "@/components/Global/Button";
-import Theme from "@/styles/themes";
-import { maskCpfCnpj, minLength } from "@/utils/masks";
-import { useEffect, useState } from "react";
 import { Error } from "@/components/Global/error";
 import { PostAPI } from "@/lib/axios";
+import Theme from "@/styles/themes";
+import { maskCpfCnpj, minLength } from "@/utils/masks";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import { Stack } from "react-bootstrap";
+import { Container, Forgot, Form, Label } from "./styles";
 
 export function LoginContainer() {
   const router = useRouter();
@@ -42,6 +42,7 @@ export function LoginContainer() {
       return alert(connect.body);
     }
     localStorage.setItem("nightToken", connect.body.token);
+    localStorage.setItem("nightRefreshToken", connect.body.refreshToken);
     return router.push("/");
   }
 
