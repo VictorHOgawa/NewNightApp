@@ -1,5 +1,6 @@
+import { Back } from "@/components/Global/Back";
+import { LoadingFull } from "@/components/Global/Loading/Full";
 import { Stack } from "react-bootstrap";
-import Theme from "../../styles/themes";
 import {
   ChatDiv,
   Container,
@@ -11,11 +12,11 @@ import {
   Name,
   Pic,
 } from "./styles";
-import { Back } from "@/components/Global/Back";
 
 export default function Chat() {
   return (
     <Container>
+      <LoadingFull />
       <Header>
         <Back />
         <Stack
@@ -62,7 +63,7 @@ export default function Chat() {
               Test Test Test Test Test Test Test Test Test Test Test Test Test
               Test Test Test Test Test Test Test Test Test Test Test Test Test
               Test Test Test Test Test Test Test Test Test Test Test Test Test
-              Test Test{" "}
+              Test Test last one{" "}
             </Message>
           </MessageBubble>
         </ChatDiv>

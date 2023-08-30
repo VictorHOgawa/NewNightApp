@@ -1,4 +1,6 @@
 import { Header } from "@/components/Global/Header";
+import { LoadingIn } from "@/components/Global/Loading/In";
+import { LoadingOut } from "@/components/Global/Loading/Out";
 import { LoginValidation } from "@/components/Global/Login";
 import { Support } from "@/components/Global/Support";
 import { Info } from "@/components/Pages/Profile/Info";
@@ -10,6 +12,7 @@ import { Container } from "./styles";
 
 export default function Profile() {
   const [logged, setLogged] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [width, setWidth] = useState(100);
   const router = useRouter();
 
@@ -24,11 +27,10 @@ export default function Profile() {
 
   async function handleVerify() {
     const verify = await loginVerifyAPI();
-    console.log("verify: ", verify);
     if (verify === 200) {
       setLogged(true);
-      console.log("entrou");
     }
+    return setLoading(false);
   }
 
   useEffect(() => {
@@ -37,23 +39,30 @@ export default function Profile() {
 
   return (
     <Container>
-      <Header page="secondary" selected="profile" />
-      <Image
-        src="/Global/FullLogo.svg"
-        width={125}
-        height={125}
-        alt=""
-        style={{ alignSelf: "center" }}
-      />{" "}
-      <br />
-      {logged ? (
-        <>
-          <Info />
-          <br />
-          <Support />
-        </>
+      {loading ? (
+        <LoadingIn />
       ) : (
-        <LoginValidation />
+        <>
+          <LoadingOut />
+          <Header page="secondary" selected="profile" />
+          <Image
+            src="/Global/FullLogo.svg"
+            width={125}
+            height={125}
+            alt=""
+            style={{ alignSelf: "center" }}
+          />{" "}
+          <br />
+          {logged ? (
+            <>
+              <Info />
+              <br />
+              <Support />
+            </>
+          ) : (
+            <LoginValidation />
+          )}
+        </>
       )}
     </Container>
   );

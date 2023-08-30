@@ -4,12 +4,14 @@ import { PostAPI } from "@/lib/axios";
 import Theme from "@/styles/themes";
 import { maskCpfCnpj, minLength } from "@/utils/masks";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Stack } from "react-bootstrap";
 import { Container, Forgot, Form, Label } from "./styles";
 
 export function LoginContainer() {
   const router = useRouter();
+  const query: any = router.query;
+  const [pageTo, setPageTo] = useState("");
   const [loginData, setLoginData] = useState({
     cpfCnpj: "",
     password: "",
@@ -36,6 +38,13 @@ export function LoginContainer() {
     }
   }
 
+  useEffect(() => {
+    if (query) {
+      const { page } = query;
+      setPageTo(page);
+    }
+  }, [query]);
+
   async function handleLogin() {
     const connect = await PostAPI("/user/login", loginData);
     if (connect.status !== 200) {
@@ -43,7 +52,7 @@ export function LoginContainer() {
     }
     localStorage.setItem("nightToken", connect.body.token);
     localStorage.setItem("nightRefreshToken", connect.body.refreshToken);
-    return router.push("/");
+    return pageTo === "checkout" ? router.push("/checkout") : router.push("/");
   }
 
   return (

@@ -11,6 +11,7 @@ export const Container = styled.div`
   background: linear-gradient(145deg, #9c38ce90, #420a8990, #9c38ce90);
   align-self: center;
   align-items: center;
+  margin-top: 15%;
 
   @media (min-width: 768px) {
     width: 30%;

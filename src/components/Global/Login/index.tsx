@@ -45,6 +45,7 @@ export function LoginValidation() {
               width="45%"
               height="auto"
               fontSize={18}
+              onClick={() => router.push("/register")}
             />
           </Stack>
         </>

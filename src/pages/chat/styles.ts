@@ -1,7 +1,7 @@
-import { styled } from "styled-components";
-import Theme from "../../styles/themes";
 import px2vw from "@/utils/size";
 import Image from "next/image";
+import { styled } from "styled-components";
+import Theme from "../../styles/themes";
 
 interface MessageProps {
   status: string;

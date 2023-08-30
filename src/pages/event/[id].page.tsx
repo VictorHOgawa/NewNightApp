@@ -1,4 +1,22 @@
+import { GlobalButton } from "@/components/Global/Button";
 import { Header } from "@/components/Global/Header";
+import { LoadingIn } from "@/components/Global/Loading/In";
+import { LoadingOut } from "@/components/Global/Loading/Out";
+import { StaticImage } from "@/components/Global/StaticImg";
+import { Tabs } from "@/components/Global/Tabs";
+import { GlobalTitle } from "@/components/Global/Title";
+import { Buttons } from "@/components/Pages/Event/Buttons";
+import { Description } from "@/components/Pages/Event/Description";
+import { Individual } from "@/components/Pages/Event/Individual";
+import { StepOne } from "@/components/Pages/Event/Tickets/Steps/1";
+import { StepTwo } from "@/components/Pages/Event/Tickets/Steps/2";
+import { Video } from "@/components/Pages/Event/Video";
+import { useCart } from "@/context/cart";
+import { getAPI, loginVerifyAPI } from "@/lib/axios";
+import Theme from "@/styles/themes";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Stack } from "react-bootstrap";
 import {
   Banner,
   Container,
@@ -7,22 +25,6 @@ import {
   Label,
   Nav,
 } from "./styles";
-import { GlobalTitle } from "@/components/Global/Title";
-import { Buttons } from "@/components/Pages/Event/Buttons";
-import { Individual } from "@/components/Pages/Event/Individual";
-import { Stack } from "react-bootstrap";
-import { Tabs } from "@/components/Global/Tabs";
-import { Description } from "@/components/Pages/Event/Description";
-import { Video } from "@/components/Pages/Event/Video";
-import { GlobalButton } from "@/components/Global/Button";
-import Theme from "@/styles/themes";
-import { StaticImage } from "@/components/Global/StaticImg";
-import { useEffect, useState } from "react";
-import { StepOne } from "@/components/Pages/Event/Tickets/Steps/1";
-import { StepTwo } from "@/components/Pages/Event/Tickets/Steps/2";
-import { useRouter } from "next/router";
-import { getAPI } from "@/lib/axios";
-import { useCart } from "@/context/cart";
 
 export default function Event() {
   const router = useRouter();
@@ -33,6 +35,7 @@ export default function Event() {
   const [eventDetails, setEventDetails] = useState<any>();
   const [loading, setLoading] = useState(true);
   const [width, setWidth] = useState(100);
+  const [logged, setLogged] = useState(false);
 
   const updateDimensions = () => {
     setWidth(window.innerWidth);
@@ -57,7 +60,21 @@ export default function Event() {
     }
   }, [id]);
 
+  async function handleVerify() {
+    const verify = await loginVerifyAPI();
+    if (verify === 200) {
+      setLogged(true);
+    }
+  }
+
+  useEffect(() => {
+    handleVerify();
+  }, []);
+
   const handleNext = () => {
+    if (eventDetails.products.length === 0) {
+      console.log("entrou");
+    }
     if (type !== "") {
       return setType("");
     }
@@ -76,16 +93,20 @@ export default function Event() {
       (step === 2 && type === "" && cart.ticket.ticket.length !== 0) ||
       cart.product.length !== 0
     ) {
-      return router.push("/checkout");
+      logged
+        ? router.push("/checkout")
+        : alert("Realize o Login antes de Prosseguir");
+      return router.push("/login?&page=checkout");
     }
   };
 
   return (
     <Container>
       {loading ? (
-        <></>
+        <LoadingIn />
       ) : (
         <>
+          <LoadingOut />
           <Header />
           <FirstContainer>
             <Stack
@@ -159,7 +180,7 @@ export default function Event() {
                     </Stack>
                     <StepOne
                       ticket={eventDetails.ticketSlots}
-                      id={eventDetails.ticketSlots.id}
+                      id={eventDetails.ticketSlots[0].id}
                     />
                   </>
                 ) : step === 2 && eventDetails.products.length === 0 ? (
@@ -248,7 +269,7 @@ export default function Event() {
                         <Tabs active={false} />
                       </Stack>
                       <StepOne
-                        id={eventDetails.ticketSlots.id}
+                        id={eventDetails.ticketSlots[0].id}
                         ticket={eventDetails.ticketSlots}
                       />
                     </>

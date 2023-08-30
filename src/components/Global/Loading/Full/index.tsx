@@ -2,17 +2,23 @@ import { gsap } from "gsap";
 import { useLayoutEffect, useRef } from "react";
 import { Container, Logo, Main } from "./styles";
 
-export function LoadingOut() {
+export function LoadingFull() {
   const main = useRef(null);
   const tl = useRef<GSAPTimeline>();
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
-      gsap.to(".Main", {
-        delay: 1,
-        opacity: 0,
-        display: "none",
+      tl.current = gsap.timeline({ repeat: 1, yoyo: true }).to(".Logo", {
+        opacity: 0.5,
+        scale: 1.2,
+        duration: 0.6,
       });
     }, main);
+    gsap.to(".Main", {
+      delay: 2.6,
+      opacity: 0,
+      display: "none",
+    });
+
     return () => ctx.revert();
   }, []);
   return (
@@ -20,7 +26,7 @@ export function LoadingOut() {
       <Container className="Main">
         <>
           <Logo
-            className="Main"
+            className="Logo Main"
             src="/Global/FullLogo.svg"
             width={150}
             height={150}

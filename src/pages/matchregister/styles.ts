@@ -6,8 +6,6 @@ export const Container = styled.div`
   flex-direction: column;
   min-height: 100vh;
   height: auto;
-  align-items: center;
-  justify-content: center;
 `;
 
 export const Background = styled(Image)`

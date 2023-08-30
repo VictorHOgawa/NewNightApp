@@ -1,11 +1,15 @@
-import { useRouter } from "next/router";
-import { Header } from "@/components/Global/Header";
 import { Ad } from "@/components/Global/Ad";
-import { Modal, Stack } from "react-bootstrap";
-import { GlobalTitle } from "@/components/Global/Title";
+import { Back } from "@/components/Global/Back";
 import { GlobalButton } from "@/components/Global/Button";
+import { Header } from "@/components/Global/Header";
+import { XLogo, XTop } from "@/components/Global/Header/styles";
+import { LoadingFull } from "@/components/Global/Loading/Full";
 import { More } from "@/components/Global/More";
+import { GlobalTitle } from "@/components/Global/Title";
 import Theme from "@/styles/themes";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { Modal, Stack } from "react-bootstrap";
 import {
   Container,
   Help,
@@ -17,16 +21,13 @@ import {
   Text,
   Values,
 } from "./styles";
-import { useState } from "react";
-import { Back } from "@/components/Global/Back";
-import { XLogo, XTop } from "@/components/Global/Header/styles";
-import px2vw from "@/utils/size";
 
 export default function JobDetails() {
   const { type } = useRouter().query as any;
   const [open, setOpen] = useState(false);
   return (
     <Container>
+      <LoadingFull />
       <Header />
       <Ad />
       <br />

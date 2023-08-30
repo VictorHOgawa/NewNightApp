@@ -1,5 +1,7 @@
 import { Ad } from "@/components/Global/Ad";
 import { Header } from "@/components/Global/Header";
+import { LoadingIn } from "@/components/Global/Loading/In";
+import { LoadingOut } from "@/components/Global/Loading/Out";
 import { LoginValidation } from "@/components/Global/Login";
 import { Items } from "@/components/Pages/Purchased";
 import { loginVerifyAPI } from "@/lib/axios";
@@ -9,13 +11,13 @@ import { Container } from "./styles";
 
 export default function Purchased() {
   const [logged, setLogged] = useState(false);
+  const [loading, setLoading] = useState(true);
   async function handleVerify() {
     const verify = await loginVerifyAPI();
-    console.log("verify: ", verify);
     if (verify === 200) {
       setLogged(true);
-      console.log("entrou");
     }
+    return setLoading(false);
   }
 
   useEffect(() => {
@@ -24,22 +26,29 @@ export default function Purchased() {
 
   return (
     <Container>
-      <Header page="secondary" selected="purchased" />
-      <Image
-        src="/Global/FullLogo.svg"
-        width={125}
-        height={125}
-        alt=""
-        style={{ alignSelf: "center" }}
-      />
-      <br />
-      {logged ? (
-        <>
-          <Ad />
-          <Items />
-        </>
+      {loading ? (
+        <LoadingIn />
       ) : (
-        <LoginValidation />
+        <>
+          <LoadingOut />
+          <Header page="secondary" selected="purchased" />
+          <Image
+            src="/Global/FullLogo.svg"
+            width={125}
+            height={125}
+            alt=""
+            style={{ alignSelf: "center" }}
+          />
+          <br />
+          {logged ? (
+            <>
+              <Ad />
+              <Items />
+            </>
+          ) : (
+            <LoginValidation />
+          )}
+        </>
       )}
     </Container>
   );

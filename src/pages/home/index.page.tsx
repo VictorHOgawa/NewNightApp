@@ -11,9 +11,8 @@ import { Container } from "./styles";
 export default function Home() {
   const [loading, setLoading] = useState(true);
   async function getEvents() {
-    const connect = await getAPI("/places");
+    const connect = await getAPI("/event");
     if (connect.status === 200) {
-      setTimeout(() => {}, 2000);
       return setLoading(false);
     }
   }
@@ -21,6 +20,7 @@ export default function Home() {
   useEffect(() => {
     getEvents();
   }, []);
+
   return (
     <Container>
       {loading ? (

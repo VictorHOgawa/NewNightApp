@@ -1,7 +1,8 @@
 import { Header } from "@/components/Global/Header";
-import { Container, NightPremium } from "./styles";
+import { LoadingFull } from "@/components/Global/Loading/Full";
 import { GlobalTitle } from "@/components/Global/Title";
 import { useRouter } from "next/router";
+import { Container, NightPremium } from "./styles";
 
 export default function Jobs() {
   const router = useRouter();
@@ -27,6 +28,7 @@ export default function Jobs() {
   ];
   return (
     <Container>
+      <LoadingFull />
       <Header page="other" />
       <br />
       {Jobs.map((item) => (

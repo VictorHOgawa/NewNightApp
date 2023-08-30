@@ -1,16 +1,10 @@
-import { Stack } from "react-bootstrap";
-import {
-  Counter,
-  CounterArea,
-  TicketTitle,
-  TicketType,
-  Title,
-} from "../../styles";
 import { StaticImage } from "@/components/Global/StaticImg";
 import { StaticImg } from "@/components/Global/StaticImg/styles";
-import { useCart } from "@/context/cart";
 import { GlobalTitle } from "@/components/Global/Title";
-import { useState, useEffect } from "react";
+import { useCart } from "@/context/cart";
+import { useEffect, useState } from "react";
+import { Stack } from "react-bootstrap";
+import { Counter, CounterArea, TicketTitle, TicketType } from "../../styles";
 
 interface StepOneProps {
   id: string;

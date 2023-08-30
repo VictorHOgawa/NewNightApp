@@ -1,4 +1,12 @@
+import { GlobalButton } from "@/components/Global/Button";
 import { GlobalTitle } from "@/components/Global/Title";
+import { Error } from "@/components/Global/error";
+import Theme from "@/styles/themes";
+import { maskCpfCnpj, minLength, textWithSpacesOnly } from "@/utils/masks";
+import { useRouter } from "next/router";
+import { useRef, useState } from "react";
+import { Modal, Stack } from "react-bootstrap";
+import { Back, Logo, Top } from "../Register/styles";
 import {
   AddPhoto,
   Container,
@@ -12,14 +20,6 @@ import {
   RadioContainer,
   RadioLabel,
 } from "./styles";
-import { Modal, Stack } from "react-bootstrap";
-import { Back, Logo, Top } from "../Register/styles";
-import Theme from "@/styles/themes";
-import { GlobalButton } from "@/components/Global/Button";
-import { useRouter } from "next/router";
-import { useRef, useState } from "react";
-import { maskCpfCnpj, minLength, textWithSpacesOnly } from "@/utils/masks";
-import { Error } from "@/components/Global/error";
 
 interface FormProps {
   step: number;
@@ -287,7 +287,7 @@ export function Form({
                     onChange={() => setType("first")}
                   />
                   <RadioLabel htmlFor="first">
-                    Sou mais caseiro(a), foi um milagre um ter saído hoje, no
+                    Sou mais caseiro(a), foi um milagre eu ter saído hoje, no
                     geral sou de boa.
                   </RadioLabel>
                 </RadioContainer>

@@ -1,10 +1,10 @@
 import { GlobalTitle } from "@/components/Global/Title";
-import { Container } from "./styles";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import { Card } from "../Card";
+import { getAPI } from "@/lib/axios";
 import { useEffect, useState } from "react";
-import { PostAPI, PutAPI, getAPI } from "@/lib/axios";
+import "swiper/css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Card } from "../Card";
+import { Container } from "./styles";
 
 export function EventSlider() {
   const [loading, setLoading] = useState(true);

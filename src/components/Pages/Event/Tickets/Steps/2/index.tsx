@@ -1,3 +1,8 @@
+import { StaticImage } from "@/components/Global/StaticImg";
+import { StaticImg } from "@/components/Global/StaticImg/styles";
+import { GlobalTitle } from "@/components/Global/Title";
+import { useCart } from "@/context/cart";
+import { useState } from "react";
 import { Stack } from "react-bootstrap";
 import {
   Counter,
@@ -9,12 +14,6 @@ import {
   TicketType,
   Title,
 } from "../../styles";
-import { useState } from "react";
-import { StaticImage } from "@/components/Global/StaticImg";
-import { StaticImg } from "@/components/Global/StaticImg/styles";
-import { useCart } from "@/context/cart";
-import { GlobalTitle } from "@/components/Global/Title";
-import { Back } from "@/components/Global/Back";
 
 interface StepTwoProps {
   product: {
@@ -30,7 +29,7 @@ interface StepTwoProps {
 export function StepTwo({ product, type, setType }: StepTwoProps) {
   const [filteredProduct, setFilteredProduct] = useState<any>([]);
   const { cart, add } = useCart();
-  const [moreProducts, setMoreProducts] = useState(true);
+  const [moreProducts, setMoreProducts] = useState(false);
 
   function handleSelectType(type: string) {
     setFilteredProduct(product.filter((item) => item.type === type));
@@ -67,6 +66,9 @@ export function StepTwo({ product, type, setType }: StepTwoProps) {
     return ticketExists ? ticketExists.quantity : 0;
   }
 
+  const exists = product.find((item) => item.type === "COMBO");
+  console.log("exists: ", exists);
+
   return (
     <>
       <GlobalTitle
@@ -76,24 +78,76 @@ export function StepTwo({ product, type, setType }: StepTwoProps) {
       {type === "" ? (
         <>
           <Items>
-            <ItemButton onClick={() => handleSelectType("VODKA")}>
-              <Item src="/Events/Item1.svg" width={200} height={200} alt="" />
-            </ItemButton>
-            <ItemButton onClick={() => handleSelectType("WHISKEY")}>
-              <Item src="/Events/Item2.svg" width={200} height={200} alt="" />
-            </ItemButton>
-            <ItemButton onClick={() => handleSelectType("BEER")}>
-              <Item src="/Events/Item3.svg" width={200} height={200} alt="" />
-            </ItemButton>
-            <ItemButton onClick={() => handleSelectType("COMBO")}>
-              <Item src="/Events/Item4.svg" width={200} height={200} alt="" />
-            </ItemButton>
-            <ItemButton onClick={() => handleSelectType("ENERGÉTICOS")}>
-              <Item src="/Events/Item5.svg" width={200} height={200} alt="" />
-            </ItemButton>
-            <ItemButton onClick={() => handleSelectType("OUTROS")}>
-              <Item src="/Events/Item6.svg" width={200} height={200} alt="" />
-            </ItemButton>
+            {product.filter((item) => item.type === "VODKA").length > 0 ? (
+              <ItemButton onClick={() => handleSelectType("VODKA")}>
+                <Item src="/Events/Item1.svg" width={200} height={200} alt="" />
+              </ItemButton>
+            ) : (
+              <></>
+            )}
+            {product.map((item) =>
+              item.type === "WHISKEY" ? (
+                <ItemButton onClick={() => handleSelectType("WHISKEY")}>
+                  <Item
+                    src="/Events/Item2.svg"
+                    width={200}
+                    height={200}
+                    alt=""
+                  />
+                </ItemButton>
+              ) : (
+                <></>
+              )
+            )}
+            {product.map((item) =>
+              item.type === "BEER" ? (
+                <ItemButton onClick={() => handleSelectType("BEER")}>
+                  <Item
+                    src="/Events/Item3.svg"
+                    width={200}
+                    height={200}
+                    alt=""
+                  />
+                </ItemButton>
+              ) : (
+                <></>
+              )
+            )}
+            {product.filter((item) => item.type === "COMBO").length > 0 ? (
+              <ItemButton onClick={() => handleSelectType("COMBO")}>
+                <Item src="/Events/Item4.svg" width={200} height={200} alt="" />
+              </ItemButton>
+            ) : (
+              <></>
+            )}
+            {product.map((item) =>
+              item.type === "ENERGÉTICOS" ? (
+                <ItemButton onClick={() => handleSelectType("ENERGÉTICOS")}>
+                  <Item
+                    src="/Events/Item5.svg"
+                    width={200}
+                    height={200}
+                    alt=""
+                  />
+                </ItemButton>
+              ) : (
+                <></>
+              )
+            )}
+            {product.map((item) =>
+              item.type === "OUTROS" ? (
+                <ItemButton onClick={() => handleSelectType("OUTROS")}>
+                  <Item
+                    src="/Events/Item6.svg"
+                    width={200}
+                    height={200}
+                    alt=""
+                  />
+                </ItemButton>
+              ) : (
+                <></>
+              )
+            )}
           </Items>
 
           <div

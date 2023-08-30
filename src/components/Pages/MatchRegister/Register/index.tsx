@@ -1,11 +1,11 @@
 import { GlobalButton } from "@/components/Global/Button";
-import { Back, Container, Download, Logo, Top } from "./styles";
-import Theme from "@/styles/themes";
-import { Stack } from "react-bootstrap";
 import { Tabs } from "@/components/Global/Tabs";
-import { Form } from "../Form";
-import { useState, useEffect } from "react";
+import Theme from "@/styles/themes";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Stack } from "react-bootstrap";
+import { Form } from "../Form";
+import { Back, Container, Download, Logo, Top } from "./styles";
 
 export function Register() {
   const router = useRouter();

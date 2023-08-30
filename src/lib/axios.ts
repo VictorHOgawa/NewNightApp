@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const amazonik = "http://192.168.10.47:3333";
 export const deployed = "https://night-server.onrender.com";
-export const token = "";
+export const token = "nightToken";
 
 export const api = axios.create({
   baseURL: deployed,

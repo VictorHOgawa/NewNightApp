@@ -1,3 +1,19 @@
+import { LoadingFull } from "@/components/Global/Loading/Full";
+import { People } from "@/utils/people";
+import px2vw from "@/utils/size";
+import { gsap } from "gsap";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
+import { Stack } from "react-bootstrap";
+import "swiper/css";
+import { Swiper, SwiperSlide } from "swiper/react";
 import {
   Arrow1,
   Arrow2,
@@ -22,16 +38,6 @@ import {
   Tags,
   Top,
 } from "./styles";
-import { useCallback, useState } from "react";
-import { useLayoutEffect, useRef, useEffect } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import Image from "next/image";
-import { Stack } from "react-bootstrap";
-import { useRouter } from "next/router";
-import px2vw from "@/utils/size";
-import { People } from "@/utils/people";
-import { gsap } from "gsap";
 
 export default function Match() {
   function useStateRef(defaultValue: any) {
@@ -319,6 +325,7 @@ export default function Match() {
   };
   return (
     <Container ref={main}>
+      <LoadingFull />
       <>
         <>
           <Background
