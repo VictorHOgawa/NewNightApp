@@ -2,7 +2,7 @@ import { gsap } from "gsap";
 import { useLayoutEffect, useRef } from "react";
 import { Container, Logo } from "./styles";
 
-export function Loading() {
+export function LoadingIn() {
   const main = useRef(null);
   const tl = useRef<GSAPTimeline>();
   useLayoutEffect(() => {

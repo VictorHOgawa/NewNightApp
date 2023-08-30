@@ -1,6 +1,7 @@
 import { Ad } from "@/components/Global/Ad";
 import { Header } from "@/components/Global/Header";
-import { Loading } from "@/components/Global/Loading";
+import { LoadingIn } from "@/components/Global/Loading/In";
+import { LoadingOut } from "@/components/Global/Loading/Out";
 import { EventSlider } from "@/components/Pages/Home/Sliders/Events/Slider";
 import { PlaceSlider } from "@/components/Pages/Home/Sliders/Places/Slider";
 import { getAPI } from "@/lib/axios";
@@ -24,10 +25,11 @@ export default function Home() {
     <Container>
       {loading ? (
         <>
-          <Loading />
+          <LoadingIn />
         </>
       ) : (
         <>
+          <LoadingOut />
           <Header page="main" selected="home" />
           <Ad />
           <br />
