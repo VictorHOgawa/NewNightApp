@@ -27,7 +27,6 @@ export function CitySelector({ ...rest }: any) {
   useEffect(() => {
     getCities();
   }, []);
-  console.log("cities: ", cities);
 
   const [selected, setSelected] = useState("Qualquer Lugar");
   return (

@@ -73,7 +73,6 @@ export default function Event() {
 
   const handleNext = () => {
     if (eventDetails.products.length === 0) {
-      console.log("entrou");
     }
     if (type !== "") {
       return setType("");

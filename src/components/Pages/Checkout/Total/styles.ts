@@ -8,7 +8,6 @@ export const Container = styled.div`
   color: ${({ theme }) => theme.color.gray_10};
   width: 80%;
   margin-left: 10%;
-  padding: 10px;
 
   @media (min-width: 768px) {
     width: 40%;
@@ -22,6 +21,8 @@ export const IndividualTotal = styled.div`
   color: ${({ theme }) => theme.color.gray_10};
   padding: 5px;
   margin-top: 2px;
+  margin-left: 10px;
+  margin-right: 10px;
 `;
 
 export const FullTotal = styled.div`
@@ -29,5 +30,7 @@ export const FullTotal = styled.div`
   border: 1px solid ${({ theme }) => theme.color.primary_60};
   border-radius: 5px;
   margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
   padding: 5px;
 `;

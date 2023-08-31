@@ -15,7 +15,7 @@ import { Container } from "./styles";
 export default function Checkout() {
   const { cart } = useCart();
   const [selected, setSelected] = useState("Pix");
-  const [logged, setLogged] = useState(false);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   async function handleVerify() {
@@ -24,28 +24,29 @@ export default function Checkout() {
       alert("Realize o Login antes de Prosseguir");
       return router.push("/login?&page=checkout");
     }
-    setLogged(true);
-    return;
   }
-
-  useEffect(() => {
-    handleVerify();
-  }, []);
 
   async function handleCart() {
     const connect = await AuthPostAPI("/purchase/cart", {
       ...cart,
       coupon: "",
     });
+    setLoading(false);
   }
 
   useEffect(() => {
     handleCart();
   }, []);
 
+  useEffect(() => {
+    handleVerify();
+  }, []);
+
   return (
     <Container>
-      {logged ? (
+      {loading ? (
+        <LoadingIn />
+      ) : (
         <>
           <LoadingOut />
           <Header />
@@ -55,11 +56,9 @@ export default function Checkout() {
           <Method selected={selected} setSelected={setSelected} />
           <IndividualMethod selected={selected} />
           <br />
-          <Total />
+          <Total selected={selected} />
           <Safe />
         </>
-      ) : (
-        <LoadingIn />
       )}
     </Container>
   );

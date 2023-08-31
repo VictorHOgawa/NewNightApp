@@ -1,3 +1,4 @@
+import px2vw from "@/utils/size";
 import { Dropdown } from "react-bootstrap";
 import { styled } from "styled-components";
 
@@ -30,10 +31,15 @@ export const ItemText = styled(Dropdown.ItemText)`
 `;
 
 export const Item = styled(Dropdown.Item)`
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
   text-align: center;
-  color: ${({ theme }) => theme.color.gray_10};
   border-bottom: 1px solid ${({ theme }) => theme.color.gray_10};
+  color: ${({ theme }) => theme.color.gray_10};
   padding: 10px;
+  margin-top: 5px;
+  height: ${px2vw(30, 320)};
   &:hover {
     color: ${({ theme }) => theme.color.primary_100};
   }

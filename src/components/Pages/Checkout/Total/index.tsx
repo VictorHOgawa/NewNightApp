@@ -1,115 +1,145 @@
 import { useCart } from "@/context/cart";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Container, FullTotal, IndividualTotal } from "./styles";
+import { AuthPostAPI } from "@/lib/axios";
+import { LoadingIn } from "@/components/Global/Loading/In";
+import { LoadingOut } from "@/components/Global/Loading/Out";
 
-export function Total() {
+interface TotalProps {
+  selected: string;
+}
+export function Total({ selected }: TotalProps) {
+  const [total, setTotal] = useState<any>();
+  const [loading, setLoading] = useState(true);
   const { cart } = useCart();
-  const Items = [
-    {
-      product: "Produto 1",
-      cost: 20,
-    },
-    {
-      product: "Produto 2",
-      cost: 500,
-    },
-    {
-      product: "Produto 1",
-      cost: 220,
-    },
-    {
-      product: "Produto 2",
-      cost: 50240,
-    },
-    {
-      product: "Produto 1",
-      cost: 205,
-    },
-    {
-      product: "Produto 2",
-      cost: 5010,
-    },
-  ];
+  async function handleCart() {
+    const connect = await AuthPostAPI("/purchase/cart", {
+      ...cart,
+      coupon: "",
+    });
+    setTotal(connect.body);
+    setLoading(false);
+  }
+  console.log("total: ", total);
+
+  useEffect(() => {
+    if (cart) {
+      handleCart();
+    }
+  }, [cart]);
 
   const [seeAll, setSeeAll] = useState(false);
 
   return (
     <Container>
-      {!seeAll ? (
+      {loading ? (
         <></>
       ) : (
         <>
-          {Items.map((item) =>
-            item.cost === 0 ? (
-              <></>
-            ) : (
-              <IndividualTotal>
-                <Row
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    textAlign: "center",
-                  }}
-                >
-                  <Col
-                    style={{
-                      display: "flex",
-                    }}
-                  >
-                    {item.product}
-                  </Col>
-                  <Col
-                    style={{
-                      display: "flex",
-                      justifyContent: "flex-end",
-                    }}
-                  >
-                    {item.cost.toLocaleString("pt-br", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}
-                  </Col>
-                </Row>
-              </IndividualTotal>
-            )
+          {!seeAll ? (
+            <></>
+          ) : (
+            <>
+              {total.product.map((item: any) =>
+                item.length === 0 ? (
+                  <></>
+                ) : (
+                  <IndividualTotal>
+                    <div
+                      style={{
+                        display: "flex",
+                        width: "100%",
+                        justifyContent: "space-between",
+                        padding: "2px 5px",
+                      }}
+                    >
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        {item.productName}
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        x {item.quantity}
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        {item.value.toLocaleString("pt-br", {
+                          style: "currency",
+                          currency: "BRL",
+                        })}
+                      </div>
+                    </div>
+                  </IndividualTotal>
+                )
+              )}
+              {total.ticket.map((item: any) =>
+                item.length === 0 ? (
+                  <></>
+                ) : (
+                  <IndividualTotal>
+                    <div
+                      style={{
+                        display: "flex",
+                        width: "100%",
+                        justifyContent: "space-between",
+                        padding: "2px 5px",
+                      }}
+                    >
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        {item.ticketName}
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        x {item.quantity}
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        {item.value.toLocaleString("pt-br", {
+                          style: "currency",
+                          currency: "BRL",
+                        })}
+                      </div>
+                    </div>
+                  </IndividualTotal>
+                )
+              )}
+            </>
           )}
+          <FullTotal>
+            <Row
+              style={{
+                display: "flex",
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "space-between",
+                textAlign: "center",
+              }}
+            >
+              <Col style={{ display: "flex" }}>Total</Col>
+              <Col style={{ display: "flex", justifyContent: "flex-end" }}>
+                <label>
+                  {selected === "Pix"
+                    ? total.payment.pix.toLocaleString("pt-br", {
+                        style: "currency",
+                        currency: "BRL",
+                      })
+                    : total.payment.creditValue.toLocaleString("pt-br", {
+                        style: "currency",
+                        currency: "BRL",
+                      })}
+                </label>
+              </Col>
+            </Row>
+          </FullTotal>
+          <a
+            onClick={() => setSeeAll(!seeAll)}
+            style={{
+              textAlign: "center",
+              marginTop: "5%",
+              textDecoration: "underline",
+              cursor: "pointer",
+            }}
+          >
+            Ver Detalhes
+          </a>
         </>
       )}
-      <FullTotal>
-        <Row
-          style={{
-            display: "flex",
-            width: "100%",
-            alignItems: "center",
-            justifyContent: "space-between",
-            textAlign: "center",
-          }}
-        >
-          <Col style={{ display: "flex" }}>Total</Col>
-          <Col style={{ display: "flex", justifyContent: "flex-end" }}>
-            <label>
-              {Items.reduce((sum, item) => sum + item.cost, 0).toLocaleString(
-                "pt-br",
-                { style: "currency", currency: "BRL" }
-              )}
-            </label>
-          </Col>
-        </Row>
-      </FullTotal>
-      <a
-        onClick={() => setSeeAll(!seeAll)}
-        style={{
-          textAlign: "center",
-          marginTop: "5%",
-          textDecoration: "underline",
-          cursor: "pointer",
-        }}
-      >
-        Ver Detalhes
-      </a>
     </Container>
   );
 }

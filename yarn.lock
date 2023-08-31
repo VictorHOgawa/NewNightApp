@@ -1274,6 +1274,11 @@
   resolved "https://registry.yarnpkg.com/@types/warning/-/warning-3.0.0.tgz#0d2501268ad8f9962b740d387c4654f5f8e23e52"
   integrity sha512-t/Tvs5qR47OLOr+4E9ckN8AmP2Tf16gWq+/qA4iUGS/OOyHVO8wv2vjJuX8SNOUTJyWb+2t7wJm6cXILFnOROA==
 
+actionsheet-react@^1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/actionsheet-react/-/actionsheet-react-1.0.14.tgz#28834812403162b479b53027d01ff5a70b44e395"
+  integrity sha512-bdZ4camgcdvLXvfE8/NaoV/MC70wWFLFd+/qmG2nS4dD1vK5qdtnQgMMnKDWxOkcmZQFWK6nqUHdMN+/h/mGnQ==
+
 ansi-styles@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-3.2.1.tgz#41fbb20243e50b12be0f04b8dedbf07520ce841d"

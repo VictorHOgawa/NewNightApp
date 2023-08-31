@@ -39,7 +39,6 @@ export function Card({ photo, name, city, id, openTime }: PlaceProps) {
             moment(currentOpenTime.close_time, "HH:mm")
           )
         ) {
-          console.log("hora aberta");
           setIsOpen(true);
         }
       }

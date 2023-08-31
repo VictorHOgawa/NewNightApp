@@ -22,7 +22,6 @@ export function PlaceSlider() {
 
   async function getEvents() {
     const connect = await getAPI("/places");
-    console.log("connect places: ", connect.body.places);
     if (connect.status === 200) {
       setPlaces(connect.body.places);
       return setLoading(false);

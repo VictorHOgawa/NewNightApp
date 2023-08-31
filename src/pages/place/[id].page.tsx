@@ -32,8 +32,6 @@ export default function Place() {
     }
   }
 
-  console.log("place: ", place);
-
   useEffect(() => {
     if (id) {
       getPlaceDetails();

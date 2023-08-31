@@ -67,7 +67,6 @@ export function RegisterContainer() {
       return alert(connect.body);
     }
     localStorage.setItem("nightToken", connect.body.token);
-    console.log("connect: ", connect);
     return router.push("/");
   }
 

@@ -67,7 +67,6 @@ export function StepTwo({ product, type, setType }: StepTwoProps) {
   }
 
   const exists = product.find((item) => item.type === "COMBO");
-  console.log("exists: ", exists);
 
   return (
     <>
