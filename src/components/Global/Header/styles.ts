@@ -14,6 +14,9 @@ export const Top = styled.div`
 
 export const Logo = styled(Image)`
   width: max-content;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const ButtonGroup = styled(Stack)`

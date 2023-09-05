@@ -6,6 +6,11 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   align-self: center;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    scale: 1.1;
+  }
 `;
 
 export const Img = styled(Image)`

@@ -9,4 +9,10 @@ export const Container = styled.button`
   border: 0;
   width: 50px;
   height: 50px;
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    scale: 1.1;
+  }
 `;

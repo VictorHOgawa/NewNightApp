@@ -41,4 +41,7 @@ export const Forgot = styled(Label)`
   text-decoration: underline;
   align-self: center;
   margin-top: 5%;
+  &:hover {
+    cursor: pointer;
+  }
 `;

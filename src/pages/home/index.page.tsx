@@ -7,6 +7,7 @@ import { PlaceSlider } from "@/components/Pages/Home/Sliders/Places/Slider";
 import { getAPI } from "@/lib/axios";
 import { useEffect, useState } from "react";
 import { Container } from "./styles";
+import { Button } from "react-bootstrap";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -34,6 +35,7 @@ export default function Home() {
           <Ad />
           <br />
           <br />
+          <Button variant="danger" />
           <EventSlider />
           <br />
           <br />

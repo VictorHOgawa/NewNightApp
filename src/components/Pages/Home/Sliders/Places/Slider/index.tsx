@@ -40,24 +40,42 @@ export function PlaceSlider() {
       ) : (
         <>
           <br />
-          <Swiper
-            slidesPerView={
-              width < 768 ? 2 : width >= 768 && width < 1024 ? 4 : 6
-            }
-            spaceBetween={1}
-          >
-            {places.map((item) => (
-              <SwiperSlide>
-                <Card
-                  photo={item.photo[0].photo_location}
-                  name={item.name}
-                  city={item.city}
-                  id={item.id}
-                  openTime={item.openTime}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          {places.length !== 0 ? (
+            places.length < 3 ? (
+              <>
+                {places.map((item) => (
+                  <Card
+                    photo={item.photo[0].photo_location}
+                    name={item.name}
+                    city={item.city}
+                    id={item.id}
+                    openTime={item.openTime}
+                  />
+                ))}
+              </>
+            ) : (
+              <Swiper
+                slidesPerView={
+                  width < 768 ? 2 : width >= 768 && width < 1024 ? 4 : 6
+                }
+                // spaceBetween={1}
+              >
+                {places.map((item) => (
+                  <SwiperSlide>
+                    <Card
+                      photo={item.photo[0].photo_location}
+                      name={item.name}
+                      city={item.city}
+                      id={item.id}
+                      openTime={item.openTime}
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            )
+          ) : (
+            <>Test</>
+          )}
         </>
       )}
     </Container>

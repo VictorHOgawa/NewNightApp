@@ -10,21 +10,29 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 90%;
+  width: 50%;
   text-align: center;
+  background-color: rgba(211, 86, 243, 0.1);
+  border-radius: 10px;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    scale: 1.05;
+  }
 
   @media (min-width: 768px) {
-    width: 95%;
+    width: 35%;
   }
 
   @media (min-width: 1024px) {
-    width: 85%;
+    width: 20%;
   }
 `;
 
 export const SliderImg = styled(Image)`
   width: 100%;
   height: auto;
+  border-radius: 10px;
 `;
 
 export const PlaceCurrent = styled.label<CurrentProps>`

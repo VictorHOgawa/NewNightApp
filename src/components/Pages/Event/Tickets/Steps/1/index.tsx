@@ -5,6 +5,7 @@ import { useCart } from "@/context/cart";
 import { useEffect, useState } from "react";
 import { Stack } from "react-bootstrap";
 import { Counter, CounterArea, TicketTitle, TicketType } from "../../styles";
+import { Hoverable } from "@/components/Global/Hoverable";
 
 interface StepOneProps {
   id: string;
@@ -16,7 +17,7 @@ interface StepOneProps {
   }[];
 }
 
-export function StepOne({ id, ticket }: StepOneProps) {
+export function StepOne({ id, ticket}: StepOneProps) {
   const [width, setWidth] = useState(100);
   const updateDimensions = () => {
     setWidth(window.innerWidth);
@@ -96,21 +97,25 @@ export function StepOne({ id, ticket }: StepOneProps) {
                     })}
                   </TicketTitle>
                   <CounterArea>
-                    <StaticImg
-                      src="/Global/Icons/Minus.svg"
-                      width={30}
-                      height={30}
-                      alt=""
-                      onClick={() => handleChange("decrease", item)}
-                    />
+                    <Hoverable>
+                      <StaticImg
+                        src="/Global/Icons/Minus.svg"
+                        width={30}
+                        height={30}
+                        alt=""
+                        onClick={() => handleChange("decrease", item)}
+                      />
+                    </Hoverable>
                     <Counter>{ticketQuantity(item.id)}</Counter>
-                    <StaticImg
-                      src="/Global/Icons/Plus.svg"
-                      width={30}
-                      height={30}
-                      alt=""
-                      onClick={() => handleChange("increase", item)}
-                    />
+                    <Hoverable>
+                      <StaticImg
+                        src="/Global/Icons/Plus.svg"
+                        width={30}
+                        height={30}
+                        alt=""
+                        onClick={() => handleChange("increase", item)}
+                      />
+                    </Hoverable>
                   </CounterArea>
                 </TicketType>
               ))}

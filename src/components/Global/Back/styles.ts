@@ -9,4 +9,10 @@ export const Container = styled(Image)`
   border: 0;
   width: 20px;
   height: 20px;
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    scale: 1.5;
+  }
 `;

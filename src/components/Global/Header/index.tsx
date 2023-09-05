@@ -22,6 +22,7 @@ interface HeaderProps {
 }
 
 export function Header({ page = "other", selected }: HeaderProps) {
+  const [loading, setLoading] = useState(false);
   const [width, setWidth] = useState(100);
   const updateDimensions = () => {
     setWidth(window.innerWidth);
@@ -32,6 +33,10 @@ export function Header({ page = "other", selected }: HeaderProps) {
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
   const router = useRouter();
+  const handleLogin = () => {
+    setLoading(true);
+    return router.push("/login");
+  };
   return (
     <Container>
       {page === "main" ? (
@@ -52,7 +57,8 @@ export function Header({ page = "other", selected }: HeaderProps) {
                 color={`${Theme.color.gray_10}`}
                 width="auto"
                 fontSize={12}
-                onClick={() => router.push("/login")}
+                onClick={handleLogin}
+                loading={loading}
               />
               <GlobalButton
                 content="Se Cadastrar"

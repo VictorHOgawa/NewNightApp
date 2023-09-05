@@ -18,10 +18,10 @@ export function Total({ selected }: TotalProps) {
       ...cart,
       coupon: "",
     });
+    console.log("connect: ", connect);
     setTotal(connect.body);
     setLoading(false);
   }
-  console.log("total: ", total);
 
   useEffect(() => {
     if (cart) {
@@ -114,7 +114,7 @@ export function Total({ selected }: TotalProps) {
               <Col style={{ display: "flex" }}>Total</Col>
               <Col style={{ display: "flex", justifyContent: "flex-end" }}>
                 <label>
-                  {selected === "Pix"
+                  {/* {selected === "Pix"
                     ? total.payment.pix.toLocaleString("pt-br", {
                         style: "currency",
                         currency: "BRL",
@@ -122,7 +122,8 @@ export function Total({ selected }: TotalProps) {
                     : total.payment.creditValue.toLocaleString("pt-br", {
                         style: "currency",
                         currency: "BRL",
-                      })}
+                      })} */}
+                  ""
                 </label>
               </Col>
             </Row>

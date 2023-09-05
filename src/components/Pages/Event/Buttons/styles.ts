@@ -17,6 +17,11 @@ export const Button = styled.button<ButtonProps>`
   border-radius: 5px;
   color: ${({ theme }) => theme.color.gray_10};
   padding: 2px 5px;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    scale: 1.1;
+  }
   font-size: ${px2vw(14, 320)};
 
   @media (min-width: 768px) {

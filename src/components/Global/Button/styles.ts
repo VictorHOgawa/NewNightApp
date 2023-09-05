@@ -7,6 +7,7 @@ interface ButtonProps {
   color: string;
   width: string | number;
   height: string | number;
+  loading: boolean;
 }
 
 export const Container = styled(Button)<ButtonProps>`
@@ -28,11 +29,13 @@ export const Container = styled(Button)<ButtonProps>`
   }
   border: 0;
   font-weight: bold;
+  transition: 0.3s ease-in-out;
   &:disabled {
     background-color: ${({ theme }) => theme.color.secondary_60};
   }
 
   &:hover {
+    cursor: pointer;
     background: ${(props) => (props.background ? props.background : "black")};
     opacity: 0.8;
     scale: 1.025;

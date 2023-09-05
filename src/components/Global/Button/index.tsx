@@ -1,3 +1,4 @@
+import { Spinner } from "react-bootstrap";
 import { Container } from "./styles";
 
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
@@ -31,11 +32,12 @@ export function GlobalButton({
       color={color}
       background={background}
       fontSize={fontSize}
-      disabled={disabled}
+      disabled={loading || disabled}
+      loading={loading}
       {...rest}
     >
-      {children} {""}
-      {content}
+      {loading ? <Spinner animation="border" size="sm" /> : content} {""}
+      {children}
     </Container>
   );
 }

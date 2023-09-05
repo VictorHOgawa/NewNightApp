@@ -22,6 +22,11 @@ export const Btn = styled.button`
   background-color: ${({ theme }) => theme.color.primary_40};
   border-radius: 10px;
   margin: 2.5%;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    scale: 1.1;
+  }
 
   @media (min-width: 768px) {
     width: 30%;

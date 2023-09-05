@@ -41,33 +41,49 @@ export function EventSlider() {
         <>
           <br />
           {events.length !== 0 ? (
-            <>
-              <Swiper
-                spaceBetween={
-                  width < 768
-                    ? -100
-                    : width >= 768 && width < 1024
-                    ? -425
-                    : width >= 1024 && width < 1360
-                    ? -650
-                    : -925
-                }
-              >
+            events.length < 3 ? (
+              <>
                 {events.map((item) => (
-                  <SwiperSlide>
-                    <Card
-                      photo_location={item.photo_location}
-                      name={item.name}
-                      local={item.local}
-                      date={item.date}
-                      id={item.id}
-                      city={item.city.name}
-                      state={item.city.state}
-                    />
-                  </SwiperSlide>
+                  <Card
+                    photo_location={item.photo_location}
+                    name={item.name}
+                    local={item.local}
+                    date={item.date}
+                    id={item.id}
+                    city={item.city.name}
+                    state={item.city.state}
+                  />
                 ))}
-              </Swiper>
-            </>
+              </>
+            ) : (
+              <>
+                <Swiper
+                // spaceBetween={
+                //   width < 768
+                //     ? -100
+                //     : width >= 768 && width < 1024
+                //     ? -425
+                //     : width >= 1024 && width < 1360
+                //     ? -650
+                //     : -925
+                // }
+                >
+                  {events.map((item) => (
+                    <SwiperSlide>
+                      <Card
+                        photo_location={item.photo_location}
+                        name={item.name}
+                        local={item.local}
+                        date={item.date}
+                        id={item.id}
+                        city={item.city.name}
+                        state={item.city.state}
+                      />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </>
+            )
           ) : (
             <>test</>
           )}

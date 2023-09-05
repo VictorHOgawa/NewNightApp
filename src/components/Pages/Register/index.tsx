@@ -19,7 +19,9 @@ export function RegisterContainer() {
     mobilePhone: "",
     cpfCnpj: "",
     password: "",
+    confirm: "",
   });
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>({});
   const handleValidations = (type: any, value: any) => {
     let errorText;
@@ -49,24 +51,35 @@ export function RegisterContainer() {
   };
 
   function handleSubmit() {
+    setLoading(true);
     if (
       registerData.name === "" ||
       registerData.mobilePhone === "" ||
       registerData.cpfCnpj === "" ||
-      registerData.password === ""
+      registerData.password === "" ||
+      registerData.confirm === "" ||
+      registerData.password !== registerData.confirm
     ) {
-      alert("Preencha todos os campos");
+      setLoading(false);
+      return alert("Verifique todos os campos");
     } else {
       return handleRegister();
     }
   }
 
   async function handleRegister() {
-    const connect = await PostAPI("/user/register", registerData);
+    const connect = await PostAPI("/user/register", {
+      name: registerData.name,
+      cpfCnpj: registerData.cpfCnpj,
+      mobilePhone: registerData.mobilePhone,
+      password: registerData.password,
+    });
     if (connect.status !== 200) {
+      setLoading(false);
       return alert(connect.body);
     }
     localStorage.setItem("nightToken", connect.body.token);
+    setLoading(false);
     return router.push("/");
   }
 
@@ -139,9 +152,9 @@ export function RegisterContainer() {
         placeholder="Senha"
         type="password"
         onChange={(e) =>
-          setRegisterData({ ...registerData, password: e.target.value })
+          setRegisterData({ ...registerData, confirm: e.target.value })
         }
-        value={registerData.password}
+        value={registerData.confirm}
         required
       />
       <br />
@@ -152,6 +165,7 @@ export function RegisterContainer() {
         width="100%"
         height="auto"
         onClick={handleSubmit}
+        loading={loading}
       />
     </Container>
   );

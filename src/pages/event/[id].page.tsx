@@ -247,8 +247,8 @@ export default function Event() {
                 <Stack
                   style={{
                     display: "flex",
+                    flexDirection: "column",
                     width: "50%",
-                    justifyContent: "center",
                   }}
                 >
                   <br />

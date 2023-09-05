@@ -14,7 +14,7 @@ export default function Login() {
         width={150}
         height={150}
         alt=""
-        style={{ alignSelf: "center", marginTop: "25%" }}
+        style={{ alignSelf: "center", marginTop: "5%" }}
       />
       <LoginContainer />
     </Container>

@@ -105,6 +105,11 @@ export const ChatIcon = styled(Image)<ChatProps>`
   height: ${({ active }) => (active ? px2vw(40, 320) : px2vw(30, 320))}px;
   margin-right: ${px2vw(20, 320)}px;
   align-self: center;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    scale: 1.1;
+  }
 
   @media (min-width: 768px) {
     width: ${({ active }) => (active ? px2vw(40, 768) : px2vw(30, 768))}px;

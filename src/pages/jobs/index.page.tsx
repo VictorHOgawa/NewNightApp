@@ -2,7 +2,7 @@ import { Header } from "@/components/Global/Header";
 import { LoadingFull } from "@/components/Global/Loading/Full";
 import { GlobalTitle } from "@/components/Global/Title";
 import { useRouter } from "next/router";
-import { Container, NightPremium } from "./styles";
+import { Container, Content, NightPremium } from "./styles";
 
 export default function Jobs() {
   const router = useRouter();
@@ -31,20 +31,21 @@ export default function Jobs() {
       <LoadingFull />
       <Header page="other" />
       <br />
-      {Jobs.map((item) => (
-        <>
-          <GlobalTitle title={item.title} />
-          <NightPremium
-            src={item.bannerLocation}
-            width={310}
-            height={90}
-            alt=""
-            onClick={() => router.push(`/jobdetails/` + item.type)}
-          />
-          <br />
-          <br />
-        </>
-      ))}
+      <Content>
+        {Jobs.map((item) => (
+          <>
+            <GlobalTitle title={item.title} />
+            <NightPremium
+              src={item.bannerLocation}
+              width={310}
+              height={90}
+              alt=""
+              onClick={() => router.push(`/jobdetails/` + item.type)}
+            />
+            <br />
+          </>
+        ))}
+      </Content>
     </Container>
   );
 }

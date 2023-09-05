@@ -15,8 +15,19 @@ export const Container = styled.div`
   width: 60%;
   min-height: ${px2vw(250, 320)};
   justify-content: space-between;
-  margin: 0px;
   padding-bottom: 10px;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    scale: 1.05;
+  }
+
+  &:first-child {
+    margin-left: 0px;
+  }
+  &:nth-child() {
+    margin-left: 5%;
+  }
 
   @media (min-width: 768px) {
     width: 40%;

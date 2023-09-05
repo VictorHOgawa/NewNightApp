@@ -1,12 +1,7 @@
 @import "../../node_modules/bootstrap/scss/functions";
-@import "../../node_modules/bootstrap/scss/variables";
-
-$custom-colors: (
-  background: #150029,
-);
-
-$danger: #000;
+$danger: #000000;
 $primary: #9c38ce;
+@import "../../node_modules/bootstrap/scss/variables";
 
 //last
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";

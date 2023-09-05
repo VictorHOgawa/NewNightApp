@@ -29,11 +29,12 @@ export function Card({
   id,
   city,
   state,
+  ...rest
 }: EventProps) {
   const router = useRouter();
 
   return (
-    <Container onClick={() => router.push(`/event/${id}`)}>
+    <Container onClick={() => router.push(`/event/${id}`)} {...rest}>
       <SliderImg src={photo_location} width={400} height={200} alt="" />
       <EventBody>
         <EventTitle>{name}</EventTitle>

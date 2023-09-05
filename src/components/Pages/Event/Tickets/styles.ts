@@ -81,6 +81,11 @@ export const ItemButton = styled.button`
   margin: 5px;
   border: 0;
   background-color: transparent;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    scale: 1.1;
+  }
 
   @media (min-width: 768px) {
     width: 90px;
@@ -102,8 +107,8 @@ export const Item = styled(Image)`
 
 export const Check = styled.div``;
 
-export const Input = styled.input``;
-
-export const Clickable = styled.label`
-  color: ${({ theme }) => theme.color.gray_10};
+export const Input = styled.input`
+  &:hover {
+    cursor: pointer;
+  }
 `;

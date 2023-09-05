@@ -11,6 +11,8 @@ import { Container, Forgot, Form, Label } from "./styles";
 export function LoginContainer() {
   const router = useRouter();
   const query: any = router.query;
+  const [loading, setLoading] = useState(false);
+  const [loading1, setLoading1] = useState(false);
   const [pageTo, setPageTo] = useState("");
   const [loginData, setLoginData] = useState({
     cpfCnpj: "",
@@ -31,12 +33,19 @@ export function LoginContainer() {
   };
 
   function handleSubmit() {
+    setLoading(true);
     if (loginData.cpfCnpj === "" || loginData.password === "") {
+      setLoading(false);
       return alert("Preencha todos os campos");
     } else {
       handleLogin();
     }
   }
+
+  const handleRegister = () => {
+    setLoading1(true);
+    return router.push("/register");
+  };
 
   useEffect(() => {
     if (query) {
@@ -48,10 +57,12 @@ export function LoginContainer() {
   async function handleLogin() {
     const connect = await PostAPI("/user/login", loginData);
     if (connect.status !== 200) {
+      setLoading(false);
       return alert(connect.body);
     }
     localStorage.setItem("nightToken", connect.body.token);
     localStorage.setItem("nightRefreshToken", connect.body.refreshToken);
+    setLoading(false);
     return pageTo === "checkout" ? router.push("/checkout") : router.push("/");
   }
 
@@ -103,6 +114,7 @@ export function LoginContainer() {
           width="100%"
           height="auto"
           onClick={handleSubmit}
+          loading={loading}
         />
         <GlobalButton
           content="Cadastro"
@@ -110,7 +122,8 @@ export function LoginContainer() {
           color={`${Theme.color.gray_100}`}
           width="100%"
           height="auto"
-          onClick={() => router.push("/register")}
+          onClick={handleRegister}
+          loading={loading1}
         />
       </Stack>
     </Container>

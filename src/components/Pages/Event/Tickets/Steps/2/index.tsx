@@ -14,6 +14,7 @@ import {
   TicketType,
   Title,
 } from "../../styles";
+import { Hoverable } from "@/components/Global/Hoverable";
 
 interface StepTwoProps {
   product: {
@@ -204,21 +205,25 @@ export function StepTwo({ product, type, setType }: StepTwoProps) {
                       })}
                     </TicketTitle>
                     <CounterArea>
-                      <StaticImg
-                        src="/Global/Icons/Minus.svg"
-                        width={20}
-                        height={20}
-                        alt=""
-                        onClick={() => handleChange("decrease", item)}
-                      />
+                      <Hoverable>
+                        <StaticImg
+                          src="/Global/Icons/Minus.svg"
+                          width={20}
+                          height={20}
+                          alt=""
+                          onClick={() => handleChange("decrease", item)}
+                        />
+                      </Hoverable>
                       <Counter>{ticketQuantity(item.id)}</Counter>
-                      <StaticImg
-                        src="/Global/Icons/Plus.svg"
-                        width={20}
-                        height={20}
-                        alt=""
-                        onClick={() => handleChange("increase", item)}
-                      />
+                      <Hoverable>
+                        <StaticImg
+                          src="/Global/Icons/Plus.svg"
+                          width={20}
+                          height={20}
+                          alt=""
+                          onClick={() => handleChange("increase", item)}
+                        />
+                      </Hoverable>
                     </CounterArea>
                   </TicketType>
                 </Stack>

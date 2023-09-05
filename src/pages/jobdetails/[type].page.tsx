@@ -12,6 +12,7 @@ import { useState } from "react";
 import { Modal, Stack } from "react-bootstrap";
 import {
   Container,
+  Content,
   Help,
   Icon,
   Img,
@@ -32,54 +33,56 @@ export default function JobDetails() {
       <Ad />
       <br />
       <br />
-      <GlobalTitle title={"Jobs - " + type} />
-      <JobCard>
-        <Stack direction="horizontal" style={{ alignItems: "center" }}>
-          <Img src="/Events/Event1.svg" width={50} height={50} alt="" />
-          <Stack style={{ marginLeft: "5%" }}>
-            <Text style={{ fontWeight: "bold", fontSize: 15 }}>
-              Nome do Evento
-            </Text>
-            <Text>
-              <Icon
-                src="/Global/Icons/Clock.svg"
-                width={15}
-                height={15}
-                alt=""
-              />
-              {""}
-              <Text style={{ fontWeight: "bold" }}>
-                {""} 15 de Julho de 2023
-              </Text>{" "}
-              às 21:00
-            </Text>
-            <Text>
-              <Icon
-                src="/Global/Icons/LocationPin.svg"
-                width={15}
-                height={15}
-                alt=""
-              />
-              <Text style={{ fontWeight: "bold" }}>
-                {""} Cerveja de Garrafa
-              </Text>{" "}
-              Sinop/MT
-            </Text>
+      <Content>
+        <GlobalTitle title={"Jobs - " + type} />
+        <JobCard>
+          <Stack direction="horizontal" style={{ alignItems: "center" }}>
+            <Img src="/Events/Event1.svg" width={50} height={50} alt="" />
+            <Stack style={{ marginLeft: "5%" }}>
+              <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                Nome do Evento
+              </Text>
+              <Text>
+                <Icon
+                  src="/Global/Icons/Clock.svg"
+                  width={15}
+                  height={15}
+                  alt=""
+                />
+                {""}
+                <Text style={{ fontWeight: "bold" }}>
+                  {""} 15 de Julho de 2023
+                </Text>{" "}
+                às 21:00
+              </Text>
+              <Text>
+                <Icon
+                  src="/Global/Icons/LocationPin.svg"
+                  width={15}
+                  height={15}
+                  alt=""
+                />
+                <Text style={{ fontWeight: "bold" }}>
+                  {""} Cerveja de Garrafa
+                </Text>{" "}
+                Sinop/MT
+              </Text>
+            </Stack>
           </Stack>
-        </Stack>
-        <GlobalButton
-          content={type === "Promoters" ? "Pegar Código" : "Ler QrCode"}
-          background={`${Theme.color.confirmation}`}
-          color={`${Theme.color.background}`}
-          height="auto"
-          width="40%"
-          onClick={type === "Promoters" ? () => setOpen(true) : () => {}}
-          style={{ alignSelf: "center" }}
-        />
-      </JobCard>
+          <GlobalButton
+            content={type === "Promoters" ? "Pegar Código" : "Ler QrCode"}
+            background={`${Theme.color.confirmation}`}
+            color={`${Theme.color.background}`}
+            height="auto"
+            width="40%"
+            onClick={type === "Promoters" ? () => setOpen(true) : () => {}}
+            style={{ alignSelf: "center" }}
+          />
+        </JobCard>
+      </Content>
       <Help>
         <Icon src="/Checkout/Video.svg" width={12} height={12} alt="" />
-        <Text> {""}Dúvidas? Veja esse Rápido Vídeo</Text>
+        {""}Dúvidas? Veja esse Rápido Vídeo
       </Help>
 
       <More
