@@ -22,19 +22,20 @@ export const FirstContainer = styled.div`
   @media (min-width: 768px) {
     flex-direction: row;
     width: 70%;
-    margin-top: 20px;
+    margin-top: 5%;
     justify-content: space-between;
     align-self: center;
   }
 `;
 
 export const DetailImg = styled(Image)`
-  width: 100%;
+  width: 95%;
   height: auto;
   border-radius: 10px;
+  align-self: center;
+
   @media (min-width: 768px) {
-    width: 90%;
-    align-self: center;
+    width: 100%;
   }
 `;
 

@@ -8,19 +8,36 @@ import { getAPI } from "@/lib/axios";
 import { useEffect, useState } from "react";
 import { Container } from "./styles";
 import { Button } from "react-bootstrap";
+import { useRouter } from "next/router";
+import { useCart } from "@/context/cart";
 
 export default function Home() {
+  const { cart } = useCart();
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
-  async function getEvents() {
-    const connect = await getAPI("/event");
-    if (connect.status === 200) {
+  const [events, setEvents] = useState<any>([]);
+  const [places, setPlaces] = useState<any>([]);
+  const [selectedCity, setSelectedCity] = useState({
+    name: "Qualquer Lugar",
+    id: "",
+  });
+
+  async function getEverything() {
+    setLoading(true);
+    const [events, places] = await Promise.all([
+      getAPI("/event?city_id=" + selectedCity.id),
+      getAPI("/places?city_id=" + selectedCity.id),
+    ]);
+    if (events.status === 200 && places.status === 200) {
+      setEvents(events.body.events);
+      setPlaces(places.body.places);
       return setLoading(false);
     }
   }
 
   useEffect(() => {
-    getEvents();
-  }, []);
+    getEverything();
+  }, [selectedCity]);
 
   return (
     <Container>
@@ -31,15 +48,18 @@ export default function Home() {
       ) : (
         <>
           <LoadingOut />
-          <Header page="main" selected="home" />
+          <Header
+            page="main"
+            selected="home"
+            selectedCity={selectedCity}
+            setSelectedCity={setSelectedCity}
+          />
           <Ad />
           <br />
-          <br />
-          <Button variant="danger" />
-          <EventSlider />
+          <EventSlider events={events} loading={loading} />
           <br />
           <br />
-          <PlaceSlider />
+          <PlaceSlider places={places} loading1={loading} />
         </>
       )}
     </Container>

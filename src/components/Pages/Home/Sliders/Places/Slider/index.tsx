@@ -6,9 +6,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Card } from "../Card";
 import { Container } from "./styles";
 
-export function PlaceSlider() {
-  const [loading, setLoading] = useState(true);
-  const [places, setPlaces] = useState<any[]>([]);
+interface PlacesProps {
+  places: any;
+  loading1: boolean;
+}
+
+export function PlaceSlider({ places, loading1 }: PlacesProps) {
   const [width, setWidth] = useState(100);
 
   const updateDimensions = () => {
@@ -20,30 +23,23 @@ export function PlaceSlider() {
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
-  async function getEvents() {
-    const connect = await getAPI("/places");
-    if (connect.status === 200) {
-      setPlaces(connect.body.places);
-      return setLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    getEvents();
-  }, []);
-
   return (
     <Container>
       <GlobalTitle title="Lugares para Curtir" />
-      {loading ? (
+      {loading1 ? (
         <></>
       ) : (
         <>
           <br />
           {places.length !== 0 ? (
-            places.length < 3 ? (
-              <>
-                {places.map((item) => (
+            <Swiper
+              slidesPerView={
+                width < 768 ? 2 : width >= 768 && width < 1024 ? 4 : 6
+              }
+              // spaceBetween={1}
+            >
+              {places.map((item: any) => (
+                <SwiperSlide>
                   <Card
                     photo={item.photo[0].photo_location}
                     name={item.name}
@@ -51,28 +47,9 @@ export function PlaceSlider() {
                     id={item.id}
                     openTime={item.openTime}
                   />
-                ))}
-              </>
-            ) : (
-              <Swiper
-                slidesPerView={
-                  width < 768 ? 2 : width >= 768 && width < 1024 ? 4 : 6
-                }
-                // spaceBetween={1}
-              >
-                {places.map((item) => (
-                  <SwiperSlide>
-                    <Card
-                      photo={item.photo[0].photo_location}
-                      name={item.name}
-                      city={item.city}
-                      id={item.id}
-                      openTime={item.openTime}
-                    />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            )
+                </SwiperSlide>
+              ))}
+            </Swiper>
           ) : (
             <>Test</>
           )}

@@ -13,7 +13,7 @@ export const Container = styled.div`
     #9d38cd 100%
   );
   width: 60%;
-  min-height: ${px2vw(250, 320)};
+  min-height: ${px2vw(300, 320)};
   justify-content: space-between;
   padding-bottom: 10px;
   transition: 0.3s ease-in-out;
@@ -31,17 +31,18 @@ export const Container = styled.div`
 
   @media (min-width: 768px) {
     width: 40%;
-    min-height: ${px2vw(250, 768)};
+    min-height: ${px2vw(300, 768)};
   }
 
   @media (min-width: 1024px) {
     width: 25%;
-    min-height: ${px2vw(250, 1024)};
+    min-height: ${px2vw(300, 1024)};
   }
 `;
 
 export const SliderImg = styled(Image)`
   width: 100%;
+  height: auto;
   border-radius: 10px;
   object-fit: cover;
 `;

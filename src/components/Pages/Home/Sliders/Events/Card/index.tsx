@@ -43,7 +43,7 @@ export function Card({
             {local} <br />
             {city} - {state}
           </EventPlace>
-          <Calendar date={date} />
+          <Calendar date={date} type="event" />
         </EventFooter>
       </EventBody>
     </Container>

@@ -8,7 +8,7 @@ export function LoadingOut() {
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
       gsap.to(".Main", {
-        delay: 1,
+        delay: 0.5,
         opacity: 0,
         display: "none",
       });

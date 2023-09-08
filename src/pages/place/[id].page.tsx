@@ -8,6 +8,7 @@ import { Individual } from "@/components/Pages/Place/Individual";
 import { Music } from "@/components/Pages/Place/Music";
 import { getAPI } from "@/lib/axios";
 import Theme from "@/styles/themes";
+import moment from "moment";
 import "moment/locale/pt-br";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -15,6 +16,8 @@ import { Stack } from "react-bootstrap";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Banner, Container, DetailImg, FirstContainer, Nav } from "./styles";
+import { LoadingIn } from "@/components/Global/Loading/In";
+import { LoadingOut } from "@/components/Global/Loading/Out";
 
 export default function Place() {
   const router = useRouter();
@@ -51,38 +54,13 @@ export default function Place() {
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
-  // useEffect(() => {
-  //   function formatTime() {
-  //     const currentDay = parseInt(moment().format("d")) - 1;
-  //     const currentTime = moment().format("HH:mm");
-
-  //     const currentOpenTime = place.openTime.find((day: any) => {
-  //       return day.day === currentDay;
-  //     });
-
-  //     if (currentOpenTime) {
-  //       if (
-  //         moment(currentTime, "HH:mm").isSameOrAfter(
-  //           moment(currentOpenTime.open_time, "HH:mm")
-  //         ) &&
-  //         moment(currentTime, "HH:mm").isSameOrBefore(
-  //           moment(currentOpenTime.close_time, "HH:mm")
-  //         )
-  //       ) {
-  //         console.log("hora aberta");
-  //         setIsOpen(true);
-  //       }
-  //     }
-  //   }
-
-  //   formatTime();
-  // }, []);
   return (
     <Container>
       {loading ? (
-        <></>
+        <LoadingIn />
       ) : (
         <>
+          <LoadingOut />
           <Header />
           <FirstContainer>
             <Stack
@@ -94,7 +72,15 @@ export default function Place() {
               }}
             >
               <br />
-              <div style={{ width: "95%", marginLeft: "2.5%" }}>
+              <div
+                style={{
+                  display: "flex",
+                  width: "97.5%",
+                  marginLeft: "2.5%",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
                 <Swiper slidesPerView={1}>
                   {place.photo.map((item: any) => (
                     <SwiperSlide>
@@ -110,104 +96,106 @@ export default function Place() {
               </div>
 
               <br />
-              <br />
               <GlobalTitle
                 title={place.name}
                 marginLeft={width < 768 ? "2.5%" : "5%"}
               />
             </Stack>
-          </FirstContainer>
-          <br />
-          {width < 768 ? (
-            <>
-              <Buttons
-                instagram={place.instagram}
-                whatsapp={place.whatsapp}
-                maps={place.location}
-              />
-              <br />
-              <Individual
-                date={place.date}
-                address={place.address}
-                city={place.city}
-                openTime={place.openTime}
-              />
-              <br />
-              <br />
-              <Nav
-                direction="horizontal"
-                gap={3}
-                style={{ alignSelf: "center" }}
-              >
-                <GlobalButton
-                  content="Voltar"
-                  background={`${Theme.color.secondary_60}`}
-                  color={`${Theme.color.gray_10}`}
-                  width="45%"
-                  height="auto"
-                  fontSize={18}
-                  disabled={step === 1 ? true : false}
-                  onClick={
-                    step === 2 && type !== ""
-                      ? () => setType("")
-                      : () => setStep(step - 1)
-                  }
-                />
-                <GlobalButton
-                  content={step === 1 || type !== "" ? "Próximo" : "Finalizar"}
-                  background={`${Theme.color.next}`}
-                  color={`${Theme.color.gray_10}`}
-                  width="45%"
-                  height="auto"
-                  fontSize={18}
-                  onClick={
-                    type !== ""
-                      ? () => setType("")
-                      : step === 2 && type === ""
-                      ? () => router.push("/checkout")
-                      : () => setStep(step + 1)
-                  }
-                />
-              </Nav>
-              <Banner />
-            </>
-          ) : (
-            <>
-              <Stack
-                style={{
-                  display: "flex",
-                  width: "50%",
-                  justifyContent: "center",
-                }}
-              >
-                <Individual
-                  date={place.date}
-                  address={place.address}
-                  city={place.city}
-                  openTime={place.openTime}
-                />
-                <br />
+            <br />
+            {width < 768 ? (
+              <>
                 <Buttons
                   instagram={place.instagram}
                   whatsapp={place.whatsapp}
                   maps={place.location}
                 />
-
-                <GlobalTitle
-                  title="Sobre o Bar"
-                  marginLeft={"5%"}
-                  marginTop={"10%"}
-                />
+                <br />
+                <Individual place={place} />
+                <br />
+                <br />
+                <Nav
+                  direction="horizontal"
+                  gap={3}
+                  style={{ alignSelf: "center" }}
+                >
+                  <GlobalButton
+                    content="Voltar"
+                    background={`${Theme.color.secondary_60}`}
+                    color={`${Theme.color.gray_10}`}
+                    width="45%"
+                    height="auto"
+                    fontSize={18}
+                    disabled={step === 1 ? true : false}
+                    onClick={
+                      step === 2 && type !== ""
+                        ? () => setType("")
+                        : () => setStep(step - 1)
+                    }
+                  />
+                  <GlobalButton
+                    content={
+                      step === 1 || type !== "" ? "Próximo" : "Finalizar"
+                    }
+                    background={`${Theme.color.next}`}
+                    color={`${Theme.color.gray_10}`}
+                    width="45%"
+                    height="auto"
+                    fontSize={18}
+                    onClick={
+                      type !== ""
+                        ? () => setType("")
+                        : step === 2 && type === ""
+                        ? () => router.push("/checkout")
+                        : () => setStep(step + 1)
+                    }
+                  />
+                </Nav>
+                <Banner />
+              </>
+            ) : (
+              <>
+                <Stack
+                  style={{
+                    display: "flex",
+                    width: "50%",
+                    alignSelf: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Individual place={place} />
+                  <br />
+                  <Buttons
+                    instagram={place.instagram}
+                    whatsapp={place.whatsapp}
+                    maps={place.location}
+                  />
+                </Stack>
+              </>
+            )}
+          </FirstContainer>
+          {width < 768 ? (
+            <>
+              <br />
+            </>
+          ) : (
+            <>
+              <GlobalTitle title="Sobre o Bar" marginLeft={"15%"} />
+              <a
+                href={"https://www.google.com/search?q=card%C3%A1pio"}
+                target="_blank"
+                rel="noreferrer"
+                style={{ alignSelf: "center", width: "70%" }}
+              >
                 <GlobalButton
                   content="Cardápio"
                   background={`${Theme.color.next}`}
                   color={`${Theme.color.gray_10}`}
-                  width={"90%"}
+                  width="100%"
                   height="auto"
                   fontSize={30}
                   style={{ alignSelf: "center", marginTop: "5%" }}
                 />
-              </Stack>
+              </a>
             </>
           )}
           <br />

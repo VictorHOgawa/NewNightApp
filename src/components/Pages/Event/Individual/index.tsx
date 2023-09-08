@@ -32,7 +32,7 @@ export function Individual({ date, local, city, state }: IndividualProps) {
           <strong>{local}</strong> {""} {city} - {state}
         </Text>
       </Dets>
-      <Calendar date={date} />
+      <Calendar date={date} type="event" />
     </Container>
   );
 }

@@ -16,6 +16,7 @@ export default function Checkout() {
   const { cart } = useCart();
   const [selected, setSelected] = useState("Pix");
   const [loading, setLoading] = useState(true);
+  const [total, setTotal] = useState<any>();
   const router = useRouter();
 
   async function handleVerify() {
@@ -27,16 +28,28 @@ export default function Checkout() {
   }
 
   async function handleCart() {
+    if (cart.ticket.ticket.length === 0 && cart.product.length === 0) {
+      alert("Selecione um (ou mais) Produto(s)");
+      return router.back();
+    }
     const connect = await AuthPostAPI("/purchase/cart", {
       ...cart,
       coupon: "",
     });
-    setLoading(false);
+    console.log("connect: ", connect);
+    if (connect.status !== 200) {
+      alert(connect.body);
+      return router.back();
+    }
+    setTotal(connect.body);
+    return setLoading(false);
   }
 
   useEffect(() => {
-    handleCart();
-  }, []);
+    if (cart) {
+      handleCart();
+    }
+  }, [cart]);
 
   useEffect(() => {
     handleVerify();
@@ -56,7 +69,7 @@ export default function Checkout() {
           <Method selected={selected} setSelected={setSelected} />
           <IndividualMethod selected={selected} />
           <br />
-          <Total selected={selected} />
+          <Total selected={selected} total={total} loading={loading} />
           <Safe />
         </>
       )}

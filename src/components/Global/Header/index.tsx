@@ -19,9 +19,16 @@ import { useState, useEffect } from "react";
 interface HeaderProps {
   page?: string;
   selected?: string;
+  selectedCity?: any;
+  setSelectedCity?: any;
 }
 
-export function Header({ page = "other", selected }: HeaderProps) {
+export function Header({
+  page = "other",
+  selected,
+  selectedCity,
+  setSelectedCity,
+}: HeaderProps) {
   const [loading, setLoading] = useState(false);
   const [width, setWidth] = useState(100);
   const updateDimensions = () => {
@@ -49,7 +56,10 @@ export function Header({ page = "other", selected }: HeaderProps) {
               alt="Logo"
               onClick={() => router.push("/")}
             />
-            <CitySelector />
+            <CitySelector
+              selectedCity={selectedCity}
+              setSelectedCity={setSelectedCity}
+            />
             <ButtonGroup direction="horizontal" gap={2}>
               <GlobalButton
                 content="Entrar"

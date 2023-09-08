@@ -10,11 +10,11 @@ export function LoadingFull() {
       tl.current = gsap.timeline({ repeat: 1, yoyo: true }).to(".Logo", {
         opacity: 0.5,
         scale: 1.2,
-        duration: 0.6,
+        duration: 0.5,
       });
     }, main);
     gsap.to(".Main", {
-      delay: 2.6,
+      delay: 0.8,
       opacity: 0,
       display: "none",
     });

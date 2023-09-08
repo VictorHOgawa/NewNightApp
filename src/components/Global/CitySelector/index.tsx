@@ -11,8 +11,16 @@ import {
 import { useState, useEffect } from "react";
 import { getAPI } from "@/lib/axios";
 import { FaGlasses } from "react-icons/fa6";
+interface CityProps {
+  selectedCity?: any;
+  setSelectedCity?: any;
+}
 
-export function CitySelector({ ...rest }: any) {
+export function CitySelector({
+  selectedCity,
+  setSelectedCity,
+  ...rest
+}: CityProps) {
   const [cities, setCities] = useState<any>();
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +36,6 @@ export function CitySelector({ ...rest }: any) {
     getCities();
   }, []);
 
-  const [selected, setSelected] = useState("Qualquer Lugar");
   return (
     <>
       <Container {...rest}>
@@ -42,13 +49,12 @@ export function CitySelector({ ...rest }: any) {
                 style={{ color: `${Theme.color.gray_10}` }}
               >
                 <Icon />
-                {selected === "Qualquer Lugar" ? "Qualquer Lugar" : selected}
-                {/* Qualquer Lugar */}
+                {selectedCity.name}
               </Toggle>
               <Menu>
                 <ItemText>Escolha sua Cidade</ItemText>
                 {cities.city.map((item: any) => (
-                  <Item onClick={() => setSelected(item.name)} key={item}>
+                  <Item onClick={() => setSelectedCity(item)} key={item}>
                     {item.name} - {item.state}
                   </Item>
                 ))}

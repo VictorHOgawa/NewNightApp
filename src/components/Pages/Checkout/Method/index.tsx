@@ -1,4 +1,6 @@
+import { AuthPostAPI } from "@/lib/axios";
 import { Button, Container, Icon } from "./styles";
+import { useCart } from "@/context/cart";
 
 interface MethodProps {
   selected: string;

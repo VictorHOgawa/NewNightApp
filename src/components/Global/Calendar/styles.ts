@@ -1,5 +1,11 @@
+import Theme from "@/styles/themes";
 import px2vw from "@/utils/size";
 import { styled } from "styled-components";
+
+interface CalendarProps {
+  type?: "event" | "place";
+  isOpen?: boolean;
+}
 
 export const Container = styled.div``;
 
@@ -28,12 +34,17 @@ export const Main = styled.div`
   }
 `;
 
-export const Footer = styled.div`
+export const Footer = styled.div<CalendarProps>`
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: ${({ theme }) => theme.color.primary_60};
+  background-color: ${({ type, isOpen }) =>
+    type === "place" && isOpen
+      ? `${Theme.color.next}`
+      : type === "place" && !isOpen
+      ? `${Theme.color.red_60}`
+      : `${Theme.color.secondary_100}`};
   height: 20px;
   width: 100%;
   color: ${({ theme }) => theme.color.gray_10};
@@ -41,8 +52,17 @@ export const Footer = styled.div`
   border-bottom-right-radius: 5px;
 `;
 
-export const Date = styled.label`
+export const Date = styled.label<CalendarProps>`
   font-size: ${px2vw(13, 320)};
+  font-weight: bold;
+  color: ${({ type, isOpen }) =>
+    type === "place" && isOpen
+      ? `${Theme.color.secondary_100}`
+      : type === "place" && !isOpen
+      ? `${Theme.color.secondary_100}`
+      : type === "event"
+      ? `${Theme.color.gray_10}`
+      : `${Theme.color.secondary_100}`};
 
   @media (min-width: 768px) {
     font-size: ${px2vw(13, 768)};

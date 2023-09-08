@@ -6,7 +6,7 @@ export const Container = styled.div`
   flex-direction: column;
 `;
 
-export const Pix = styled(Image)`
+export const Pix = styled.img`
   width: 80%;
   height: auto;
   align-self: center;

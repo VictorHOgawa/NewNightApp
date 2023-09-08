@@ -48,10 +48,11 @@ export default function Event() {
 
   async function getEventDetails() {
     const connect = await getAPI(`/event/${id}`);
-    if ((connect.status = 200)) {
-      setEventDetails(connect.body);
-      return setLoading(false);
+    if (connect.status !== 200) {
+      return alert(connect.body);
     }
+    setEventDetails(connect.body);
+    return setLoading(false);
   }
 
   useEffect(() => {
@@ -92,10 +93,12 @@ export default function Event() {
       (step === 2 && type === "" && cart.ticket.ticket.length !== 0) ||
       cart.product.length !== 0
     ) {
-      logged
-        ? router.push("/checkout")
-        : alert("Realize o Login antes de Prosseguir");
-      return router.push("/login?&page=checkout");
+      if (logged) {
+        return router.push("/checkout");
+      } else {
+        alert("Realize o Login antes de Prosseguir");
+        return router.push("/login?&page=checkout");
+      }
     }
   };
 

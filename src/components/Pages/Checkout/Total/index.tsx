@@ -5,29 +5,15 @@ import { Container, FullTotal, IndividualTotal } from "./styles";
 import { AuthPostAPI } from "@/lib/axios";
 import { LoadingIn } from "@/components/Global/Loading/In";
 import { LoadingOut } from "@/components/Global/Loading/Out";
+import { useRouter } from "next/router";
 
 interface TotalProps {
   selected: string;
+  total: any;
+  loading: boolean;
 }
-export function Total({ selected }: TotalProps) {
-  const [total, setTotal] = useState<any>();
-  const [loading, setLoading] = useState(true);
-  const { cart } = useCart();
-  async function handleCart() {
-    const connect = await AuthPostAPI("/purchase/cart", {
-      ...cart,
-      coupon: "",
-    });
-    console.log("connect: ", connect);
-    setTotal(connect.body);
-    setLoading(false);
-  }
-
-  useEffect(() => {
-    if (cart) {
-      handleCart();
-    }
-  }, [cart]);
+export function Total({ selected, total, loading }: TotalProps) {
+  const router = useRouter();
 
   const [seeAll, setSeeAll] = useState(false);
 
@@ -114,7 +100,7 @@ export function Total({ selected }: TotalProps) {
               <Col style={{ display: "flex" }}>Total</Col>
               <Col style={{ display: "flex", justifyContent: "flex-end" }}>
                 <label>
-                  {/* {selected === "Pix"
+                  {selected === "Pix"
                     ? total.payment.pix.toLocaleString("pt-br", {
                         style: "currency",
                         currency: "BRL",
@@ -122,8 +108,7 @@ export function Total({ selected }: TotalProps) {
                     : total.payment.creditValue.toLocaleString("pt-br", {
                         style: "currency",
                         currency: "BRL",
-                      })} */}
-                  ""
+                      })}
                 </label>
               </Col>
             </Row>
