@@ -12,6 +12,6 @@ export const Pix = styled(Image)`
   align-self: center;
 
   @media (min-width: 768px) {
-    width: 15%;
+    width: 50%;
   }
 `;

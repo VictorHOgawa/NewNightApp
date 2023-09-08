@@ -1,3 +1,4 @@
+import { Hoverable } from "@/components/Global/Hoverable";
 import { StaticImage } from "@/components/Global/StaticImg";
 import { StaticImg } from "@/components/Global/StaticImg/styles";
 import { GlobalTitle } from "@/components/Global/Title";
@@ -14,7 +15,6 @@ import {
   TicketType,
   Title,
 } from "../../styles";
-import { Hoverable } from "@/components/Global/Hoverable";
 
 interface StepTwoProps {
   product: {
@@ -80,7 +80,7 @@ export function StepTwo({ product, type, setType }: StepTwoProps) {
           <Items>
             {product.filter((item) => item.type === "VODKA").length > 0 ? (
               <ItemButton onClick={() => handleSelectType("VODKA")}>
-                <Item src="/Events/Item1.svg" width={200} height={200} alt="" />
+                <Item src="/Events/Item1.png" width={200} height={200} alt="" />
               </ItemButton>
             ) : (
               <></>
@@ -89,7 +89,7 @@ export function StepTwo({ product, type, setType }: StepTwoProps) {
               item.type === "WHISKEY" ? (
                 <ItemButton onClick={() => handleSelectType("WHISKEY")}>
                   <Item
-                    src="/Events/Item2.svg"
+                    src="/Events/Item2.png"
                     width={200}
                     height={200}
                     alt=""
@@ -103,7 +103,7 @@ export function StepTwo({ product, type, setType }: StepTwoProps) {
               item.type === "BEER" ? (
                 <ItemButton onClick={() => handleSelectType("BEER")}>
                   <Item
-                    src="/Events/Item3.svg"
+                    src="/Events/Item3.png"
                     width={200}
                     height={200}
                     alt=""
@@ -115,7 +115,7 @@ export function StepTwo({ product, type, setType }: StepTwoProps) {
             )}
             {product.filter((item) => item.type === "COMBO").length > 0 ? (
               <ItemButton onClick={() => handleSelectType("COMBO")}>
-                <Item src="/Events/Item4.svg" width={200} height={200} alt="" />
+                <Item src="/Events/Item4.png" width={200} height={200} alt="" />
               </ItemButton>
             ) : (
               <></>
@@ -124,7 +124,7 @@ export function StepTwo({ product, type, setType }: StepTwoProps) {
               item.type === "ENERGÉTICOS" ? (
                 <ItemButton onClick={() => handleSelectType("ENERGÉTICOS")}>
                   <Item
-                    src="/Events/Item5.svg"
+                    src="/Events/Item5.png"
                     width={200}
                     height={200}
                     alt=""
@@ -138,7 +138,7 @@ export function StepTwo({ product, type, setType }: StepTwoProps) {
               item.type === "OUTROS" ? (
                 <ItemButton onClick={() => handleSelectType("OUTROS")}>
                   <Item
-                    src="/Events/Item6.svg"
+                    src="/Events/Item6.png"
                     width={200}
                     height={200}
                     alt=""

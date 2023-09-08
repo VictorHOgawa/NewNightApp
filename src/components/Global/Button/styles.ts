@@ -38,7 +38,7 @@ export const Container = styled(Button)<ButtonProps>`
     cursor: pointer;
     background: ${(props) => (props.background ? props.background : "black")};
     opacity: 0.8;
-    scale: 1.025;
+    scale: 1.1;
   }
 
   &:focus {

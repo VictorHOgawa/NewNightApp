@@ -1,17 +1,26 @@
-import { AdImage, Container } from "./styles";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { AdImage, Container } from "./styles";
 
 export function Ad({ ...rest }: any) {
   const Ads = [
     {
-      location: "/Global/Ads/Ad1.svg",
+      location: "/Global/Ads/Ad1.png",
     },
     {
-      location: "/Global/Ads/Ad1.svg",
+      location: "/Global/Ads/Ad2.png",
     },
     {
-      location: "/Global/Ads/Ad1.svg",
+      location: "/Global/Ads/Ad3.png",
+    },
+    {
+      location: "/Global/Ads/Ad4.png",
+    },
+    {
+      location: "/Global/Ads/Ad5.png",
+    },
+    {
+      location: "/Global/Ads/Ad6.png",
     },
   ];
 

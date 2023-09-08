@@ -1,12 +1,12 @@
-import { Stack } from "react-bootstrap";
-import { Container, Form, Icon } from "./styles";
 import { GlobalButton } from "@/components/Global/Button";
-import Theme from "@/styles/themes";
-import { useState, useEffect } from "react";
-import { NewCard } from "./NewCard";
-import { Installments } from "./Installments";
 import { GlobalTitle } from "@/components/Global/Title";
+import Theme from "@/styles/themes";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Stack } from "react-bootstrap";
+import { Installments } from "./Installments";
+import { NewCard } from "./NewCard";
+import { Container, Form, Icon } from "./styles";
 export function CardMethod() {
   const [selected, setSelected] = useState("");
   const [newCard, setNewCard] = useState(false);
@@ -113,7 +113,7 @@ export function CardMethod() {
             <GlobalButton
               background={`${Theme.color.secondary_80}`}
               color={`${Theme.color.gray_10}`}
-              width={width < 768 ? "75%" : "25%"}
+              width={width < 768 ? "75%" : "auto"}
               height="auto"
               content=""
               style={{
@@ -142,7 +142,7 @@ export function CardMethod() {
           <GlobalTitle
             title="Código da Galera"
             fontSize={15}
-            marginTop={width < 768 ? "10%" : "2%"}
+            marginTop={width < 768 ? "10%" : "5%"}
             marginLeft={width < 768 ? "5%" : "35%"}
           />
           <Form
@@ -165,7 +165,7 @@ export function CardMethod() {
           content="Voltar"
           background={`${Theme.color.secondary_60}`}
           color={`${Theme.color.gray_10}`}
-          width={width < 768 ? "45%" : "20%"}
+          width={width < 768 ? "45%" : "auto"}
           height="auto"
           fontSize={18}
           disabled={newCard || installments ? false : true}
@@ -181,7 +181,7 @@ export function CardMethod() {
           }
           background={`${Theme.color.next}`}
           color={`${Theme.color.gray_10}`}
-          width={width < 768 ? "45%" : "20%"}
+          width={width < 768 ? "45%" : "auto"}
           height="auto"
           fontSize={18}
           onClick={() => handleNext()}

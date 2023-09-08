@@ -41,7 +41,7 @@ export function PixMethod() {
         <GlobalButton
           background={`${Theme.color.pix}`}
           color={`${Theme.color.gray_10}`}
-          width={width < 768 ? "80%" : "30%"}
+          width={width < 768 ? "auto" : "auto"}
           height="auto"
           content=""
           style={{ alignSelf: "center", marginTop: width < 768 ? "5%" : "2%" }}
@@ -60,7 +60,7 @@ export function PixMethod() {
               content="Finalizar"
               background={`${Theme.color.confirmation}`}
               color={`${Theme.color.gray_10}`}
-              width={width < 768 ? "80%" : "30%"}
+              width={width < 768 ? "80%" : "auto"}
               style={{
                 alignSelf: "center",
                 marginTop: width < 768 ? "5%" : "2%",

@@ -160,3 +160,32 @@ export const Behind = styled(Card)`
   z-index: -1;
   position: absolute;
 `;
+
+export const Download = styled.button`
+  display: flex;
+  background-color: ${({ theme }) => theme.color.secondary_100};
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 10px;
+  color: ${({ theme }) => theme.color.gray_10};
+  border: 0;
+  padding: 5px;
+  width: auto;
+  height: max-content;
+  margin: 5px 0px;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    scale: 1.1;
+  }
+  font-size: ${px2vw(12, 320)};
+
+  @media (min-width: 768px) {
+    font-size: ${px2vw(12, 768)};
+  }
+
+  @media (min-width: 1024px) {
+    font-size: ${px2vw(12, 1024)};
+  }
+`;

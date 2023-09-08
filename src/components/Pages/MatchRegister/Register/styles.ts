@@ -38,6 +38,11 @@ export const Back = styled(Image)`
   width: 20px;
   height: 20px;
   margin-left: -50px;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    scale: 1.5;
+  }
 `;
 
 export const Download = styled.button`
@@ -52,6 +57,11 @@ export const Download = styled.button`
   padding: 5px;
   width: 75%;
   margin: 5px 0px;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    scale: 1.1;
+  }
   font-size: ${px2vw(12, 320)};
 
   @media (min-width: 768px) {

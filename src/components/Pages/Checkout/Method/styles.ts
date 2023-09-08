@@ -29,6 +29,11 @@ export const Button = styled.button<SelectedProps>`
   color: ${({ theme }) => theme.color.gray_10};
   background-color: ${({ theme, selected }) =>
     selected ? theme.color.secondary_100 : "transparent"};
+  transition: 0.3s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    scale: ${({ selected }) => (selected ? 1 : 1.1)};
+  }
 
   @media (min-width: 768px) {
     width: 40%;

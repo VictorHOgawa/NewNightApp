@@ -16,6 +16,11 @@ export const Button = styled.button`
   border-radius: 10px;
   padding: 5px 10px;
   align-self: center;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    scale: 1.1;
+  }
 `;
 
 export const Icon = styled(Image)`

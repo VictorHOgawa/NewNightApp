@@ -15,6 +15,11 @@ export const Container = styled.button`
   width: 70%;
   justify-content: center;
   align-items: center;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    scale: 1.1;
+  }
   font-size: ${px2vw(12, 320)};
 
   @media (min-width: 768px) {

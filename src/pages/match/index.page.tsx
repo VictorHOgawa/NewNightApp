@@ -1,4 +1,5 @@
 import { LoadingFull } from "@/components/Global/Loading/Full";
+import Theme from "@/styles/themes";
 import { People } from "@/utils/people";
 import px2vw from "@/utils/size";
 import { gsap } from "gsap";
@@ -24,6 +25,7 @@ import {
   Card,
   Container,
   Description,
+  Download,
   Footer1,
   Footer2,
   FooterFooter,
@@ -40,6 +42,16 @@ import {
 } from "./styles";
 
 export default function Match() {
+  const [width, setWidth] = useState(100);
+
+  const updateDimensions = () => {
+    setWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    setWidth(window.innerWidth);
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
+  }, []);
   function useStateRef(defaultValue: any) {
     const [state, setState] = useState(defaultValue);
     const ref = useRef(state);
@@ -326,165 +338,210 @@ export default function Match() {
   return (
     <Container ref={main}>
       <LoadingFull />
-      <>
+      {width < 768 ? (
         <>
-          <Background
-            src="/Match/MatchBackground.svg"
-            width={1000}
-            height={2000}
-            alt=""
-          />
-          <Top>
-            <Back
-              src="/Global/Icons/Back.svg"
-              width={20}
-              height={20}
-              alt=""
-              style={{ top: 100 }}
-              onClick={handleBack}
-            />
-            <Logo
-              src="/Match/matchLogo.svg"
-              width={1000}
-              height={400}
-              alt=""
-              className="logo"
-            />
-          </Top>
+          <>
+            <>
+              <Background
+                src="/Match/MatchBackground.svg"
+                width={1000}
+                height={2000}
+                alt=""
+              />
+              <Top>
+                <Back
+                  src="/Global/Icons/Back.svg"
+                  width={20}
+                  height={20}
+                  alt=""
+                  style={{ top: 100 }}
+                  onClick={handleBack}
+                />
+                <Logo
+                  src="/Match/matchLogo.svg"
+                  width={1000}
+                  height={400}
+                  alt=""
+                  className="logo"
+                />
+              </Top>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Card onClick={handleOpen} className="fullCard">
+                  <Photo
+                    src={shown.photos[selectedPhoto - 1].location}
+                    width={800}
+                    height={1600}
+                    alt=""
+                    className="photo"
+                    ref={itemRef}
+                  />
+                  <Stack gap={1} style={{ alignSelf: "flex-end" }}>
+                    <Name1 className="details">{shown.name}</Name1>
+                    <Name1
+                      className="details"
+                      style={{ fontSize: `${px2vw(18, 320)}` }}
+                    >
+                      {shown.instagram ? shown.instagram : ""}
+                    </Name1>
+                  </Stack>
+                  <Arrow1
+                    src="/Match/Open.svg"
+                    width={40}
+                    height={40}
+                    alt=""
+                    className="details"
+                  />
+                </Card>
+                <Behind className="behind">
+                  <Photo
+                    src={
+                      people[indexRef.current + 1].photos[selectedPhoto - 1]
+                        .location
+                    }
+                    width={800}
+                    height={1600}
+                    alt=""
+                    className="photo"
+                    ref={itemRef}
+                  />
+                  <Stack gap={1} style={{ alignSelf: "flex-end" }}>
+                    <Name1 className="details">{shown.name}</Name1>
+                    <Name1
+                      className="details"
+                      style={{ fontSize: `${px2vw(18, 320)}` }}
+                    >
+                      {shown.instagram ? shown.instagram : ""}
+                    </Name1>
+                  </Stack>
+                  <Arrow1
+                    src="/Match/Open.svg"
+                    width={40}
+                    height={40}
+                    alt=""
+                    className="details"
+                  />
+                </Behind>
+              </div>
+              <Footer1 className="footer">
+                <Buttons onClick={handleDisliked}>1</Buttons>
+                <Buttons>2</Buttons>
+                <Buttons onClick={handleLiked}>3</Buttons>
+              </Footer1>
+              <Slider className="slider">
+                <Swiper slidesPerView={4} spaceBetween={0}>
+                  {shown.photos.map((item, index) => (
+                    <SwiperSlide style={{ width: 100, height: 100 }}>
+                      <Image
+                        src={item.location}
+                        width={500}
+                        height={500}
+                        alt=""
+                        style={{ width: 60, height: "auto", borderRadius: 10 }}
+                        onClick={() => setSelectedPhoto(index + 1)}
+                      />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </Slider>
+            </>
+
+            <Footer2 className="footer2">
+              <FooterHeader>
+                <Stack direction="horizontal">
+                  <Stack gap={1}>
+                    <Name2 className="indDetails">{shown.name}</Name2>
+                    <Location className="indDetails">
+                      <Icon
+                        src="/Global/Icons/LocationPin.svg"
+                        width={20}
+                        height={20}
+                        alt=""
+                      />{" "}
+                      {""}
+                      {shown.currentPlace}
+                    </Location>
+                  </Stack>
+                  <Arrow2
+                    src="/Match/Open.svg"
+                    width={40}
+                    height={40}
+                    alt=""
+                    onClick={handleOpen}
+                  />
+                </Stack>
+                <Stack
+                  direction="horizontal"
+                  gap={2}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                    width: "100%",
+                    marginTop: "2%",
+                  }}
+                >
+                  {shown.recent.map((item) => (
+                    <Tags className="indDetails">{item}</Tags>
+                  ))}
+                </Stack>
+              </FooterHeader>
+              <Description className="indDetails">
+                {shown.description}
+              </Description>
+              <FooterFooter>
+                <Buttons onClick={handleDislikedOpen}>1</Buttons>
+                <Buttons>2</Buttons>
+                <Buttons onClick={handleLikedOpen}>3</Buttons>
+              </FooterFooter>
+            </Footer2>
+          </>
+        </>
+      ) : (
+        <>
           <div
             style={{
+              background: Theme.color.background,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              width: "100vw",
+              height: "100vh",
             }}
           >
-            <Card onClick={handleOpen} className="fullCard">
-              <Photo
-                src={shown.photos[selectedPhoto - 1].location}
-                width={800}
-                height={1600}
-                alt=""
-                className="photo"
-                ref={itemRef}
-              />
-              <Stack gap={1} style={{ alignSelf: "flex-end" }}>
-                <Name1 className="details">{shown.name}</Name1>
-                <Name1
-                  className="details"
-                  style={{ fontSize: `${px2vw(18, 320)}` }}
-                >
-                  {shown.instagram ? shown.instagram : ""}
-                </Name1>
-              </Stack>
-              <Arrow1
-                src="/Match/Open.svg"
-                width={40}
-                height={40}
-                alt=""
-                className="details"
-              />
-            </Card>
-            <Behind className="behind">
-              <Photo
-                src={
-                  people[indexRef.current + 1].photos[selectedPhoto - 1]
-                    .location
-                }
-                width={800}
-                height={1600}
-                alt=""
-                className="photo"
-                ref={itemRef}
-              />
-              <Stack gap={1} style={{ alignSelf: "flex-end" }}>
-                <Name1 className="details">{shown.name}</Name1>
-                <Name1
-                  className="details"
-                  style={{ fontSize: `${px2vw(18, 320)}` }}
-                >
-                  {shown.instagram ? shown.instagram : ""}
-                </Name1>
-              </Stack>
-              <Arrow1
-                src="/Match/Open.svg"
-                width={40}
-                height={40}
-                alt=""
-                className="details"
-              />
-            </Behind>
-          </div>
-          <Footer1 className="footer">
-            <Buttons onClick={handleDisliked}>1</Buttons>
-            <Buttons>2</Buttons>
-            <Buttons onClick={handleLiked}>3</Buttons>
-          </Footer1>
-          <Slider className="slider">
-            <Swiper slidesPerView={4} spaceBetween={0}>
-              {shown.photos.map((item, index) => (
-                <SwiperSlide style={{ width: 100, height: 100 }}>
-                  <Image
-                    src={item.location}
-                    width={500}
-                    height={500}
-                    alt=""
-                    style={{ width: 60, height: "auto", borderRadius: 10 }}
-                    onClick={() => setSelectedPhoto(index + 1)}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </Slider>
-        </>
-
-        <Footer2 className="footer2">
-          <FooterHeader>
-            <Stack direction="horizontal">
-              <Stack gap={1}>
-                <Name2 className="indDetails">{shown.name}</Name2>
-                <Location className="indDetails">
-                  <Icon
-                    src="/Global/Icons/LocationPin.svg"
-                    width={20}
-                    height={20}
-                    alt=""
-                  />{" "}
-                  {""}
-                  {shown.currentPlace}
-                </Location>
-              </Stack>
-              <Arrow2
-                src="/Match/Open.svg"
-                width={40}
-                height={40}
-                alt=""
-                onClick={handleOpen}
-              />
-            </Stack>
-            <Stack
-              direction="horizontal"
-              gap={2}
+            <div
               style={{
+                background: Theme.color.secondary_60,
                 display: "flex",
-                justifyContent: "space-evenly",
+                flexDirection: "column",
+                width: "30%",
+                height: "50%",
                 alignItems: "center",
-                width: "100%",
-                marginTop: "2%",
+                justifyContent: "space-evenly",
+                borderRadius: 20,
               }}
             >
-              {shown.recent.map((item) => (
-                <Tags className="indDetails">{item}</Tags>
-              ))}
-            </Stack>
-          </FooterHeader>
-          <Description className="indDetails">{shown.description}</Description>
-          <FooterFooter>
-            <Buttons onClick={handleDislikedOpen}>1</Buttons>
-            <Buttons>2</Buttons>
-            <Buttons onClick={handleLikedOpen}>3</Buttons>
-          </FooterFooter>
-        </Footer2>
-      </>
+              <br />
+              <Logo
+                src="/Match/matchLogo.svg"
+                width={1000}
+                height={400}
+                alt=""
+                className="logo"
+              />
+              <Download>
+                Para uma Experiência Melhor Baixe o App da Night
+              </Download>
+              <br />
+            </div>
+          </div>
+        </>
+      )}
     </Container>
   );
 }

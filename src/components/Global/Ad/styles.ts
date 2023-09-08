@@ -19,4 +19,5 @@ export const Container = styled.div`
 export const AdImage = styled(Image)`
   width: 100%;
   height: auto;
+  border-radius: 10px;
 `;
