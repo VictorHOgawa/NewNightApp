@@ -1,5 +1,7 @@
 import { GlobalButton } from "@/components/Global/Button";
 import { Header } from "@/components/Global/Header";
+import { LoadingIn } from "@/components/Global/Loading/In";
+import { LoadingOut } from "@/components/Global/Loading/Out";
 import { StaticImage } from "@/components/Global/StaticImg";
 import { GlobalTitle } from "@/components/Global/Title";
 import { Buttons } from "@/components/Pages/Place/Buttons";
@@ -8,7 +10,6 @@ import { Individual } from "@/components/Pages/Place/Individual";
 import { Music } from "@/components/Pages/Place/Music";
 import { getAPI } from "@/lib/axios";
 import Theme from "@/styles/themes";
-import moment from "moment";
 import "moment/locale/pt-br";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -16,8 +17,6 @@ import { Stack } from "react-bootstrap";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Banner, Container, DetailImg, FirstContainer, Nav } from "./styles";
-import { LoadingIn } from "@/components/Global/Loading/In";
-import { LoadingOut } from "@/components/Global/Loading/Out";
 
 export default function Place() {
   const router = useRouter();
@@ -27,7 +26,6 @@ export default function Place() {
 
   async function getPlaceDetails() {
     const connect = await getAPI(`/places/${id}`);
-    console.log("connect: ", connect);
     if (connect.status === 200) {
       setPlace(connect.body.place);
       return setLoading(false);

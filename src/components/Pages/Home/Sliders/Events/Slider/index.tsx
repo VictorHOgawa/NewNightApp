@@ -1,5 +1,5 @@
 import { GlobalTitle } from "@/components/Global/Title";
-import { getAPI } from "@/lib/axios";
+import Theme from "@/styles/themes";
 import { useEffect, useState } from "react";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -60,7 +60,9 @@ export function EventSlider({ events, loading }: EventProps) {
               </Swiper>
             </>
           ) : (
-            <>test</>
+            <label style={{ color: Theme.color.gray_10, alignSelf: "center" }}>
+              Nenhum Evento Encontrado
+            </label>
           )}
         </>
       )}

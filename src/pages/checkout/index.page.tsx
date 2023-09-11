@@ -36,7 +36,6 @@ export default function Checkout() {
       ...cart,
       coupon: "",
     });
-    console.log("connect: ", connect);
     if (connect.status !== 200) {
       alert(connect.body);
       return router.back();

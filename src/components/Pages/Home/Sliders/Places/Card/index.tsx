@@ -1,4 +1,8 @@
+import { Calendar } from "@/components/Global/Calendar";
+import moment from "moment";
+import "moment/locale/pt-br";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import {
   Container,
   PlaceAddress,
@@ -7,10 +11,6 @@ import {
   PlaceName,
   SliderImg,
 } from "./styles";
-import { useEffect, useState } from "react";
-import moment from "moment";
-import "moment/locale/pt-br";
-import { Calendar } from "@/components/Global/Calendar";
 
 interface PlaceProps {
   photo: string;
@@ -44,7 +44,6 @@ export function Card({ photo, name, city, id, openTime }: PlaceProps) {
             moment(currentOpenTime.close_time, "HH:mm")
           )
         ) {
-          console.log("hora aberta");
           setIsOpen(true);
         }
         setStartHour(currentOpenTime.open_time);
@@ -56,8 +55,6 @@ export function Card({ photo, name, city, id, openTime }: PlaceProps) {
       formatTime();
     }
   }, [openTime]);
-
-  console.log("OpenTime.date: ", openTime.date);
 
   return (
     <Container onClick={() => router.push(`/place/${id}`)}>

@@ -36,6 +36,7 @@ export const Main = styled.div`
 
 export const Footer = styled.div<CalendarProps>`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -53,7 +54,7 @@ export const Footer = styled.div<CalendarProps>`
 `;
 
 export const Date = styled.label<CalendarProps>`
-  font-size: ${px2vw(13, 320)};
+  font-size: ${px2vw(12, 320)};
   font-weight: bold;
   color: ${({ type, isOpen }) =>
     type === "place" && isOpen
@@ -65,14 +66,14 @@ export const Date = styled.label<CalendarProps>`
       : `${Theme.color.secondary_100}`};
 
   @media (min-width: 768px) {
-    font-size: ${px2vw(13, 768)};
+    font-size: ${px2vw(12, 768)};
   }
 
   @media (min-width: 1024px) {
-    font-size: ${px2vw(13, 1024)};
+    font-size: ${px2vw(12, 1024)};
   }
 
   @media (min-width: 1400px) {
-    font-size: ${px2vw(13, 1400)};
+    font-size: ${px2vw(12, 1400)};
   }
 `;

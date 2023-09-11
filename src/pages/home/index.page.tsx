@@ -7,13 +7,8 @@ import { PlaceSlider } from "@/components/Pages/Home/Sliders/Places/Slider";
 import { getAPI } from "@/lib/axios";
 import { useEffect, useState } from "react";
 import { Container } from "./styles";
-import { Button } from "react-bootstrap";
-import { useRouter } from "next/router";
-import { useCart } from "@/context/cart";
 
 export default function Home() {
-  const { cart } = useCart();
-  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState<any>([]);
   const [places, setPlaces] = useState<any>([]);
@@ -42,9 +37,7 @@ export default function Home() {
   return (
     <Container>
       {loading ? (
-        <>
-          <LoadingIn />
-        </>
+        <LoadingIn />
       ) : (
         <>
           <LoadingOut />
@@ -55,6 +48,7 @@ export default function Home() {
             setSelectedCity={setSelectedCity}
           />
           <Ad />
+          <br />
           <br />
           <EventSlider events={events} loading={loading} />
           <br />

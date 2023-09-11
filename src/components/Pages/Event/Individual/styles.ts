@@ -19,7 +19,7 @@ export const Container = styled.div`
     width: 80%;
     margin-left: 7.5%;
     border-bottom: 1px solid white;
-    margin-top: 60px;
+    margin-top: 25%;
 
     @media (min-width: 768px) {
       margin-left: 0;

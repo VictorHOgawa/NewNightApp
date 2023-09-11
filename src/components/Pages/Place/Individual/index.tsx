@@ -1,12 +1,11 @@
 // @ts-ignore
-import moment from "moment";
-import "moment/locale/pt-br";
 import { Calendar } from "@/components/Global/Calendar";
-import { Container, Dets, Icons, Text } from "./styles";
-import Theme from "@/styles/themes";
-import { useState, useEffect } from "react";
 import { LoadingIn } from "@/components/Global/Loading/In";
 import { LoadingOut } from "@/components/Global/Loading/Out";
+import moment from "moment";
+import "moment/locale/pt-br";
+import { useEffect, useState } from "react";
+import { Container, Dets, Icons, Text } from "./styles";
 
 interface IndividualProps {
   place: any;
@@ -35,7 +34,6 @@ export function Individual({ place }: IndividualProps) {
             moment(currentOpenTime.close_time, "HH:mm")
           )
         ) {
-          console.log("hora aberta");
           setIsOpen(true);
         }
         setStartHour(currentOpenTime.open_time);

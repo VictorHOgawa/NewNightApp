@@ -1,12 +1,11 @@
-import { GlobalTitle } from "@/components/Global/Title";
-import { CardContainer, CardDetails, NightAppCard } from "../styles";
-import { Button, Container, Item, ItemText, Menu, Toggle } from "./styles";
-import Theme from "@/styles/themes";
-import { useState, useEffect, useRef, SetStateAction } from "react";
+import { GlobalButton } from "@/components/Global/Button";
 import { useCart } from "@/context/cart";
 import { AuthPostAPI } from "@/lib/axios";
-import ActionSheet, { ActionSheetRef } from "actionsheet-react";
-import { GlobalButton } from "@/components/Global/Button";
+import Theme from "@/styles/themes";
+import ActionSheet from "actionsheet-react";
+import { SetStateAction, useEffect, useRef, useState } from "react";
+import { CardContainer, CardDetails, NightAppCard } from "../styles";
+import { Container, Item } from "./styles";
 
 interface InstallmentsProps {
   formData: any;
@@ -38,9 +37,6 @@ export function Installments({ formData }: InstallmentsProps) {
     setLoading(false);
   }
 
-  console.log("total: ", total);
-  console.log("installment: ", installment);
-  console.log("installments: ", installments);
   useEffect(() => {
     if (cart) {
       handleCart();

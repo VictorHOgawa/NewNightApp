@@ -1,15 +1,13 @@
 import { GlobalButton } from "@/components/Global/Button";
 import { GlobalTitle } from "@/components/Global/Title";
+import { useCart } from "@/context/cart";
+import { AuthPostAPI } from "@/lib/axios";
 import Theme from "@/styles/themes";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Video } from "../../Video";
 import { Form } from "../Cards/styles";
 import { Container, Pix } from "./styles";
-import { useCart } from "@/context/cart";
-import { AuthPostAPI } from "@/lib/axios";
-import { LoadingIn } from "@/components/Global/Loading/In";
-import { LoadingOut } from "@/components/Global/Loading/Out";
 
 export function PixMethod() {
   const router = useRouter();
@@ -31,7 +29,6 @@ export function PixMethod() {
   async function getPix() {
     setLoading(true);
     const connect = await AuthPostAPI("/purchase/pix", { ...cart, coupon: "" });
-    console.log("connect: ", connect);
     setPix(connect.body);
     return setLoading(false);
   }
