@@ -4,17 +4,22 @@ import { useCart } from "@/context/cart";
 import { AuthPostAPI } from "@/lib/axios";
 import Theme from "@/styles/themes";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Video } from "../../Video";
 import { Form } from "../Cards/styles";
-import { Container, Pix } from "./styles";
+import { Container, Copy, Pix } from "./styles";
+import { Overlay, Spinner, Tooltip } from "react-bootstrap";
 
 export function PixMethod() {
+  const { cart, setCart } = useCart();
   const router = useRouter();
   const [QrCode, setQrCode] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loading1, setLoading1] = useState(false);
   const [pix, setPix] = useState<any>();
   const [width, setWidth] = useState(100);
+  const target = useRef(null);
+  const [show, setShow] = useState(false);
 
   const updateDimensions = () => {
     setWidth(window.innerWidth);
@@ -25,82 +30,94 @@ export function PixMethod() {
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
-  const { cart } = useCart();
   async function getPix() {
-    setLoading(true);
     const connect = await AuthPostAPI("/purchase/pix", { ...cart, coupon: "" });
     setPix(connect.body);
-    return setLoading(false);
+    return setLoading1(false);
   }
 
   const handleClick = () => {
     setQrCode(true);
-    getPix();
+    setLoading1(true);
+    return getPix();
+  };
+
+  const handleCopy = () => {
+    setShow(true);
+    navigator.clipboard.writeText(pix.payload);
+    setTimeout(() => setShow(false), 1000);
+  };
+
+  const handleFinish = () => {
+    setLoading(true);
+    router.push("/purchased");
+    return setLoading(false);
   };
 
   return (
     <Container>
-      {loading ? (
-        <></>
-      ) : (
-        <>
+      <>
+        <br />
+        <GlobalTitle
+          title="Código da Galera"
+          fontSize={15}
+          marginTop={width < 768 ? "10%" : "2%"}
+          marginLeft={width < 768 ? "5%" : "35%"}
+        />
+        <Form
+          placeholder="Insira o Melhor Código aqui"
+          style={{
+            width: width < 768 ? "90%" : "30%",
+            alignSelf: "center",
+          }}
+        />
+        {QrCode ? (
+          <></>
+        ) : (
           <>
-            <br />
-            <GlobalTitle
-              title="Código da Galera"
-              fontSize={15}
-              marginTop={width < 768 ? "10%" : "2%"}
-              marginLeft={width < 768 ? "5%" : "35%"}
-            />
-            <Form
-              placeholder="Insira o Melhor Código aqui"
+            <GlobalButton
+              background={`${Theme.color.pix}`}
+              color={`${Theme.color.gray_10}`}
+              width={width < 768 ? "auto" : "auto"}
+              height="auto"
+              content=""
               style={{
-                width: width < 768 ? "90%" : "30%",
                 alignSelf: "center",
+                marginTop: width < 768 ? "5%" : "2%",
               }}
-            />
-            {QrCode ? (
-              <></>
-            ) : (
+              onClick={handleClick}
+            >
+              Clique aqui para <br />
+              <strong>
+                <h4>Gerar Pix Copia e Cola</h4>
+              </strong>
+            </GlobalButton>
+          </>
+        )}
+        {QrCode ? (
+          <>
+            {loading1 ? (
               <>
-                <GlobalButton
-                  background={`${Theme.color.pix}`}
-                  color={`${Theme.color.gray_10}`}
-                  width={width < 768 ? "auto" : "auto"}
-                  height="auto"
-                  content=""
-                  style={{
-                    alignSelf: "center",
-                    marginTop: width < 768 ? "5%" : "2%",
-                  }}
-                  onClick={handleClick}
-                >
-                  Clique aqui para <br />
-                  <strong>
-                    <h4>Gerar Pix Copia e Cola</h4>
-                  </strong>
-                </GlobalButton>
+                <Spinner
+                  style={{ alignSelf: "center", marginTop: "5%" }}
+                  animation="border"
+                  variant="primary"
+                />
               </>
-            )}
-            {QrCode ? (
+            ) : (
               <>
                 <br />
                 <Pix
                   src={`data:image/png;base64, ${pix.encodedImage}`}
                   alt=""
                 />
-                <GlobalButton
-                  content="Copiar Código"
-                  background={`${Theme.color.pix}`}
-                  color={`${Theme.color.gray_10}`}
-                  width="auto"
-                  height="auto"
-                  style={{
-                    alignSelf: "center",
-                    marginTop: "2%",
-                  }}
-                  onClick={() => navigator.clipboard.writeText(pix.payload)}
-                />
+
+                <Copy ref={target} onClick={handleCopy}>
+                  Copiar Código
+                </Copy>
+                <Overlay target={target.current} show={show} placement="bottom">
+                  {(props) => <Tooltip {...props}>Código Copiado</Tooltip>}
+                </Overlay>
                 <GlobalButton
                   content="Finalizar"
                   background={`${Theme.color.confirmation}`}
@@ -110,16 +127,17 @@ export function PixMethod() {
                     alignSelf: "center",
                     marginTop: width < 768 ? "5%" : "2%",
                   }}
-                  onClick={() => router.push("/purchased")}
+                  loading={loading}
+                  onClick={handleFinish}
                 />
               </>
-            ) : (
-              <></>
             )}
-            <Video />
           </>
-        </>
-      )}
+        ) : (
+          <></>
+        )}
+        <Video />
+      </>
     </Container>
   );
 }

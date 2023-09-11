@@ -75,17 +75,17 @@ export const Area = styled.div`
   color: ${({ theme }) => theme.color.gray_10};
   padding: 2px 5px;
   height: max-content;
-  font-size: ${px2vw(12, 320)};
+  font-size: ${px2vw(10, 320)};
   align-items: center;
   justify-content: center;
   text-align: center;
 
   @media (min-width: 768px) {
-    font-size: ${px2vw(12, 768)};
+    font-size: ${px2vw(10, 768)};
   }
 
   @media (min-width: 1024px) {
-    font-size: ${px2vw(12, 1024)};
+    font-size: ${px2vw(10, 1024)};
   }
 `;
 

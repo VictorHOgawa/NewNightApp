@@ -3,17 +3,51 @@ import { GlobalTitle } from "@/components/Global/Title";
 import Theme from "@/styles/themes";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Stack } from "react-bootstrap";
+import { Spinner, Stack } from "react-bootstrap";
 import { Installments } from "./Installments";
 import { NewCard } from "./NewCard";
 import { Container, Form, Icon } from "./styles";
+import { AuthPostAPI, authGetAPI } from "@/lib/axios";
+import { useCart } from "@/context/cart";
 export function CardMethod() {
+  const router = useRouter();
+  const { cart, setCart } = useCart();
   const [selected, setSelected] = useState("");
   const [newCard, setNewCard] = useState(false);
   const [stepTwo, setStepTwo] = useState(false);
   const [installments, setInstallments] = useState(false);
   const [width, setWidth] = useState(100);
-  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [loadingCards, setLoadingCards] = useState(false);
+  const [cards, setCards] = useState<any>([]);
+  const [formData, setFormData] = useState({
+    cardName: "",
+    cardNumber: "",
+    expirationDate: "",
+    cvc: "",
+    userName: "",
+    email: "",
+    mobilePhone: "",
+    cpfCnpj: "",
+    CEP: "",
+    Number: "",
+  });
+  const [creditCard, setCreditCard] = useState<any>({
+    holderName: "",
+    number: "",
+    expiryMonth: "",
+    expiryYear: "",
+    ccv: "",
+  });
+  const [creditCardHolderInfo, setCreditCardHolderInfo] = useState<any>({
+    name: "",
+    email: "",
+    mobilePhone: "",
+    cpfCnpj: "",
+    postalCode: "",
+    addressNumber: "",
+  });
+  const [installmentCount, setInstallmentCount] = useState(1);
 
   const updateDimensions = () => {
     setWidth(window.innerWidth);
@@ -24,16 +58,51 @@ export function CardMethod() {
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
-  const [formData, setFormData] = useState({
-    cardName: "",
-    cardNumber: "",
-    expirationDate: "",
-    cvc: "",
-    userName: "",
-    cpfCnpj: "",
-    CEP: "",
-    Number: "",
-  });
+  async function sendNewCard() {
+    setLoading(true);
+    const connect = await AuthPostAPI("/purchase/credit", {
+      ...cart,
+      creditCard,
+      creditCardHolderInfo,
+      installmentCount,
+      coupon: "",
+    });
+    if (connect.status !== 200) {
+      alert(connect.body);
+      return setLoading(false);
+    }
+    router.push("/purchased");
+    return setLoading(false);
+  }
+
+  async function sendExistingCard() {
+    setLoading(true);
+    const connect = await AuthPostAPI(`/purchase/credit/${selected}`, {
+      ...cart,
+      coupon: "",
+      installmentCount,
+    });
+    if (connect.status !== 200) {
+      alert(connect.body);
+      return setLoading(false);
+    }
+    router.push("/purchased");
+    return setLoading(false);
+  }
+
+  async function getCards() {
+    setLoadingCards(true);
+    const connect = await authGetAPI("/user/credit-card");
+    if (connect.status !== 200) {
+      return;
+    }
+    setCards(connect.body.creditCard);
+    return setLoadingCards(false);
+  }
+
+  useEffect(() => {
+    getCards();
+  }, []);
 
   function handleBack() {
     if (installments && !newCard && !stepTwo) {
@@ -54,7 +123,7 @@ export function CardMethod() {
     if (selected === "") {
       return alert("Selecione um Cartão");
     }
-    if (selected !== "selected3") {
+    if (selected !== "selected3" && !installments) {
       return setInstallments(true);
     }
     if (selected === "selected3" && !newCard && !installments) {
@@ -81,6 +150,8 @@ export function CardMethod() {
       formData.expirationDate !== "" &&
       formData.cvc !== "" &&
       formData.userName !== "" &&
+      formData.email !== "" &&
+      formData.mobilePhone !== "" &&
       formData.cpfCnpj !== "" &&
       formData.CEP !== "" &&
       formData.Number !== ""
@@ -90,8 +161,26 @@ export function CardMethod() {
         setNewCard(false);
       }
     }
-    if (!newCard && installments) {
-      return router.push("/purchased");
+    if (!newCard && installments && selected !== "selected3") {
+      sendExistingCard();
+    }
+    if (!newCard && installments && selected === "selected3") {
+      setCreditCard({
+        holderName: formData.cardName,
+        number: formData.cardNumber,
+        expiryMonth: formData.expirationDate.split("/")[0],
+        expiryYear: formData.expirationDate.split("/")[1],
+        ccv: formData.cvc,
+      });
+      setCreditCardHolderInfo({
+        name: formData.userName,
+        email: formData.email,
+        mobilePhone: formData.mobilePhone,
+        cpfCnpj: formData.cpfCnpj,
+        postalCode: formData.CEP,
+        addressNumber: formData.Number,
+      });
+      sendNewCard();
     }
   }
 
@@ -106,10 +195,59 @@ export function CardMethod() {
           />
         </>
       ) : installments ? (
-        <Installments formData={formData} />
+        <Installments
+          formData={formData}
+          installmentCount={installmentCount}
+          setInstallmentCount={setInstallmentCount}
+          selected={selected}
+        />
       ) : (
         <>
           <Stack>
+            {!cards ? (
+              <></>
+            ) : (
+              <>
+                {loadingCards ? (
+                  <Spinner
+                    animation="border"
+                    variant="primary"
+                    style={{ alignSelf: "center" }}
+                  />
+                ) : (
+                  <>
+                    {cards.map((item: any) => (
+                      <GlobalButton
+                        background={`${Theme.color.secondary_80}`}
+                        color={`${Theme.color.gray_10}`}
+                        width={width < 768 ? "75%" : "auto"}
+                        height="auto"
+                        content=""
+                        style={{
+                          alignSelf: "center",
+                          marginTop: width < 768 ? "5%" : "2%",
+                          display: "flex",
+                          justifyContent: "space-evenly",
+                          padding: 10,
+                          alignItems: "center",
+                        }}
+                      >
+                        <input
+                          type="radio"
+                          id={item.id}
+                          name="cards"
+                          value={item.id}
+                          onChange={() => setSelected(item.id)}
+                        />
+                        <label htmlFor={item.id} style={{ fontSize: 15 }}>
+                          {item.creditCardBrand} **** {item.creditCardNumber}
+                        </label>
+                      </GlobalButton>
+                    ))}
+                  </>
+                )}
+              </>
+            )}
             <GlobalButton
               background={`${Theme.color.secondary_80}`}
               color={`${Theme.color.gray_10}`}
@@ -184,7 +322,8 @@ export function CardMethod() {
           width={width < 768 ? "45%" : "auto"}
           height="auto"
           fontSize={18}
-          onClick={() => handleNext()}
+          onClick={handleNext}
+          loading={loading}
         />
       </Stack>
     </Container>

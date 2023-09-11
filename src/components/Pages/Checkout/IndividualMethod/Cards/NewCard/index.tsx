@@ -7,6 +7,7 @@ import {
   maskCep,
   maskCpfCnpj,
   maskDate,
+  maskPhone,
   minLength,
   textWithSpacesOnly,
 } from "@/utils/masks";
@@ -50,6 +51,14 @@ export function NewCard({ formData, setFormData, stepTwo }: NewCardProps) {
         errorText =
           value === "" ? "Campo Obrigatório" : textWithSpacesOnly(value);
         setError({ ...error, userNameError: errorText });
+        break;
+      case "email":
+        errorText = value === "" ? "Campo Obrigatório" : "";
+        setError({ ...error, emailError: errorText });
+        break;
+      case "mobilePhone":
+        errorText = value === "" ? "Campo Obrigatório" : "";
+        setError({ ...error, mobilePhoneError: errorText });
         break;
       case "cpfCnpj":
         errorText = value === "" ? "Campo Obrigatório" : minLength(11)(value);
@@ -132,6 +141,44 @@ export function NewCard({ formData, setFormData, stepTwo }: NewCardProps) {
           {error && error.userNameError && error.userNameError.length > 1 && (
             <Error>{error.userNameError}</Error>
           )}
+          <br />
+          <GlobalTitle title="Email do Titular" fontSize={15} />
+          <Form
+            type="text"
+            name="email"
+            placeholder="Email Aqui..."
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
+            value={formData.email}
+            required
+            onBlur={handleBlur}
+          />
+          {error && error.emailError && error.emailError.length > 1 && (
+            <Error>{error.emailError}</Error>
+          )}
+          <br />
+          <GlobalTitle title="Telefone de Cobrança" fontSize={15} />
+          <Form
+            type="text"
+            name="mobilePhone"
+            placeholder="Telefone Aqui..."
+            maxLength={14}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                mobilePhone: maskPhone(e.target.value),
+              })
+            }
+            value={formData.mobilePhone}
+            required
+            onBlur={handleBlur}
+          />
+          {error &&
+            error.mobilePhoneError &&
+            error.mobilePhoneError.length > 1 && (
+              <Error>{error.mobilePhoneError}</Error>
+            )}
           <br />
           <GlobalTitle title="CPF do Titular" fontSize={15} />
           <Form

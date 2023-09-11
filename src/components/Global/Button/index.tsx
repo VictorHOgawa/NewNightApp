@@ -11,6 +11,7 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   height?: string | number;
   fontSize?: string | number;
   children?: React.ReactNode;
+  ref?: any;
 }
 
 export function GlobalButton({
@@ -23,6 +24,7 @@ export function GlobalButton({
   height = "5vh",
   fontSize,
   children,
+  ref,
   ...rest
 }: ButtonProps) {
   return (
@@ -34,6 +36,7 @@ export function GlobalButton({
       fontSize={fontSize}
       disabled={loading || disabled}
       loading={loading}
+      ref={ref}
       {...rest}
     >
       {loading ? <Spinner animation="border" size="sm" /> : content} {""}

@@ -8,14 +8,18 @@ import { loginVerifyAPI } from "@/lib/axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Container } from "./styles";
+import { useCart } from "@/context/cart";
 
 export default function Purchased() {
+  const { cart, setCart } = useCart();
   const [logged, setLogged] = useState(false);
   const [loading, setLoading] = useState(true);
   async function handleVerify() {
     const verify = await loginVerifyAPI();
     if (verify === 200) {
-      setLogged(true);
+      setCart({ ticket: { slotId: "", ticket: [] }, product: [] });
+      setLoading(false);
+      return setLogged(true);
     }
     return setLoading(false);
   }

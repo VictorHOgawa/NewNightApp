@@ -23,6 +23,7 @@
     "react-bootstrap": "^2.7.4",
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
+    "react-qr-code": "^2.0.12",
     "sass": "^1.63.2",
     "styled-components": "^6.0.0-rc.3",
     "swiper": "^10.0.4",

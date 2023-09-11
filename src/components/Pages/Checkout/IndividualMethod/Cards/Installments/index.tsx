@@ -6,12 +6,20 @@ import ActionSheet from "actionsheet-react";
 import { SetStateAction, useEffect, useRef, useState } from "react";
 import { CardContainer, CardDetails, NightAppCard } from "../styles";
 import { Container, Item } from "./styles";
+import { Spinner } from "react-bootstrap";
 
 interface InstallmentsProps {
   formData: any;
+  installmentCount: number;
+  setInstallmentCount: any;
+  selected: string;
 }
-export function Installments({ formData }: InstallmentsProps) {
-  const [total, setTotal] = useState<any>();
+export function Installments({
+  formData,
+  installmentCount,
+  setInstallmentCount,
+  selected,
+}: InstallmentsProps) {
   const [loading, setLoading] = useState(true);
   const { cart } = useCart();
   const [installment, setInstallment] = useState({
@@ -25,6 +33,7 @@ export function Installments({ formData }: InstallmentsProps) {
   };
   const handleClose = (item: any) => {
     setInstallment(item);
+    setInstallmentCount(item.installmentNumber);
     ref.current.close();
   };
   async function handleCart() {
@@ -32,7 +41,6 @@ export function Installments({ formData }: InstallmentsProps) {
       ...cart,
       coupon: "",
     });
-    setTotal(connect.body);
     setInstallments(connect.body.payment.installments);
     setLoading(false);
   }
@@ -46,36 +54,46 @@ export function Installments({ formData }: InstallmentsProps) {
   return (
     <Container>
       {loading ? (
-        <></>
+        <Spinner
+          animation="border"
+          variant="primary"
+          style={{ alignSelf: "center" }}
+        />
       ) : (
         <>
-          <CardContainer>
-            <NightAppCard
-              src="/Checkout/blankCard.svg"
-              width={1000}
-              height={500}
-              alt=""
-            />
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                marginLeft: "30%",
-                marginTop: "15%",
-              }}
-            >
-              <CardDetails>
-                {formData.cardName === ""
-                  ? "Nome no Cartão "
-                  : formData.cardName}
-              </CardDetails>
-              <CardDetails>
-                {formData.cardNumber === ""
-                  ? "Número do Cartão"
-                  : formData.cardNumber}
-              </CardDetails>
-            </div>
-          </CardContainer>
+          {selected !== "selected3" ? (
+            <></>
+          ) : (
+            <>
+              <CardContainer>
+                <NightAppCard
+                  src="/Checkout/blankCard.svg"
+                  width={1000}
+                  height={500}
+                  alt=""
+                />
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    marginLeft: "30%",
+                    marginTop: "15%",
+                  }}
+                >
+                  <CardDetails>
+                    {formData.cardName === ""
+                      ? "Nome no Cartão "
+                      : formData.cardName}
+                  </CardDetails>
+                  <CardDetails>
+                    {formData.cardNumber === ""
+                      ? "Número do Cartão"
+                      : formData.cardNumber}
+                  </CardDetails>
+                </div>
+              </CardContainer>
+            </>
+          )}
           <br />
           <GlobalButton
             content={
@@ -118,31 +136,6 @@ export function Installments({ formData }: InstallmentsProps) {
               )
             )}
           </ActionSheet>
-          {/* <Button>
-            <Toggle
-              style={{
-                color: `${Theme.color.gray_10}`,
-                background: `${Theme.color.primary_60}`,
-                border: 0,
-                width: "100%",
-              }}
-            >
-              Número de Parcelas
-            </Toggle>
-            <Menu style={{ width: "100%" }}>
-              <ItemText> Parcela(s)</ItemText>
-              {total.payment.installments.map((item: any) => (
-                <Item
-                  key={item.installmentNumber}
-                  onClick={(e: any) => {
-                    () => setInstallment(e.target.value);
-                  }}
-                >
-                  {item.installmentNumber}
-                </Item>
-              ))}
-            </Menu>
-          </Button> */}
         </>
       )}
     </Container>

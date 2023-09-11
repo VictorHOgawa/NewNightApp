@@ -79,6 +79,7 @@ export function RegisterContainer() {
       return alert(connect.body);
     }
     localStorage.setItem("nightToken", connect.body.token);
+    localStorage.setItem("nightRefreshToken", connect.body.refreshToken);
     setLoading(false);
     return router.push("/");
   }

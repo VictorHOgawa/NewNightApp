@@ -18,33 +18,52 @@ import { Calendar } from "@/components/Global/Calendar";
 import Theme from "@/styles/themes";
 import { GlobalButton } from "@/components/Global/Button";
 import { More } from "@/components/Global/More";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "@/components/Global/Header";
 import { Back } from "@/components/Global/Back";
 import { useRouter } from "next/router";
+import { authGetAPI } from "@/lib/axios";
+import moment from "moment";
+import "moment/locale/pt-br";
+import QRCode from "react-qr-code";
 
-export function ProductCards() {
-  const router = useRouter();
-  const Products = [1, 2, 3];
+interface ProductProps {
+  events: any;
+}
+
+export function ProductCards({ events }: ProductProps) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [show, setShow] = useState(false);
+  const [id, setId] = useState("");
+  const [type, setType] = useState("");
+  const [qrCode, setQrCode] = useState<any>({ id: "", type: "" });
+
+  const handlePay = (item: any) => {
+    console.log("item.id: ", item.id);
+    setId(item.id);
+    setType("product");
+    setShow(true);
+  };
+
+  useEffect(() => {
+    setQrCode({
+      id: id,
+      type: type,
+    });
+  }, [id, type]);
 
   return (
     <Container>
       <GlobalTitle title="Meus Produtos" marginTop="10%" />
       <br />
       <Stack gap={0}>
-        {Products.map((item) => (
+        {events.map((item: any) => (
           <>
             <Card>
               <Details>
-                <ProductImage
-                  src="/Events/Event1.svg"
-                  width={80}
-                  height={80}
-                  alt=""
-                />
+                <ProductImage src={item.photo} width={80} height={80} alt="" />
                 <Dets gap={1}>
                   <Text
                     style={{
@@ -53,7 +72,7 @@ export function ProductCards() {
                       lineHeight: 1,
                     }}
                   >
-                    Nome do Evento
+                    {item.eventName}
                   </Text>
                   <Text>
                     <Icons
@@ -63,8 +82,9 @@ export function ProductCards() {
                       alt=""
                     />{" "}
                     {""}
-                    <strong>12 de julho de 2023</strong> {""} às {""}
-                    21:00
+                    <strong>{moment(item.eventDate).format("LL")}</strong> {""}{" "}
+                    às {""}
+                    {moment(item.eventDate).format("LT")}
                   </Text>
                   <Text>
                     <Icons
@@ -74,7 +94,8 @@ export function ProductCards() {
                       alt=""
                     />{" "}
                     {""}
-                    <strong>Cerveja de Garrafa</strong> {""} Sinop/MT
+                    <strong>{item.eventLocal}</strong> {""} {item.city.name} /{" "}
+                    {item.city.state}
                   </Text>
                 </Dets>
               </Details>
@@ -117,15 +138,15 @@ export function ProductCards() {
                     alt=""
                   />
                 </Top>
-                <GlobalTitle title="Evento X" marginTop="10%" />
+                <GlobalTitle title={item.eventName} marginTop="10%" />
                 <br />
                 <Stack gap={0}>
-                  {Products.map((item) => (
+                  {item.products.map((item: any) => (
                     <>
                       <Card>
                         <Details>
                           <ProductImage
-                            src="/Events/Event1.svg"
+                            src={item.photo_location}
                             width={80}
                             height={80}
                             alt=""
@@ -138,28 +159,7 @@ export function ProductCards() {
                                 lineHeight: 1,
                               }}
                             >
-                              Nome do Produto
-                            </Text>
-                            <Text>
-                              <Icons
-                                src="/Global/Icons/Clock.svg"
-                                width={20}
-                                height={20}
-                                alt=""
-                              />{" "}
-                              {""}
-                              <strong>12 de julho de 2023</strong> {""} às {""}
-                              21:00
-                            </Text>
-                            <Text>
-                              <Icons
-                                src="/Global/Icons/LocationPin.svg"
-                                width={20}
-                                height={20}
-                                alt=""
-                              />{" "}
-                              {""}
-                              <strong>Cerveja de Garrafa</strong> {""} Sinop/MT
+                              {item.name}
                             </Text>
                           </Dets>
                         </Details>
@@ -188,7 +188,7 @@ export function ProductCards() {
                             fontSize={12}
                             height="auto"
                             style={{ fontWeight: "bold" }}
-                            onClick={handleOpen}
+                            onClick={() => handlePay(item)}
                           />
                           <Match
                             src="/Purchased/Match.svg"
@@ -219,6 +219,27 @@ export function ProductCards() {
         </Button>
       </a>
       <More type={"product"} />
+      <Modal show={show} onHide={() => setShow(false)} centered>
+        <Modal.Body
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <QRCode value={JSON.stringify(qrCode)} />
+          <br />
+          <GlobalButton
+            content="Voltar"
+            background={Theme.color.primary_80}
+            color={Theme.color.gray_10}
+            width="auto"
+            height="auto"
+            onClick={() => setShow(false)}
+          />
+        </Modal.Body>
+      </Modal>
     </Container>
   );
 }

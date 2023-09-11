@@ -46,4 +46,12 @@ export const Item = styled(Dropdown.Item)`
   &:last-child {
     border: 0;
   }
+
+  @media (min-width: 768px) {
+    height: ${px2vw(30, 768)};
+  }
+
+  @media (min-width: 1024px) {
+    height: ${px2vw(30, 1024)};
+  }
 `;
