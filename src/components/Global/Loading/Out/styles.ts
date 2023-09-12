@@ -4,7 +4,7 @@ import { styled } from "styled-components";
 
 export const Main = styled.div``;
 
-export const Container = styled.div`
+export const Test = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
@@ -12,7 +12,14 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   background-color: ${({ theme }) => theme.color.background};
-  z-index: 2;
+`;
+
+export const Container = styled.div`
+  display: flex;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 export const Logo = styled(Image)`

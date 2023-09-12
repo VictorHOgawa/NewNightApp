@@ -29,14 +29,14 @@ export default function Tickets() {
 
   return (
     <Container>
+      <Header />
+      <Ad />
       {loading ? (
         <LoadingIn />
       ) : (
         <>
           <LoadingOut />
-          <Header />
-          <Ad />
-          <TicketCards tickets={tickets} />
+          <TicketCards tickets={tickets} reload={getTickets} />
         </>
       )}
     </Container>

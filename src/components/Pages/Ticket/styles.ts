@@ -1,3 +1,4 @@
+import Theme from "@/styles/themes";
 import px2vw from "@/utils/size";
 import Image from "next/image";
 import { Stack } from "react-bootstrap";
@@ -113,4 +114,24 @@ export const Button = styled.button`
 export const Icon = styled(Image)`
   width: 20px;
   height: 20px;
+`;
+
+export const QrCodeImage = styled.img`
+  width: 90%;
+  height: auto;
+  align-self: center;
+`;
+
+export const Copy = styled.button`
+  display: flex;
+  background-color: ${Theme.color.pix};
+  color: ${Theme.color.gray_10};
+  width: auto;
+  height: auto;
+  align-self: center;
+  border-radius: 10px;
+  padding: 5px 10px;
+  margin-top: 2%;
+  border: 0;
+  font-weight: bold;
 `;

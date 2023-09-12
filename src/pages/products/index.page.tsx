@@ -35,7 +35,7 @@ export default function Products() {
           <LoadingOut />
           <Header />
           <Ad />
-          <ProductCards events={events} />
+          <ProductCards events={events} reload={getProducts} />
         </>
       )}
     </Container>

@@ -38,6 +38,7 @@ export const JobCard = styled.div`
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
+  padding-bottom: 100px;
 
   @media (min-width: 768px) {
     align-self: center;
@@ -81,7 +82,7 @@ export const Icon = styled(Image)`
 `;
 
 export const Help = styled.button`
-  position: absolute;
+  position: fixed;
   bottom: 50px;
   display: flex;
   background-color: black;

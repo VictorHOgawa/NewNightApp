@@ -1,6 +1,6 @@
 import { gsap } from "gsap";
 import { useLayoutEffect, useRef } from "react";
-import { Container, Logo, Main } from "./styles";
+import { Container, Logo, Main, Test } from "./styles";
 
 export function LoadingOut() {
   const main = useRef(null);
@@ -17,17 +17,19 @@ export function LoadingOut() {
   }, []);
   return (
     <Main ref={main}>
-      <Container className="Main">
-        <>
-          <Logo
-            className="Main"
-            src="/Global/FullLogo.svg"
-            width={150}
-            height={150}
-            alt=""
-          />
-        </>
-      </Container>
+      <Test className="Main">
+        <Container className="Main">
+          <>
+            <Logo
+              className="Main"
+              src="/Global/FullLogo.svg"
+              width={150}
+              height={150}
+              alt=""
+            />
+          </>
+        </Container>
+      </Test>
     </Main>
   );
 }
