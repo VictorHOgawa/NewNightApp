@@ -7,12 +7,12 @@ import { Container, Content, NightPremium } from "./styles";
 export default function Jobs() {
   const router = useRouter();
   const Jobs = [
-    {
-      id: 1,
-      bannerLocation: "/premium.svg",
-      title: "Portaria",
-      type: "Portaria",
-    },
+    // {
+    //   id: 1,
+    //   bannerLocation: "/premium.svg",
+    //   title: "Portaria",
+    //   type: "Portaria",
+    // },
     {
       id: 2,
       bannerLocation: "/premium.svg",

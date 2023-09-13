@@ -69,6 +69,30 @@ export function StepTwo({ product, type, setType }: StepTwoProps) {
 
   const exists = product.find((item) => item.type === "COMBO");
 
+  function handleTitle(type: string) {
+    switch (type) {
+      case "COMBO":
+        return "Combo";
+
+      case "VODKA":
+        return "Vodka";
+
+      case "WHISKEY":
+        return "Whiskey";
+
+      case "BEER":
+        return "Cerveja";
+
+      case "ENERGÉTICOS":
+        return "Energéticos";
+
+      case "OUTROS":
+        return "Outros";
+      default:
+        "";
+    }
+  }
+
   return (
     <>
       <GlobalTitle
@@ -169,68 +193,70 @@ export function StepTwo({ product, type, setType }: StepTwoProps) {
           </div>
         </>
       ) : (
-        filteredProduct.map((item: any) => (
-          <>
-            {filteredProduct.length === 0 ? (
-              <>
-                <div
-                  style={{
-                    display: "flex",
-                    width: 100,
-                    height: 100,
-                    background: "red",
-                    color: "red",
-                  }}
-                >
-                  test
-                </div>
-              </>
-            ) : (
-              <>
-                <Title>{item.type}</Title>
-                <Stack gap={2}>
-                  <TicketType>
-                    <StaticImage
-                      src={item.photo_location}
-                      width={40}
-                      height={40}
-                      alt=""
-                    />
-                    <TicketTitle>
-                      <strong>{item.name}</strong>
-                      <br />{" "}
-                      {item.value.toLocaleString("pt-BR", {
-                        style: "currency",
-                        currency: "BRL",
-                      })}
-                    </TicketTitle>
-                    <CounterArea>
-                      <Hoverable>
-                        <StaticImg
-                          src="/Global/Icons/Minus.svg"
-                          width={20}
-                          height={20}
-                          alt=""
-                          onClick={() => handleChange("decrease", item)}
-                        />
-                      </Hoverable>
-                      <Counter>{ticketQuantity(item.id)}</Counter>
-                      <Hoverable>
-                        <StaticImg
-                          src="/Global/Icons/Plus.svg"
-                          width={20}
-                          height={20}
-                          alt=""
-                          onClick={() => handleChange("increase", item)}
-                        />
-                      </Hoverable>
-                    </CounterArea>
-                  </TicketType>
-                </Stack>
-              </>
-            )}
-          </>
-        ))
+        <>
+          <Title>{handleTitle(filteredProduct[0].type)}</Title>
+          {filteredProduct.map((item: any) => (
+            <>
+              {filteredProduct.length === 0 ? (
+                <>
+                  <div
+                    style={{
+                      display: "flex",
+                      width: 100,
+                      height: 100,
+                      background: "red",
+                      color: "red",
+                    }}
+                  >
+                    test
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Stack gap={2}>
+                    <TicketType>
+                      <StaticImage
+                        src={item.photo_location}
+                        width={40}
+                        height={40}
+                        alt=""
+                      />
+                      <TicketTitle>
+                        <strong>{item.name}</strong>
+                        <br />{" "}
+                        {item.value.toLocaleString("pt-BR", {
+                          style: "currency",
+                          currency: "BRL",
+                        })}
+                      </TicketTitle>
+                      <CounterArea>
+                        <Hoverable>
+                          <StaticImg
+                            src="/Global/Icons/Minus.svg"
+                            width={20}
+                            height={20}
+                            alt=""
+                            onClick={() => handleChange("decrease", item)}
+                          />
+                        </Hoverable>
+                        <Counter>{ticketQuantity(item.id)}</Counter>
+                        <Hoverable>
+                          <StaticImg
+                            src="/Global/Icons/Plus.svg"
+                            width={20}
+                            height={20}
+                            alt=""
+                            onClick={() => handleChange("increase", item)}
+                          />
+                        </Hoverable>
+                      </CounterArea>
+                    </TicketType>
+                  </Stack>
+                </>
+              )}
+            </>
+          ))}
+        </>
       )}
     </>
   );
