@@ -1,11 +1,12 @@
 import axios from "axios";
 
 export const amazonik = "http://192.168.10.19:3333";
-export const deployed = "https://night-server.onrender.com";
+// export const deployed = "https://night-server.onrender.com";
+export const deployed = "https://servidor.nightapp.com.br";
 export const token = "nightToken";
 
 export const api = axios.create({
-  baseURL: amazonik,
+  baseURL: deployed,
 });
 
 export const PostAPI = async (url: string, data: any) => {
@@ -87,7 +88,10 @@ export const authGetAPI = async (url: string) => {
   const storageToken = localStorage.getItem(token);
 
   if (!storageToken) {
-    return 400;
+    return {
+      status: 401,
+      body: "",
+    };
   }
 
   const config = {
@@ -156,7 +160,10 @@ export const AuthPostAPI = async (url: string, data: any) => {
   const storageToken = localStorage.getItem(token);
 
   if (!storageToken) {
-    return 400;
+    return {
+      status: 401,
+      body: "",
+    };
   }
 
   const config = {
@@ -176,6 +183,8 @@ export const AuthPostAPI = async (url: string, data: any) => {
       const status = err.response.status;
       return { status: status, body: message };
     });
+
+  console.log(connect);
   return connect.status === 500
     ? { status: connect.status, body: "Ops! algo deu errado, tente novamente" }
     : connect.status === 413
@@ -190,7 +199,10 @@ export const AuthPutAPI = async (url: string, data: any) => {
   const storageToken = localStorage.getItem(token);
 
   if (!storageToken) {
-    return 400;
+    return {
+      status: 401,
+      body: "",
+    };
   }
 
   const config = {

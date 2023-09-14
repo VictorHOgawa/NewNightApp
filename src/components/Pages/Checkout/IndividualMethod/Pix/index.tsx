@@ -8,9 +8,21 @@ import { useEffect, useRef, useState } from "react";
 import { Video } from "../../Video";
 import { Form } from "../Cards/styles";
 import { Container, Copy, Pix } from "./styles";
-import { Overlay, Spinner, Tooltip } from "react-bootstrap";
+import { Overlay, Spinner, Stack, Tooltip } from "react-bootstrap";
 
-export function PixMethod() {
+interface PixProps {
+  coupon: string;
+  setCoupon: any;
+  AddCoupon: any;
+  loadingCoupon: boolean;
+}
+
+export function PixMethod({
+  coupon,
+  setCoupon,
+  AddCoupon,
+  loadingCoupon,
+}: PixProps) {
   const { cart, setCart } = useCart();
   const router = useRouter();
   const [QrCode, setQrCode] = useState(false);
@@ -31,7 +43,13 @@ export function PixMethod() {
   }, []);
 
   async function getPix() {
-    const connect = await AuthPostAPI("/purchase/pix", { ...cart, coupon: "" });
+    const connect = await AuthPostAPI("/purchase/pix", {
+      ...cart,
+      coupon: coupon,
+    });
+    if (connect.status !== 200) {
+      alert(connect.body);
+    }
     setPix(connect.body);
     return setLoading1(false);
   }
@@ -64,13 +82,40 @@ export function PixMethod() {
           marginTop={width < 768 ? "10%" : "2%"}
           marginLeft={width < 768 ? "5%" : "35%"}
         />
-        <Form
-          placeholder="Insira o Melhor Código aqui"
+        <Stack
+          direction="horizontal"
           style={{
-            width: width < 768 ? "90%" : "30%",
-            alignSelf: "center",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
           }}
-        />
+        >
+          <Form
+            placeholder="Insira o Melhor Código aqui"
+            style={{
+              width: "45%",
+              height: "auto",
+              fontSize: 12,
+              marginLeft: width < 768 ? "5%" : "15%",
+            }}
+            value={coupon}
+            onChange={(e) => setCoupon(e.target.value)}
+          />
+          <GlobalButton
+            content="Aplicar Cupom"
+            background={Theme.color.confirmation}
+            color={Theme.color.background}
+            width="auto"
+            height="auto"
+            fontSize={12}
+            onClick={AddCoupon}
+            loading={loadingCoupon}
+            style={{
+              marginRight: width < 768 ? "5%" : "15%",
+            }}
+          />
+        </Stack>
         {QrCode ? (
           <></>
         ) : (

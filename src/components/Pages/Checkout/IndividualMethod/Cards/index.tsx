@@ -9,7 +9,19 @@ import { NewCard } from "./NewCard";
 import { Container, Form, Icon } from "./styles";
 import { AuthPostAPI, authGetAPI } from "@/lib/axios";
 import { useCart } from "@/context/cart";
-export function CardMethod() {
+
+interface CardProps {
+  coupon: string;
+  setCoupon: any;
+  AddCoupon: any;
+  loadingCoupon: boolean;
+}
+export function CardMethod({
+  coupon,
+  setCoupon,
+  AddCoupon,
+  loadingCoupon,
+}: CardProps) {
   const router = useRouter();
   const { cart, setCart } = useCart();
   const [selected, setSelected] = useState("");
@@ -280,13 +292,43 @@ export function CardMethod() {
           <GlobalTitle
             title="Código da Galera"
             fontSize={15}
-            marginTop={width < 768 ? "10%" : "5%"}
+            marginTop={width < 768 ? "10%" : "2%"}
             marginLeft={width < 768 ? "5%" : "35%"}
           />
-          <Form
-            placeholder="Insira o Melhor Código aqui"
-            style={{ width: width < 768 ? "90%" : "30%", alignSelf: "center" }}
-          />
+          <Stack
+            direction="horizontal"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Form
+              placeholder="Insira o Melhor Código aqui"
+              style={{
+                width: "45%",
+                height: "auto",
+                fontSize: 12,
+                marginLeft: width < 768 ? "5%" : "15%",
+              }}
+              value={coupon}
+              onChange={(e) => setCoupon(e.target.value)}
+            />
+            <GlobalButton
+              content="Aplicar Cupom"
+              background={Theme.color.confirmation}
+              color={Theme.color.background}
+              width="auto"
+              height="auto"
+              fontSize={12}
+              onClick={AddCoupon}
+              loading={loadingCoupon}
+              style={{
+                marginRight: width < 768 ? "5%" : "15%",
+              }}
+            />
+          </Stack>
         </>
       )}
       <br />

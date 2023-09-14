@@ -13,17 +13,17 @@ export default function Jobs() {
     //   title: "Portaria",
     //   type: "Portaria",
     // },
-    {
-      id: 2,
-      bannerLocation: "/premium.svg",
-      title: "Bar",
-      type: "Bar",
-    },
+    // {
+    //   id: 2,
+    //   bannerLocation: "/premium.svg",
+    //   title: "Bar",
+    //   type: "Bar",
+    // },
     {
       id: 3,
       bannerLocation: "/premium.svg",
       title: "Promoters",
-      type: "Promoters",
+      screen: "/promoter",
     },
   ];
   return (
@@ -40,7 +40,7 @@ export default function Jobs() {
               width={310}
               height={90}
               alt=""
-              onClick={() => router.push(`/jobdetails/` + item.type)}
+              onClick={() => router.push(`/jobdetails` + item.screen)}
             />
             <br />
           </>

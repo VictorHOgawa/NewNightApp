@@ -18,6 +18,8 @@ export default function Checkout() {
   const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState<any>();
   const router = useRouter();
+  const [coupon, setCoupon] = useState("");
+  const [loadingCoupon, setLoadingCoupon] = useState(false);
 
   async function handleVerify() {
     const verify = await loginVerifyAPI();
@@ -28,19 +30,24 @@ export default function Checkout() {
   }
 
   async function handleCart() {
+    if (coupon !== "") {
+      setLoadingCoupon(true);
+    }
     if (cart.ticket.ticket.length === 0 && cart.product.length === 0) {
       alert("Selecione um (ou mais) Produto(s)");
       return router.back();
     }
     const connect = await AuthPostAPI("/purchase/cart", {
       ...cart,
-      coupon: "",
+      coupon: coupon,
     });
     if (connect.status !== 200) {
       alert(connect.body);
+      setLoadingCoupon(false);
       return router.back();
     }
     setTotal(connect.body);
+    setLoadingCoupon(false);
     return setLoading(false);
   }
 
@@ -66,7 +73,13 @@ export default function Checkout() {
           <Title />
           <br />
           <Method selected={selected} setSelected={setSelected} />
-          <IndividualMethod selected={selected} />
+          <IndividualMethod
+            selected={selected}
+            coupon={coupon}
+            setCoupon={setCoupon}
+            AddCoupon={handleCart}
+            loadingCoupon={loadingCoupon}
+          />
           <br />
           <Total selected={selected} total={total} loading={loading} />
           <Safe />
