@@ -6,7 +6,7 @@ export const deployed = "https://servidor.nightapp.com.br";
 export const token = "nightToken";
 
 export const api = axios.create({
-  baseURL: deployed,
+  baseURL: amazonik,
 });
 
 export const PostAPI = async (url: string, data: any) => {
